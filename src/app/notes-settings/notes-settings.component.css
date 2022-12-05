@@ -1,0 +1,28 @@
+nav{
+    color: aliceblue;
+    font-family: "Roboto-Light";
+}
+
+h2{
+    margin-top: 75px;
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 28px;
+}
+
+ul{
+    margin-top: 42px;
+}
+
+ul>li{
+    text-align: center;
+    list-style-type: none;
+}
+
+ul>li>input{
+    width: 45px;
+    height: 20px;
+    text-align: center;
+    color: rgb(19, 75, 107);
+    font-size: 15px;
+}
