@@ -29,6 +29,26 @@
     background-color: brown;
 }
 
+.padding:nth-of-type(1)
+{
+    transform: translate(-100%, -100%);
+}
+
+.padding:nth-of-type(2)
+{
+    transform: translate(100%, -100%);
+}
+
+.padding:nth-of-type(3)
+{
+    transform: translate(100%, 0%);
+}
+
+.padding:nth-of-type(4)
+{
+    transform: translate(-100%, 0%);
+}
+
 .padding:nth-child(even)
 {
     right: 0;
