@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Padding } from './padding.instance';
 
 @Injectable({
@@ -6,12 +7,15 @@ import { Padding } from './padding.instance';
 })
 export class AppService {
 
-  constructor() { }
+  constructor(){}
 
-  instances = {}
+  instances = {};
   thatElement;
 
-  diffrence;
+  settingsSubject: Subject<{top?: number, left?: number, bottom?: number, right?: number}> = new Subject<{top: number, left: number, bottom: number, right: number}>();
+
+  diffrenceX;
+  diffrenceY;
 
   setPaddingX(element: HTMLElement): number
   {
@@ -34,7 +38,32 @@ export class AppService {
   mouseupEvent(data): void
   {
     this.flag = false;
-    this.instances[`${this.thatElement.getAttribute("data-padding")}`].setCoords(this.diffrence, 0)
+    
+    if(!this.thatElement || !this.thatElement.getAttribute("data-padding")) return;
+
+    switch(this.thatElement.getAttribute("data-padding"))
+    {
+      case "1":
+        this.instances[`1`].setCoords(this.diffrenceX, this.diffrenceY);
+        this.instances[`2`].setCoords(undefined, this.diffrenceY);
+        this.instances[`4`].setCoords(this.diffrenceX, undefined);
+      break;
+      case "2":
+        this.instances[`1`].setCoords(undefined, this.diffrenceY);
+        this.instances[`2`].setCoords(this.diffrenceX, this.diffrenceY);
+        this.instances[`3`].setCoords(this.diffrenceX, undefined);
+      break;
+      case "3":
+        this.instances[`4`].setCoords(undefined, this.diffrenceY);
+        this.instances[`2`].setCoords(this.diffrenceX, undefined);
+        this.instances[`3`].setCoords(this.diffrenceX, this.diffrenceY);
+      break;
+      case "4":
+        this.instances[`1`].setCoords(this.diffrenceX, undefined);
+        this.instances[`4`].setCoords(this.diffrenceX, this.diffrenceY);
+        this.instances[`3`].setCoords(undefined, this.diffrenceY);
+      break;
+    };
   }
 
   mousedownEvent(data): void
@@ -51,19 +80,48 @@ export class AppService {
     this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("mousemove", this.moveElement.bind(this));
   }
 
+  setStyle(elements: number[], data: {kind: string, diffrence: number, exepcion?: boolean}, position: string)
+  {
+    if((data.kind == "x" && data.diffrence < 0) || (data.kind == "y" && data.diffrence < 0 && !data.exepcion) || (data.kind == "y" && data.diffrence < -20 && data.exepcion)) return;
+
+    elements.forEach((id: number) => {
+      document.querySelector(`[data-padding='${id}']`)['style'][`${position}`] = `${data.diffrence}px`;
+      document.querySelector(`[data-padding='${id}']`)['style'][`${position}`] = `${data.diffrence}px`;
+    });
+
+    if(data.kind == "x")
+    {
+      position == "left"? this.settingsSubject.next({left: data.diffrence}): this.settingsSubject.next({right: data.diffrence})
+    }
+    else
+    {
+      position == "top"? this.settingsSubject.next({top: data.diffrence}): this.settingsSubject.next({bottom: data.diffrence});
+    };
+  }
+
   moveElement(data): void
   {
     if(!this.flag) return;
 
-    Number(this.thatElement.getAttribute("data-padding")) == 2 ||  Number(this.thatElement.getAttribute("data-padding")) == 3?
-    this.diffrence = this.clientX - data.clientX:
-    this.diffrence = data.clientX - this.clientX;
+    // ustawiamy różnice dla osi x i y o jaką nasz element będzie się poruszał
+    this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3?
+    this.diffrenceX = this.clientX - data.clientX: this.diffrenceX = data.clientX - this.clientX;
 
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x) this.diffrence += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
-    if(this.diffrence <= 0) return;
+    this.thatElement.getAttribute("data-padding") == 1 || this.thatElement.getAttribute("data-padding") == 2?
+    this.diffrenceY = this.clientY - data.clientY: this.diffrenceY = data.clientY - this.clientY;
 
-    Number(this.thatElement.getAttribute("data-padding")) == 2 ||  Number(this.thatElement.getAttribute("data-padding")) == 3?
-    this.thatElement.style.right = `${this.diffrence}px`:
-    this.thatElement.style.left = `${this.diffrence}px`;
+    // aktualizowanie wartości różnicy dla osi x lub y (jeśli padding danego elementy był już zmieniany)
+    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x) this.diffrenceX += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
+    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y) this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
+
+    // ustawianie stylu (oś x)
+    (this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3)?
+    this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "right"):
+    this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "left");
+    
+    // ustawianie stylu (oś y)
+    (this.thatElement.getAttribute("data-padding") == 3 || this.thatElement.getAttribute("data-padding") == 4)?
+    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY - 20, exepcion: true}, "bottom"):
+    this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY, exepcion: false}, "top");
   }
 }

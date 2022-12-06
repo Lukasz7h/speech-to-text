@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { AppService } from '../app.service';
 import { NotesService } from '../notesService/notes.service';
 
 @Component({
@@ -9,12 +10,27 @@ import { NotesService } from '../notesService/notes.service';
 export class NotesComponent implements AfterViewInit
 {
   settings: {
-    fontSize: number
+    fontSize: number,
+    padding: {
+      top: number,
+      left: number,
+
+      bottom: number,
+      right: number
+    }
   }
 
   constructor(
-    private notesService: NotesService
-  ){}
+    private notesService: NotesService,
+    private appService: AppService
+  ){
+    this.settings = {fontSize: undefined, padding: {top: 0, left:0, bottom: 0, right: 0}};
+
+    appService.settingsSubject.subscribe((data) => {
+      const entries = Object.entries(data)[0];
+      this.settings.padding[`${entries[0]}`] = entries[1];
+    })
+  }
 
   ngAfterViewInit(): void
   {
@@ -23,8 +39,9 @@ export class NotesComponent implements AfterViewInit
     this.notesService.notesSettingsSubject.subscribe((data) => {
       if(!data || data == null) return;
       
-      this.settings = data;
-      this.updateView(a4, Object.entries(data)[0]);
+      const entries = Object.entries(data)[0];
+      this.settings[`${entries[0]}`] = entries[1];
+      this.updateView(a4, entries);
     });
   }
 
@@ -33,5 +50,10 @@ export class NotesComponent implements AfterViewInit
     isNaN(Number(attribute[1]))?
     a4.style[`${attribute[0]}`] = attribute[1]:
     a4.style[`${attribute[0]}`] = attribute[1] + "px";
+  }
+
+  createDocument(a4: HTMLElement)
+  {
+    this.notesService.createPDF(a4, this.settings);
   }
 }

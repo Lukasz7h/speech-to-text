@@ -5,7 +5,7 @@ export class Padding
 
     setCoords(x: number, y: number)
     {
-        this.x = x;
-        this.y = y;
+        if(x) this.x = x;
+        if(y) this.y = y;
     }
 }
