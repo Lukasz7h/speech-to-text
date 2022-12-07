@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
 import { BehaviorSubject } from 'rxjs';
+import { font } from '../roboto/robotoThin';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,16 @@ export class NotesService {
 
   createPDF(a4: HTMLElement, settings: any)
   {
-    console.log(a4.textContent);
     const pdf = new jsPDF("p", "mm", [297, 210]);
-    pdf.text(a4.textContent, settings.padding.left, settings.padding.top < 5? settings.padding.top + 5: settings.padding.top);
+
+    pdf.addFileToVFS("Roboto-Thin.ttf", font);
+    pdf.addFont("Roboto-Thin.ttf", "Roboto-Thin", "normal");
+    pdf.setFont("Roboto-Thin");
+
+    const maxWidth = (210 - settings.padding.Left / 3.779528 - settings.padding.Right / 3.779528);
+
+    pdf.setFontSize(settings.fontSize - 4.9);
+    pdf.text(a4.innerText, settings.padding.Left / 3.779528, settings.padding.Top / 3.779528 + 4.8, {maxWidth: maxWidth});
     pdf.save("some.pdf");
   }
 }

@@ -12,7 +12,7 @@ export class AppService {
   instances = {};
   thatElement;
 
-  settingsSubject: Subject<{top?: number, left?: number, bottom?: number, right?: number}> = new Subject<{top: number, left: number, bottom: number, right: number}>();
+  settingsSubject: Subject<{Top?: number, Left?: number, Bottom?: number, Right?: number}> = new Subject<{Top: number, Left: number, Bottom: number, Right: number}>();
 
   diffrenceX;
   diffrenceY;
@@ -80,22 +80,22 @@ export class AppService {
     this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("mousemove", this.moveElement.bind(this));
   }
 
-  setStyle(elements: number[], data: {kind: string, diffrence: number, exepcion?: boolean}, position: string)
+  setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string)
   {
-    if((data.kind == "x" && data.diffrence < 0) || (data.kind == "y" && data.diffrence < 0 && !data.exepcion) || (data.kind == "y" && data.diffrence < -20 && data.exepcion)) return;
+    if(data.diffrence < 0) return;
 
     elements.forEach((id: number) => {
-      document.querySelector(`[data-padding='${id}']`)['style'][`${position}`] = `${data.diffrence}px`;
-      document.querySelector(`[data-padding='${id}']`)['style'][`${position}`] = `${data.diffrence}px`;
+      document.querySelector(`[data-padding='${id}']`)['style'][`${position.toLowerCase()}`] = `${data.diffrence}px`;
+      document.querySelector(`[data-padding='${id}']`)['style'][`${position.toLowerCase()}`] = `${data.diffrence}px`;
     });
 
     if(data.kind == "x")
     {
-      position == "left"? this.settingsSubject.next({left: data.diffrence}): this.settingsSubject.next({right: data.diffrence})
+      position == "Left"? this.settingsSubject.next({Left: data.diffrence}): this.settingsSubject.next({Right: data.diffrence})
     }
     else
     {
-      position == "top"? this.settingsSubject.next({top: data.diffrence}): this.settingsSubject.next({bottom: data.diffrence});
+      position == "Top"? this.settingsSubject.next({Top: data.diffrence}): this.settingsSubject.next({Bottom: data.diffrence});
     };
   }
 
@@ -116,12 +116,12 @@ export class AppService {
 
     // ustawianie stylu (oś x)
     (this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3)?
-    this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "right"):
-    this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "left");
+    this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "Right"):
+    this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "Left");
     
     // ustawianie stylu (oś y)
     (this.thatElement.getAttribute("data-padding") == 3 || this.thatElement.getAttribute("data-padding") == 4)?
-    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY - 20, exepcion: true}, "bottom"):
-    this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY, exepcion: false}, "top");
+    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY - 20}, "Bottom"):
+    this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY}, "Top");
   }
 }

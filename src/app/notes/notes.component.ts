@@ -12,11 +12,11 @@ export class NotesComponent implements AfterViewInit
   settings: {
     fontSize: number,
     padding: {
-      top: number,
-      left: number,
+      Top: number,
+      Left: number,
 
-      bottom: number,
-      right: number
+      Bottom: number,
+      Right: number
     }
   }
 
@@ -24,18 +24,29 @@ export class NotesComponent implements AfterViewInit
     private notesService: NotesService,
     private appService: AppService
   ){
-    this.settings = {fontSize: undefined, padding: {top: 0, left:0, bottom: 0, right: 0}};
+    this.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}};
+  }
 
-    appService.settingsSubject.subscribe((data) => {
+  bottomPadding(a4: HTMLElement)
+  {
+    console.log(a4.offsetHeight - this.settings.padding.Top)
+  }
+
+  subscribeSettigs(a4: HTMLElement): void
+  {
+    this.appService.settingsSubject.subscribe((data) => {
       const entries = Object.entries(data)[0];
+
       this.settings.padding[`${entries[0]}`] = entries[1];
+      a4.style[`padding${entries[0]}`] = `${entries[1]}px`;
     })
   }
 
   ngAfterViewInit(): void
   {
-    const a4 = document.getElementById("a4");
+    const a4 = document.getElementById("notesText");
 
+    this.subscribeSettigs(a4);
     this.notesService.notesSettingsSubject.subscribe((data) => {
       if(!data || data == null) return;
       
@@ -52,7 +63,7 @@ export class NotesComponent implements AfterViewInit
     a4.style[`${attribute[0]}`] = attribute[1] + "px";
   }
 
-  createDocument(a4: HTMLElement)
+  createDocument(a4: HTMLElement): void
   {
     this.notesService.createPDF(a4, this.settings);
   }
