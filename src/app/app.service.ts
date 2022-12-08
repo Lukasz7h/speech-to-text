@@ -111,8 +111,11 @@ export class AppService {
     this.diffrenceY = this.clientY - data.clientY: this.diffrenceY = data.clientY - this.clientY;
 
     // aktualizowanie wartości różnicy dla osi x lub y (jeśli padding danego elementy był już zmieniany)
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x) this.diffrenceX += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y) this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
+    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x && this.instances[`${this.thatElement.getAttribute("data-padding")}`].x > 0)
+    this.diffrenceX += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
+
+    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y && this.instances[`${this.thatElement.getAttribute("data-padding")}`].y < 0)
+    this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
 
     // ustawianie stylu (oś x)
     (this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3)?
@@ -121,7 +124,7 @@ export class AppService {
     
     // ustawianie stylu (oś y)
     (this.thatElement.getAttribute("data-padding") == 3 || this.thatElement.getAttribute("data-padding") == 4)?
-    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY - 20}, "Bottom"):
+    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY}, "Bottom"):
     this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY}, "Top");
   }
 }
