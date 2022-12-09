@@ -57,7 +57,7 @@ export class NotesService {
         speechRecognition.onresult = (event) => {
 
           console.log(event.results[0][0])
-          notesText.textContent += event.results[0][0].transcript;
+          notesText.innerHTML += "<div>"+event.results[0][0].transcript+"</div>";
 
           const time = setTimeout(() => {
             if(!flag)
