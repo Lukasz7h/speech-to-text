@@ -47,19 +47,15 @@ export class NotesComponent implements AfterViewInit
 
     if(result < paddingBottom)
     {
-      console.log(emptyDives)
-      for(let i=emptyDives.length-1; i>=0; i--)
+      for(var i=emptyDives.length-1; i>=0; i--)
       {
-        if(emptyDives[i].offsetHeight > 0)
-        {
-          emptyDives[i].style.height = emptyDives[i].offsetHeight - (paddingBottom - result) + "px";
+          const knit = emptyDives[i].offsetHeight - (paddingBottom - result);
+          emptyDives[i].style.height = knit > 0? knit + "px": "0px";
+          
           break;
-        }
-        else
-        {
-
-        }
       };
+
+      if(emptyDives[i] && emptyDives[i].offsetHeight == 0) emptyDives[i].remove();
     };
   }
 
@@ -85,6 +81,8 @@ export class NotesComponent implements AfterViewInit
     const notesText = document.getElementById("notesText");
 
     this.subscribeSettigs(notesText);
+    this.notesService.listenUser(notesText);
+
     this.notesService.notesSettingsSubject.subscribe((data) => {
       if(!data || data == null) return;
       
