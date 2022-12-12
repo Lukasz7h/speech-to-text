@@ -23,15 +23,6 @@ export class NotesService {
   {
     const pdf = new jsPDF("p", "mm", [297, 210]);
 
-    /*pdf.addFileToVFS("Roboto-Thin.ttf", font);
-    pdf.addFont("Roboto-Thin.ttf", "Roboto-Thin", "normal");
-    pdf.setFont("Roboto-Thin");
-
-    const maxWidth = (210 - settings.padding.Left / 3.779528 - settings.padding.Right / 3.779528);
-
-    pdf.setFontSize(settings.fontSize - 4.9);
-    pdf.text(a4.innerText, settings.padding.Left / 3.779528, settings.padding.Top / 3.779528 + 4.8, {maxWidth: maxWidth});*/
-
     html2PDF(a4,{
       filename: 'myfile.pdf',
       image: { type: 'png', quality: 0.28 },
@@ -56,8 +47,8 @@ export class NotesService {
       {
         speechRecognition.onresult = (event) => {
 
-          console.log(event.results[0][0])
-          notesText.innerHTML += "<div>"+event.results[0][0].transcript+"</div>";
+          const sentence = event.results[0][0].transcript;
+          notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+".";
 
           const time = setTimeout(() => {
             if(!flag)
