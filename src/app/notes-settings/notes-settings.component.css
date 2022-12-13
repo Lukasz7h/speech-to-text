@@ -26,3 +26,8 @@ ul>li>input{
     color: rgb(19, 75, 107);
     font-size: 15px;
 }
+
+li[data-attribute='fontFamily'] input
+{
+    width: 150px !important;
+}

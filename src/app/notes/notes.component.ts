@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
+
 import { NotesService } from '../notesService/notes.service';
 
 @Component({

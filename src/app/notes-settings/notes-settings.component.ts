@@ -10,21 +10,25 @@ export class NotesSettingsComponent implements AfterViewInit
 {
 
   settings: {
-    fontSize: number
+    fontSize: number,
+    fontList: string[]
   };
 
   constructor(
     private notesService: NotesService
   ){
     notesService.notesSettingsSubject.subscribe((data) => {
+      console.log(data)
       this.settings = data;
     });
   }
 
-  editNotes(element: HTMLElement): void
+  editNotes(element: any): void
   {
     const newValue = element['value'];
-    isNaN(Number(newValue))? "": this.notesService.notesSettingsSubject.next({fontSize: Number(newValue)});
+    console.log(element)
+    console.log(newValue);
+    isNaN(Number(newValue))? this.notesService.setStyle({}): this.notesService.notesSettingsSubject.next({fontSize: Number(newValue)});
   }
 
   @ViewChild("fontSize")
@@ -35,4 +39,8 @@ export class NotesSettingsComponent implements AfterViewInit
     this.elementInput.nativeElement.value = this.settings.fontSize;
   }
 
+  onChange(e)
+  {
+    console.log(e.target.value)
+  }
 }
