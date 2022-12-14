@@ -1,5 +1,10 @@
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NotesSettingsComponent } from './notes-settings.component';
 
 describe('NotesSettingsComponent', () => {
@@ -8,7 +13,14 @@ describe('NotesSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotesSettingsComponent ]
+      declarations: [ NotesSettingsComponent ],
+      imports: [
+        NgxMatColorPickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NoopAnimationsModule
+      ],
+      providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }]
     })
     .compileComponents();
 

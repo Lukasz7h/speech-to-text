@@ -64,9 +64,7 @@ export class NotesComponent implements AfterViewInit
   {
     this.appService.settingsSubject.subscribe((data) => {
 
-      console.log(data)
       const entries = Object.entries(data)[0];
-
       this.settings.padding[`${entries[0]}`] = entries[1];
 
       if(entries[0] == "Bottom")

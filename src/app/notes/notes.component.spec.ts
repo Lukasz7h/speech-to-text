@@ -34,4 +34,17 @@ describe('NotesComponent', () => {
       expect(padding[`${e}`]).toBeGreaterThanOrEqual(0);
     };
   });
+
+  it('element a4 is had well size', () => {
+    const pixelsOfHeight =  Math.floor( (297 * 96) / 25.4);
+    const pixelsOfWidth =  Math.floor( (210 * 96) / 25.4);
+
+    function check(x, shouldBe): boolean
+    {
+      return x - 3 > shouldBe - 5 || x + 3 < shouldBe + 5;
+    };
+
+    expect(check(component.element.nativeElement.offsetHeight, pixelsOfHeight)).toBe(true);
+    expect(check(component.element.nativeElement.offsetWidth, pixelsOfWidth)).toBe(true);
+  });
 });
