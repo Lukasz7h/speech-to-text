@@ -1,11 +1,19 @@
 <nav>
     <h2>Ustawienia</h2>
     <ul>
-        <li data-attribute="fontSize">Rozmiar czcionki <input type="number" #fontSize (input)="editNotes({element: fontSize, change: fontList})"></li>
+        <li #fontSize data-attribute="fontSize">Rozmiar czcionki <input #fontInp type="number" (input)="editNotes({element: fontSize, change: fontInp})"></li>
         <li #fontList data-attribute="fontFamily">Czcionka 
-        <select (change)='editNotes({element: fontList, change: $event.target})'>
-            <option *ngFor="let e of settings.fontList">{{e}}</option>
-        </select>
+            <select  (change)='editNotes({element: fontList, change: $event.target})'>
+                <option *ngFor="let e of settings.fontList">{{e}}</option>
+            </select>
+        </li>
+        <li #letterSpacing data-attribute="letterSpacing">Odległość między literami <input #letterInp (input)="editNotes({element: letterSpacing, change: letterInp})" type="number"></li>
+        <li #colorElement>
+            <mat-form-field>
+                <input matInput [ngxMatColorPicker]="picker" [disabled]="disabled">
+                <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+                <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
+            </mat-form-field>
         </li>
     </ul>
 </nav>

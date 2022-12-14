@@ -63,6 +63,8 @@ export class NotesComponent implements AfterViewInit
   subscribeSettigs(notesText: HTMLElement): void
   {
     this.appService.settingsSubject.subscribe((data) => {
+
+      console.log(data)
       const entries = Object.entries(data)[0];
 
       this.settings.padding[`${entries[0]}`] = entries[1];
@@ -84,12 +86,14 @@ export class NotesComponent implements AfterViewInit
     this.subscribeSettigs(notesText);
     this.notesService.listenUser(notesText);
 
-    this.notesService.notesSettingsSubject.subscribe((data) => {
+    this.notesService.notesSettingsSubject.subscribe((data: []) => {
       if(!data || data == null) return;
       
-      const entries = Object.entries(data)[0];
-      this.settings[`${entries[0]}`] = entries[1];
-      this.updateView(notesText, entries);
+      data.forEach((e) => {
+        const entries = Object.entries(e)[0];
+        this.settings[`${entries[0]}`] = entries[1];
+        this.updateView(notesText, entries);
+      })
     });
   }
 

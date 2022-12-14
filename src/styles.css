@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+:root{
+    --font-Family: "Roboto-Thin";
+}
+
 html, body{
     height: 115%;
     width: 100%;
@@ -30,9 +34,23 @@ app-notes-settings{
     background: linear-gradient(138deg, rgb(149, 196, 47) 0%, rgba(8,154,154,1) 100%); 
 }
 
-@font-face {
-    font-family: "Roboto-Black";
-    src: url("./app//fonts/Roboto-Black.ttf");
+.ngx-mat-colorpicker-content{
+    width: 365px;
+    position: absolute;
+    z-index: 2;
+    top: 310px;
+}
+
+.mat-input-element{
+    text-align: center !important;
+}
+
+.mat-form-field, .ng-tns-c120-6{
+    width: 82px;
+}
+
+.hide{
+    display: none !important;
 }
 
 @font-face {
@@ -41,11 +59,56 @@ app-notes-settings{
 }
 
 @font-face {
-    font-family: "Roboto-Medium";
-    src: url("./app//fonts/Roboto-Medium.ttf");
+    font-family: "Roboto-ThinItalic";
+    src: url("./app//fonts/Roboto-ThinItalic.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Black";
+    src: url("./app//fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-BlackItalic";
+    src: url("./app//fonts/Roboto-BlackItalic.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("./app//fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-BoldItalic";
+    src: url("./app//fonts/Roboto-BlackItalic.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Italic";
+    src: url("./app//fonts/Roboto-Italic.ttf");
 }
 
 @font-face {
     font-family: "Roboto-Light";
     src: url("./app//fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-LightItalic";
+    src: url("./app//fonts/Roboto-LightItalic.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Medium";
+    src: url("./app//fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-MediumItalic";
+    src: url("./app//fonts/Roboto-MediumItalic.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./app//fonts/Roboto-Regular.ttf");
 }

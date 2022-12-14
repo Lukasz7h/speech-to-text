@@ -16,13 +16,16 @@ interface IWindow extends Window
 export class NotesService {
 
   fontsList: string[] = [
-    "Roboto-Black.ttf", "Roboto-BlackItalic.ttf", "Roboto-Bold.ttf",
-    "Roboto-BlackItalic.ttf", "Roboto-Italic.ttf", "Roboto-Light.ttf",
-    "Roboto-LightItalic.ttf", "Roboto-Medium.ttf", "Roboto-MediumItalic.ttf",
-    "Roboto-Regular.ttf", "Roboto-Thin.ttf", "Roboto-ThinItalic.ttf"
+    "Roboto-Thin", "Roboto-ThinItalic","Roboto-Black", "Roboto-BlackItalic",
+    
+    "Roboto-Bold","Roboto-BoldItalic", "Roboto-Italic", "Roboto-Light",
+
+    "Roboto-LightItalic", "Roboto-Medium", "Roboto-MediumItalic", "Roboto-Regular", 
   ];
 
-  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>({fontSize: 20, fontList: this.fontsList});
+  color: {r: 0, g: 0, b: 0, a: 1};
+
+  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {fontList: this.fontsList}, {letterSpacing: 1}]);
 
   constructor()
   {}
@@ -102,7 +105,7 @@ export class NotesService {
   {
     switch(data.name)
     {
-      case "fontFamily": 
-    }
+      case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);
+    };
   }
 }

@@ -5,7 +5,7 @@
     border: 1px solid rgba(206, 206, 206, 0.322);
     background-color: white;
     outline: none;
-    font-family: "Roboto-Thin";
+    font-family: var(--font-Family);
     box-sizing: border-box;
 }
 
