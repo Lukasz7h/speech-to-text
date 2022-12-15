@@ -1,14 +1,20 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { LineComponent } from './line/line.component';
 import { NotesComponent } from './notes.component';
 
 describe('NotesComponent', () => {
+
   let component: NotesComponent;
   let fixture: ComponentFixture<NotesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotesComponent ]
+      declarations: [
+        NotesComponent,
+        LineComponent
+      ]
     })
     .compileComponents();
 
@@ -47,4 +53,6 @@ describe('NotesComponent', () => {
     expect(check(component.element.nativeElement.offsetHeight, pixelsOfHeight)).toBe(true);
     expect(check(component.element.nativeElement.offsetWidth, pixelsOfWidth)).toBe(true);
   });
+
+  
 });

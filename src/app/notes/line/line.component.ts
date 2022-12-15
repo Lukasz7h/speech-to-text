@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-line',
@@ -8,6 +8,10 @@ import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angu
 export class LineComponent implements AfterViewInit
 {
   @Input() data: string;
+
+  processData(): void {
+    this.data = this.data.toUpperCase();
+  }
 
   addLines(amount: number, element: any): void
   {
@@ -21,7 +25,6 @@ export class LineComponent implements AfterViewInit
       };
 
       lines += "|";
-      if(i==amount-1) console.log(i)
     };
 
     element.insertAdjacentHTML("afterbegin", lines);

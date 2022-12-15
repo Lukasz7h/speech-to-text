@@ -1,23 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LineComponent } from './line.component';
 
 describe('LineComponent', () => {
+
+
   let component: LineComponent;
   let fixture: ComponentFixture<LineComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LineComponent ]
+      declarations: [ LineComponent]
     })
     .compileComponents();
+      fixture = TestBed.createComponent(LineComponent);
 
-    fixture = TestBed.createComponent(LineComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      component = fixture.debugElement.componentInstance;
+      fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('data shoud be defined', () => {
+    expect(component.data).toBeDefined();
+  });
+
 });
