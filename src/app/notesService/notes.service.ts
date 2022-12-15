@@ -23,14 +23,12 @@ export class NotesService {
     "Roboto-LightItalic", "Roboto-Medium", "Roboto-MediumItalic", "Roboto-Regular", 
   ];
 
-  color: {r: 0, g: 0, b: 0, a: 1};
-
-  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {fontList: this.fontsList}, {letterSpacing: 1}]);
+  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {fontList: this.fontsList}, {letterSpacing: 1}, {lineHeight: 25}]);
 
   constructor()
   {}
 
-  createPDF(a4: HTMLElement, settings: any): void
+  createPDF(a4: HTMLElement): void
   {
     html2PDF(a4,
     {
@@ -106,6 +104,7 @@ export class NotesService {
     switch(data.name)
     {
       case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);
+      case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
     };
   }
 }

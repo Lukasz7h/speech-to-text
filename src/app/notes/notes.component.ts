@@ -93,6 +93,7 @@ export class NotesComponent implements AfterViewInit
         this.updateView(notesText, entries);
       })
     });
+    
   }
 
   updateView(notesText: HTMLElement, attribute: object): void
@@ -104,6 +105,6 @@ export class NotesComponent implements AfterViewInit
 
   createDocument(notesText: HTMLElement): void
   {
-    this.notesService.createPDF(notesText, this.settings);
+    this.notesService.createPDF(notesText);
   }
 }

@@ -7,13 +7,21 @@
                 <option *ngFor="let e of settings.fontList">{{e}}</option>
             </select>
         </li>
-        <li #letterSpacing data-attribute="letterSpacing">Odległość między literami <input #letterInp (input)="editNotes({element: letterSpacing, change: letterInp})" type="number"></li>
-        <li #colorElement>
+
+        <li #letterSpacing data-attribute="letterSpacing">Odległość między literami oś x
+             <input #letterInp (input)="editNotes({element: letterSpacing, change: letterInp})" type="number">
+        </li>
+        <li #letterHeight data-attribute="lineHeight">Odległosć między literami oś y 
+            <input #lineInp (input)="editNotes({element: letterHeight, change: lineInp})" type="number">
+        </li>
+        
+        <li #colorElement data-attribute="color">Kolor czcionki
             <mat-form-field>
-                <input matInput [ngxMatColorPicker]="picker" [disabled]="disabled">
+                <input (ngModel)="(0)" (ngModelChange)="editNotes({element: colorElement, change: {value: $event.rgba}})" matInput [ngxMatColorPicker]="picker" [disabled]="disabled">
                 <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
                 <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
             </mat-form-field>
         </li>
+        
     </ul>
 </nav>

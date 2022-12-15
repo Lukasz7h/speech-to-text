@@ -13,10 +13,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
+import { FormsModule } from '@angular/forms';
+import { NotesModule } from './notes/notes.module';
+
 @NgModule({
   declarations: [
     AppComponent,
-    NotesComponent,
     NotesSettingsComponent
   ],
   imports: [
@@ -25,7 +27,9 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     NgxMatColorPickerModule,
     MatFormFieldModule,
     MatInputModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    FormsModule,
+    NotesModule
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]

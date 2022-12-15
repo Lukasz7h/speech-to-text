@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { NotesService } from '../notesService/notes.service';
 
@@ -9,12 +9,14 @@ import { NotesService } from '../notesService/notes.service';
 })
 export class NotesSettingsComponent implements AfterViewInit
 {
+
   settings: {
     fontSize: number,
     fontList: string[],
     letterSpacing: number,
-    colors: string[]
-  } = {fontSize: undefined, fontList: undefined, letterSpacing: undefined, colors: undefined};
+    colors: string[],
+    lineHeight: number
+  } = {fontSize: undefined, fontList: undefined, letterSpacing: undefined, colors: undefined, lineHeight: undefined};
 
   button;
 
@@ -40,7 +42,9 @@ export class NotesSettingsComponent implements AfterViewInit
     const newValue = data.change['value'];
     const attribute = data.element.getAttribute("data-attribute");
 
-    isNaN(Number(newValue))? this.notesService.setStyle({name: attribute, worth: newValue}): this.notesService.notesSettingsSubject.next([{[`${attribute}`]: Number(newValue)}]);
+    isNaN(Number(newValue))?
+    this.notesService.setStyle({name: attribute, worth: newValue}):
+    this.notesService.notesSettingsSubject.next([{[`${attribute}`]: Number(newValue)}]);
   }
 
   @ViewChild("fontInp")
@@ -52,17 +56,30 @@ export class NotesSettingsComponent implements AfterViewInit
   @ViewChild("colorElement")
   colorElement: ElementRef;
 
+  @ViewChild("lineInp")
+  lineHeightInp: ElementRef;
+
   ngAfterViewInit(): void
   {
     this.elementFontInput.nativeElement.value = this.settings.fontSize;
     this.elementLetterSpaceInput.nativeElement.value = this.settings.letterSpacing;
 
+    this.lineHeightInp.nativeElement.value = this.settings.lineHeight;
+
     this.button = this.colorElement.nativeElement.getElementsByTagName("button").item(0);
     let count = 0;
 
     this.button.addEventListener("click", (e) => {
-      if(document.getElementsByClassName("cdk-overlay-container").item(0) && count) document.getElementsByClassName("cdk-overlay-container").item(0).classList.toggle("hide");
+
+      if(document.getElementsByClassName("cdk-overlay-container").item(0) && count)
+      {
+        document.getElementsByClassName("cdk-overlay-container").item(0).classList.toggle("hide");
+        return;
+      };
+
       count++;
     })
+
+    
   }
 }
