@@ -54,5 +54,11 @@ describe('NotesComponent', () => {
     expect(check(component.element.nativeElement.offsetWidth, pixelsOfWidth)).toBe(true);
   });
 
+  it('load line-component', async() => {
+    component.ngAfterViewInit();
+    fixture.detectChanges();
+
+    expect(document.getElementsByTagName("app-line")).toBeDefined();
+  });
   
 });

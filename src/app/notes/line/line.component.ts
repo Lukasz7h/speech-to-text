@@ -5,12 +5,26 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } fro
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.css']
 })
-export class LineComponent implements AfterViewInit
+export class LineComponent implements AfterViewInit, OnChanges
 {
   @Input() data: string;
 
-  processData(): void {
-    this.data = this.data.toUpperCase();
+  ngOnChanges(changes: SimpleChanges | any)
+  {
+    this.data = changes.data.currentValue;
+  }
+
+  ngAfterViewInit(): void
+  {
+    const data = JSON.parse(this.data);
+    const appLineElement = document.getElementsByTagName("app-line").item(data.id);
+
+    appLineElement['style']['width'] = data.width;
+    appLineElement['style']['height'] = data.height;
+
+    data.top? 
+    [appLineElement['style']['top'] = data.top, this.addLines(210, appLineElement)]:
+    [ appLineElement['style']['left'] = data.left, this.addLines(297, appLineElement)];
   }
 
   addLines(amount: number, element: any): void
@@ -31,16 +45,5 @@ export class LineComponent implements AfterViewInit
     
   }
 
-  ngAfterViewInit(): void
-  {
-    const data = JSON.parse(this.data);
-    const appLineElement = document.getElementsByTagName("app-line").item(data.id);
-
-    appLineElement['style']['width'] = data.width;
-    appLineElement['style']['height'] = data.height;
-
-    data.top? 
-    [appLineElement['style']['top'] = data.top, this.addLines(210, appLineElement)]:
-    [ appLineElement['style']['left'] = data.left, this.addLines(297, appLineElement)];
-  }
+  
 }
