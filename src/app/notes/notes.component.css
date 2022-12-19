@@ -27,6 +27,7 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    z-index: 4;
 }
 
 .padding > .vertical{

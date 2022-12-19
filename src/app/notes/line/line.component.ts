@@ -30,9 +30,11 @@ export class LineComponent implements AfterViewInit, OnChanges
   addLines(amount: number, element: any): void
   {
     let lines = "";
+    if(element.textContent.length > 0) return;
+
     for(let i=0; i<amount; i++)
     {
-      if(i>0 && i % 10 == 0)
+      if(i % 10 == 0)
       {
         lines += "<span class='cm'>|</span>";
         continue;
