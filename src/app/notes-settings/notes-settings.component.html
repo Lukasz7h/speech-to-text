@@ -22,6 +22,10 @@
                 <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
             </mat-form-field>
         </li>
+
+        <li #lines data-attribute="lines">Linijka
+            <input #checkboxInp type="checkbox" checked (input)="editNotes({element: lines, change: {value: checkboxInp}})">
+        </li>
         
     </ul>
 </nav>

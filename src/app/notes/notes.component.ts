@@ -19,13 +19,15 @@ export class NotesComponent implements AfterViewInit
       Bottom: number,
       Right: number
     }
+    lines: {notStyleCss: boolean, worth: boolean}
   }
+
 
   constructor(
     private notesService: NotesService,
     private appService: AppService
   ){
-    this.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}};
+    this.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}, lines: {notStyleCss: true, worth: true}};
   }
 
   @ViewChild("a4")
@@ -86,10 +88,17 @@ export class NotesComponent implements AfterViewInit
 
     this.notesService.notesSettingsSubject.subscribe((data: []) => {
       if(!data || data == null) return;
-      
+
       data.forEach((e) => {
         const entries = Object.entries(e)[0];
-        this.settings[`${entries[0]}`] = entries[1];
+        if(!this.settings[`${entries[0]}`]) return;
+
+        if(this.settings[`${entries[0]}`].notStyleCss)
+        {
+          this.settings[`${entries[0]}`].worth = entries[1];
+          return;
+        }
+        
         this.updateView(notesText, entries);
       })
     });
@@ -98,7 +107,7 @@ export class NotesComponent implements AfterViewInit
 
   updateView(notesText: HTMLElement, attribute: object): void
   {
-    isNaN(Number(attribute[1]))?
+    isNaN(Number(attribute[1]) && notesText.style[`${attribute[0]}`])?
     notesText.style[`${attribute[0]}`] = attribute[1]:
     notesText.style[`${attribute[0]}`] = attribute[1] + "px";
   }

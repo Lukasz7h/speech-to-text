@@ -32,11 +32,13 @@ export class LineComponent implements AfterViewInit, OnChanges
     let lines = "";
     if(element.textContent.length > 0) return;
 
-    for(let i=0; i<amount; i++)
+    for(let i=1; i<=amount; i++)
     {
       if(i % 10 == 0)
       {
-        lines += "<span class='cm'>|</span>";
+        const cm = '<p>'+i / 10+'</p>' ;
+
+        lines += "<span class='cm'> "+cm+" |</span>";
         continue;
       };
 

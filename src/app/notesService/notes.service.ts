@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import jsPDF from 'jspdf';
-
 import { BehaviorSubject } from 'rxjs';
+
 import html2PDF from 'jspdf-html2canvas';
 
 interface IWindow extends Window
@@ -105,6 +104,7 @@ export class NotesService {
     {
       case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);
       case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
+      case "lines": return this.notesSettingsSubject.next([ { "lines": data.worth.checked } ]);
     };
   }
 }

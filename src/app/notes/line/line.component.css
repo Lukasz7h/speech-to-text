@@ -2,4 +2,14 @@
     font-size: 17px;
     font-weight: 600;
     color: #00000094;
+    position: relative;
+    display: inline-block;
+}
+
+::ng-deep .cm>p{
+    position: absolute;
+    transform: translate(-37%, 0);
+    width: 15px;
+    text-align: center;
+    top: -12px;
 }
