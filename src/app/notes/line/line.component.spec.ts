@@ -4,6 +4,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LineComponent } from './line.component';
 
+function checkCharacter(appLine): number
+{
+  let amountOfCharacter = 0;
+  for(let i=0; i<appLine.textContent.length; i++)
+  {
+    if(appLine.textContent[i] == '|') amountOfCharacter++;
+  };
+
+  return amountOfCharacter;
+}
+
 describe('LineComponent', async() => {
 
   let component: TestNotesComponent;
@@ -42,7 +53,8 @@ describe('LineComponent', async() => {
     expect(appLine.clientHeight).toEqual(12);
 
     expect(appLine['style']['top']).toEqual('-18px');
-    expect(appLine.textContent.length).toEqual(210);
+    console.log(appLine)
+    expect(checkCharacter(appLine)).toEqual(210);
   });
 
   it('second app-line style', () => {
@@ -65,7 +77,7 @@ describe('LineComponent', async() => {
     expect(appLine.clientHeight).toEqual(Math.ceil(297 * 3.7795275591));
 
     expect(appLine['style']['left']).toEqual('-18px');
-    expect(appLine.textContent.length).toEqual(297);
+    expect(checkCharacter(appLine)).toEqual(297);
   });
 });
 
@@ -85,34 +97,5 @@ class TestNotesComponent implements AfterViewInit
   }
 
   ngAfterViewInit(): void
-  {
-    const data = JSON.parse(this.data);
-    const appLineElement = document.getElementsByTagName("app-line").item(data.id);
-
-    appLineElement['style']['width'] = data.width;
-    appLineElement['style']['height'] = data.height;
-
-    data.top? 
-    [appLineElement['style']['top'] = data.top, this.addLines(210, appLineElement)]:
-    [ appLineElement['style']['left'] = data.left, this.addLines(297, appLineElement)];
-  }
-
-  addLines(amount: number, element: any): void
-  {
-    let lines = "";
-    if(element.textContent.length > 0) return;
-
-    for(let i=0; i<=amount; i++)
-    {
-      if(i % 10 == 0)
-      {
-        lines += "<span class='cm'>|</span>";
-        continue;
-      };
-
-      lines += "|";
-    };
-
-    element.insertAdjacentHTML("afterbegin", lines);
-  }
+  {}
 }

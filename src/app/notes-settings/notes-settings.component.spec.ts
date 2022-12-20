@@ -7,6 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NotesSettingsComponent } from './notes-settings.component';
 
+function moreThen(digit, moreThen): boolean
+{
+  return !isNaN(digit) && digit > moreThen;
+};
+
 describe('NotesSettingsComponent', () => {
   let component: NotesSettingsComponent;
   let fixture: ComponentFixture<NotesSettingsComponent>;
@@ -31,5 +36,17 @@ describe('NotesSettingsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('check font', () => {
+    component.ngAfterViewInit();
+    expect(moreThen(component.elementFontInput.nativeElement.value, 0)).toBeTrue();
+
+    expect(moreThen(component.elementLetterSpaceInput.nativeElement.value, 0)).toBeTrue();
+    expect(moreThen(component.lineHeightInp.nativeElement.value, 0)).toBeTrue();
+  });
+
+  it('line showed', () => {
+    expect(document.querySelector('input[type="checkbox"]')['checked']).toBeTrue();
   });
 });

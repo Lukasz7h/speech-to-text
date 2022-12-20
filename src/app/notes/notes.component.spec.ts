@@ -60,5 +60,9 @@ describe('NotesComponent', () => {
 
     expect(document.getElementsByTagName("app-line")).toBeDefined();
   });
+
+  it('line-component should be true (*ngIf)', () => {
+    expect(component.settings.lines.worth).toBeTrue();
+  })
   
 });
