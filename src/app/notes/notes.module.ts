@@ -10,7 +10,7 @@ import { NotesComponent } from './notes.component';
     LineComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     NotesComponent

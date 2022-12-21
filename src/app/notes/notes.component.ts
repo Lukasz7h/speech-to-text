@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 
 import { NotesService } from '../notesService/notes.service';
+import * as fileSaver from "file-saver";
 
 @Component({
   selector: 'app-notes',
@@ -22,6 +23,7 @@ export class NotesComponent implements AfterViewInit
     lines: {notStyleCss: boolean, worth: boolean}
   }
 
+  documentTypes: string[] = ["pdf", "docx"];
 
   constructor(
     private notesService: NotesService,
@@ -91,9 +93,8 @@ export class NotesComponent implements AfterViewInit
 
       data.forEach((e) => {
         const entries = Object.entries(e)[0];
-        if(!this.settings[`${entries[0]}`]) return;
 
-        if(this.settings[`${entries[0]}`].notStyleCss)
+        if(this.settings[`${entries[0]}`] && this.settings[`${entries[0]}`].notStyleCss)
         {
           this.settings[`${entries[0]}`].worth = entries[1];
           return;
@@ -107,13 +108,20 @@ export class NotesComponent implements AfterViewInit
 
   updateView(notesText: HTMLElement, attribute: object): void
   {
-    isNaN(Number(attribute[1]) && notesText.style[`${attribute[0]}`])?
+
+    isNaN(Number(attribute[1])) && notesText.style[`${attribute[0]}`]?
     notesText.style[`${attribute[0]}`] = attribute[1]:
     notesText.style[`${attribute[0]}`] = attribute[1] + "px";
   }
 
-  createDocument(notesText: HTMLElement): void
+  createDocument(notesText: HTMLElement, type: string): void
   {
-    this.notesService.createPDF(notesText);
+    switch(type)
+    {
+      case "pdf": this.notesService.createPDF(notesText);
+      break;
+      case "docx": this.notesService.createDOCX(notesText);
+      break;
+    }
   }
 }

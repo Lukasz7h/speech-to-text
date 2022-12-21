@@ -46,8 +46,6 @@ export class LineComponent implements AfterViewInit, OnChanges
     };
 
     element.insertAdjacentHTML("afterbegin", lines);
-    
   }
 
-  
 }

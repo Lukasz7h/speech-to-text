@@ -25,5 +25,7 @@
     <span class="vertical"></span>
     <span class="horizon"></span>
 </div>
-
-<button (click)="createDocument(a4)">pobierz</button>
+<select #document>
+    <option *ngFor="let doc of documentTypes">{{doc}}</option>
+</select>
+<button (click)="createDocument(a4, document.value)">pobierz</button>
