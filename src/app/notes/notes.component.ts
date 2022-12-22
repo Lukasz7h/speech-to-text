@@ -91,6 +91,8 @@ export class NotesComponent implements AfterViewInit
     this.notesService.notesSettingsSubject.subscribe((data: []) => {
       if(!data || data == null) return;
 
+      console.log(data)
+
       data.forEach((e) => {
         const entries = Object.entries(e)[0];
 
@@ -100,6 +102,7 @@ export class NotesComponent implements AfterViewInit
           return;
         }
         
+        this.settings[`${entries[0]}`] = entries[1];
         this.updateView(notesText, entries);
       })
     });

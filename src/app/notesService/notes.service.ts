@@ -53,18 +53,21 @@ export class NotesService {
     let newDiv: any = document.createElement("div");
     newDiv.textContent = a4.textContent;
 
+    let paragraphContent = '<P STYLE="';
+
+    // dodajemy marginesy do pliku typu docx takie jakie zostały zadeklarowane przez użytkownika
     for(let key in settings.padding)
     {
-      newDiv.style[`${"margin"+key}`] = settings.padding[`${key}`] + "px";
+      paragraphContent += "margin-"+ key.toLowerCase() + ":" + ((settings.padding[`${key}`] * 0.26458) / 10).toFixed(2) + "cm; ";
     };
 
-    newDiv = newDiv.outerHTML;
+    paragraphContent += '">'
+    const textFromNotes = `<FONT STYLE="font-size: ${settings.fontSize}pt">${a4.textContent}</FONT>`;
 
-    var html = preHtml+newDiv+postHtml;
+    paragraphContent += textFromNotes + "</P>";
 
-    const blob = new Blob(['\ufeff', html], {
-        type: 'application/msword'
-    });
+    console.log(paragraphContent);
+    var html = preHtml+paragraphContent+postHtml;
     
     const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
     let filename = 'document.doc';
@@ -72,18 +75,10 @@ export class NotesService {
     var downloadLink = document.createElement("a");
 
     document.body.appendChild(downloadLink);
-    
-    if(navigator['msSaveOrOpenBlob'] )
-    {
-      navigator['msSaveOrOpenBlob'](blob, filename);
-    }
-    else
-    {
-      downloadLink.href = url;
+    downloadLink.href = url;
         
-      downloadLink.download = filename;
-      downloadLink.click();
-    }
+    downloadLink.download = filename;
+    downloadLink.click();
   }
 
   listenUser(notesText: HTMLElement): void
@@ -103,7 +98,7 @@ export class NotesService {
         const sel = doc.getSelection();
 
         const range = sel.getRangeAt(0);
-        const tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0");
+        const tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0");
 
         range.insertNode(tabNode);
         range.setStartAfter(tabNode);
