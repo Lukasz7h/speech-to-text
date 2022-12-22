@@ -120,7 +120,7 @@ export class NotesComponent implements AfterViewInit
     {
       case "pdf": this.notesService.createPDF(notesText);
       break;
-      case "docx": this.notesService.createDOCX(notesText);
+      case "docx": this.notesService.createDOCX(notesText, this.settings);
       break;
     }
   }

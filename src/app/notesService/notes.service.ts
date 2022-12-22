@@ -39,17 +39,34 @@ export class NotesService {
     .save();
   }
 
-  createDOCX(a4: HTMLElement)
+  createDOCX(a4: HTMLElement, settings)
   {
-    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-    var postHtml = "</body></html>";
-    var html = preHtml+a4.innerHTML+postHtml;
+    const preHtml = 
+    `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head>
+      <meta charset='utf-8'>
+      <title>Export HTML To Doc</title>
+    </head>
+    <body>`;
+    const postHtml = "</body></html>";
 
-    var blob = new Blob(['\ufeff', html], {
+    let newDiv: any = document.createElement("div");
+    newDiv.textContent = a4.textContent;
+
+    for(let key in settings.padding)
+    {
+      newDiv.style[`${"margin"+key}`] = settings.padding[`${key}`] + "px";
+    };
+
+    newDiv = newDiv.outerHTML;
+
+    var html = preHtml+newDiv+postHtml;
+
+    const blob = new Blob(['\ufeff', html], {
         type: 'application/msword'
     });
     
-    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+    const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
     let filename = 'document.doc';
     
     var downloadLink = document.createElement("a");
