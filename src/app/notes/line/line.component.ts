@@ -1,17 +1,16 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-line',
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.css']
 })
-export class LineComponent implements AfterViewInit, OnChanges
+export class LineComponent implements AfterViewInit
 {
   @Input() data: string;
 
-  ngOnChanges(changes: SimpleChanges | any)
-  {
-    this.data = changes.data.currentValue;
+  constructor(private changeDetRef: ChangeDetectorRef){
+    changeDetRef.detach();
   }
 
   ngAfterViewInit(): void

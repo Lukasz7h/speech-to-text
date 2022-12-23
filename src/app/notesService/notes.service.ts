@@ -14,6 +14,19 @@ interface IWindow extends Window
 })
 export class NotesService {
 
+  a4: HTMLElement;
+  settings: {
+    fontSize: number,
+    padding: {
+      Top: number,
+      Left: number,
+
+      Bottom: number,
+      Right: number
+    },
+    lines: {notStyleCss: boolean, worth: boolean}
+  }
+
   fontsList: string[] = [
     "Roboto-Thin", "Roboto-ThinItalic","Roboto-Black", "Roboto-BlackItalic",
     
@@ -27,19 +40,19 @@ export class NotesService {
   constructor()
   {}
 
-  createPDF(a4: HTMLElement): void
+  createPDF(): void
   {
-    html2PDF(a4,
+    html2PDF(this.a4,
     {
       filename: 'myfile.pdf',
-      image: { type: 'png', quality: 0.28 },
-      html2canvas: { scale: 2, dpi: 192 },
+      image: { type: 'jpg', quality: 0.5 },
+      html2canvas: { scale: 1.5, dpi: 122 },
       jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
     })
     .save();
   }
 
-  createDOCX(a4: HTMLElement, settings)
+  createDOCX()
   {
     const preHtml = 
     `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -51,22 +64,20 @@ export class NotesService {
     const postHtml = "</body></html>";
 
     let newDiv: any = document.createElement("div");
-    newDiv.textContent = a4.textContent;
+    newDiv.textContent = this.a4.textContent;
 
     let paragraphContent = '<P STYLE="';
 
     // dodajemy marginesy do pliku typu docx takie jakie zostały zadeklarowane przez użytkownika
-    for(let key in settings.padding)
+    for(let key in this.settings.padding)
     {
-      paragraphContent += "margin-"+ key.toLowerCase() + ":" + ((settings.padding[`${key}`] * 0.26458) / 10).toFixed(2) + "cm; ";
+      paragraphContent += "margin-"+ key.toLowerCase() + ":" + ((this.settings.padding[`${key}`] * 0.26458) / 10).toFixed(2) + "cm; ";
     };
 
     paragraphContent += '">'
-    const textFromNotes = `<FONT STYLE="font-size: ${settings.fontSize}pt">${a4.textContent}</FONT>`;
+    const textFromNotes = `<FONT STYLE="font-size: ${this.settings.fontSize}pt">${this.a4.innerHTML}</FONT>`;
 
     paragraphContent += textFromNotes + "</P>";
-
-    console.log(paragraphContent);
     var html = preHtml+paragraphContent+postHtml;
     
     const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);

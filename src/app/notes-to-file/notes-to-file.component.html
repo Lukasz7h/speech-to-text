@@ -1,0 +1,7 @@
+<div>
+    <mat-icon>get_app</mat-icon>
+    <select #document>
+        <option *ngFor="let doc of documentTypes">{{doc}}</option>
+    </select>
+    <button (click)="createDocument(document.value)">pobierz</button>
+</div>

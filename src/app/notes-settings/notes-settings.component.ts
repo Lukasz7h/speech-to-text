@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { NotesService } from '../notesService/notes.service';
 
@@ -27,7 +27,8 @@ export class NotesSettingsComponent implements AfterViewInit
   touchUi = false;
 
   constructor(
-    private notesService: NotesService
+    private notesService: NotesService,
+    private changeDetRef: ChangeDetectorRef
   ){
     notesService.notesSettingsSubject.subscribe((data: []) => {
       data.forEach((e) => {
@@ -80,6 +81,6 @@ export class NotesSettingsComponent implements AfterViewInit
       count++;
     })
 
-    
+    this.changeDetRef.detach();
   }
 }

@@ -1,0 +1,86 @@
+div{
+    height: 30px;
+    width: 30px;
+    background: rgb(41,167,131);
+    background: linear-gradient(138deg, rgba(8,154,154,1) 0%, rgb(25, 88, 88) 100%); 
+    border-radius: 5px;
+    overflow: hidden;
+    transform: translate(100%, 0%);
+}
+
+div:hover{
+    min-height: 30px;
+    min-width: 30px;
+    animation: show .4s ease-in;
+    animation-fill-mode: forwards;
+}
+
+div:hover > mat-icon{
+    display: none;
+}
+
+div>select{
+    display: none;
+    cursor: pointer;
+}
+
+div>button{
+    display: none;
+    cursor: pointer;
+}
+
+div:hover > select{
+    animation-name: showInsideSelect;
+}
+
+div:hover > button{
+    animation-name: showInsideButton;
+}
+
+div:hover > select, div:hover > button{
+    opacity: 0;
+    display: block;
+    animation-delay: .4s;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+mat-icon{
+    color: aliceblue;
+    text-align: center;
+    width: inherit;
+    line-height: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+@keyframes show{
+    0%{
+        padding: 0px 0px 0px 0px;
+    }
+    100%{
+        padding: 10px 55px 45px 35px;
+    }
+}
+
+@keyframes showInsideSelect{
+    0%{
+        opacity: 0;
+        margin-top: 20px;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 5px;
+    }
+}
+
+@keyframes showInsideButton{
+    0%{
+        opacity: 0;
+        margin-top: 35px;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 18px;
+    }
+}

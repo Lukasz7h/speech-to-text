@@ -15,11 +15,14 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import { FormsModule } from '@angular/forms';
 import { NotesModule } from './notes/notes.module';
+import { NotesToFileComponent } from './notes-to-file/notes-to-file.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotesSettingsComponent
+    NotesSettingsComponent,
+    NotesToFileComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { NotesModule } from './notes/notes.module';
     MatInputModule,
     NoopAnimationsModule,
     FormsModule,
-    NotesModule
+    NotesModule,
+    MatIconModule
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]

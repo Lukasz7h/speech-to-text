@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { AppService } from './app.service';
 
 @Component({
@@ -8,10 +8,11 @@ import { AppService } from './app.service';
 })
 export class AppComponent implements AfterViewInit
 {
-  constructor(private appService: AppService){}
+  constructor(private appService: AppService, private changeDetRef: ChangeDetectorRef){}
 
   ngAfterViewInit(): void
   {
+    this.changeDetRef.detach();
     this.appService.addInstance(document.getElementsByClassName("padding"))
 
     document.querySelector("app-notes")
