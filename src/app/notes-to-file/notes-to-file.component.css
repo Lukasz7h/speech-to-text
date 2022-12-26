@@ -15,6 +15,10 @@ div.show{
     animation-fill-mode: forwards;
 }
 
+div.remove{
+    animation: remove .27s ease-out;
+}
+
 div>select{
     display: none;
     cursor: pointer;
@@ -71,5 +75,16 @@ mat-icon{
     100%{
         opacity: 1;
         margin-top: 5px;
+    }
+}
+
+@keyframes remove {
+    0%{
+        width: 120px;
+        padding: 0px 10px 0px 0px;
+    }
+    100%{
+        width: 30px;
+        padding: 0px;
     }
 }

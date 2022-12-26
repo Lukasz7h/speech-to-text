@@ -35,6 +35,8 @@ export class NotesToFileComponent implements AfterViewInit
       if(flag) return;
 
       flag = true;
+      if(div.classList.contains("remove")) div.classList.remove("remove");
+
       div.classList.add("show");
       select.classList.add("showSelect");
     })
@@ -45,6 +47,8 @@ export class NotesToFileComponent implements AfterViewInit
         flag = false;
         setTimeout(() => {
           if(!flag){
+            div.classList.add("remove");
+
             select.classList.remove("showSelect");
             div.classList.remove("show");
           }

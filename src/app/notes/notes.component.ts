@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 
 import { NotesService } from '../notesService/notes.service';
@@ -9,7 +9,7 @@ import { UserExitFromPageService } from './userExit/user-exit-from-page.service'
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css']
 })
-export class NotesComponent implements AfterViewInit
+export class NotesComponent implements AfterViewInit, OnInit
 {
   constructor(
     public notesService: NotesService,
@@ -22,6 +22,46 @@ export class NotesComponent implements AfterViewInit
 
   @ViewChild("a4")
   element: ElementRef;
+
+  ngOnInit()
+  {
+    this.notesService.setSettings();
+  }
+  
+  ngAfterViewInit(): void
+  {
+    this.changeDetRef.detach();
+
+    const notesText = document.getElementById("notesText");
+    this.notesService.a4 = notesText;
+
+    this.subscribeSettigs(notesText);
+    this.notesService.listenUser(notesText);
+
+    this.notesService.notesSettingsSubject.subscribe((data: []) => {
+      if(!data || data == null) return;
+
+      data.forEach((e) => {
+        const entries = Object.entries(e)[0];
+
+        if(this.notesService.settings[`${entries[0]}`] && this.notesService.settings[`${entries[0]}`].notStyleCss)
+        {
+          this.notesService.settings[`${entries[0]}`].worth = entries[1];
+          return;
+        }
+        
+        this.notesService.settings[`${entries[0]}`] = entries[1]; 
+        this.updateView(notesText, entries);
+      })
+    });
+    
+    window.addEventListener("beforeunload", () => this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent}));
+    
+    setTimeout(() => {
+      this.changeDetRef.reattach();
+    }, 0);
+    
+  }
 
   bottomPadding(notesText: HTMLElement, paddingBottom: number)
   {
@@ -69,35 +109,6 @@ export class NotesComponent implements AfterViewInit
     })
   }
 
-  ngAfterViewInit(): void
-  {
-    this.changeDetRef.detach();
-    const notesText = document.getElementById("notesText");
-    
-    this.notesService.a4 = notesText;
-
-    this.subscribeSettigs(notesText);
-    this.notesService.listenUser(notesText);
-
-    this.notesService.notesSettingsSubject.subscribe((data: []) => {
-      if(!data || data == null) return;
-
-      data.forEach((e) => {
-        const entries = Object.entries(e)[0];
-
-        if(this.notesService.settings[`${entries[0]}`] && this.notesService.settings[`${entries[0]}`].notStyleCss)
-        {
-          this.notesService.settings[`${entries[0]}`].worth = entries[1];
-          return;
-        }
-        
-        this.notesService.settings[`${entries[0]}`] = entries[1]; 
-        this.updateView(notesText, entries);
-      })
-    });
-    
-    window.addEventListener("beforeunload", () => this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent}));
-  }
 
   updateView(notesText: HTMLElement, attribute: object): void
   {

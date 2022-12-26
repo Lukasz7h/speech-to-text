@@ -43,6 +43,43 @@ export class NotesService {
   constructor()
   {}
 
+  setSettings()
+  {
+    const settingsFromStorage = JSON.parse(window.localStorage.getItem("settings"));
+    const notesTextFromStorage = window.localStorage.getItem("notesText");
+
+    function current(data: string, value: string): void
+    {
+      const elementOf = data.includes("fontFamily")? this.fontsList.splice(0, 1, value): "";
+
+      if(!elementOf[0]) return;
+      if(!!this.fontsList.indexOf(elementOf[0])) this.fontsList.push(elementOf[0]);
+    }
+
+    function isObjThen(key, obj): void
+    {
+      for(let e in obj)
+      {
+        this.settings[`${key}${e}`] = obj[`${e}`];
+      };
+    }
+
+    const settingsArray = [];
+    settingsFromStorage.forEach((e) => {
+
+      const obj = {};
+      obj[e[0]] = e[1];
+
+      if(e[0].includes("current")) current.call(this, e[0], e[1]);
+
+      settingsArray.push(obj);
+      e[1] instanceof Object? isObjThen.apply(this, [e[0], e[1]]): this.settings[`${e[0]}`] = e[1];
+    });
+
+    this.notesSettingsSubject.next(settingsArray);
+    window.onload = () => this.a4.textContent = notesTextFromStorage;
+  }
+
   // pobieranie pliku pdf
   createPDF(): void
   {
@@ -158,8 +195,12 @@ export class NotesService {
 
   setStyle(data)
   {
-    
-    this.settings[`current_${data.name}`] = data.worth.checked? data.worth.checked: data.worth;
+    this.settings[`current_${data.name}`] = data.worth;
+
+    if(data.worth instanceof Object){
+      var value = "checked" in data.worth? data.worth['checked']: data.worth;
+      this.settings[`current_${data.name}`] = value;
+    }
 
     switch(data.name)
     {
@@ -167,5 +208,6 @@ export class NotesService {
       case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
       case "lines": return this.notesSettingsSubject.next([ { "lines": data.worth.checked } ]);
     };
+    
   }
 }

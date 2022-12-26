@@ -53,7 +53,6 @@ describe('LineComponent', async() => {
     expect(appLine.clientHeight).toEqual(12);
 
     expect(appLine['style']['top']).toEqual('-18px');
-    console.log(appLine)
     expect(checkCharacter(appLine)).toEqual(210);
   });
 

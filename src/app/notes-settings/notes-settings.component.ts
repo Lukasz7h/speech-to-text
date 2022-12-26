@@ -34,11 +34,25 @@ export class NotesSettingsComponent implements AfterViewInit
       data.forEach((e) => {
         const key = Object.keys(e)[0];
         this.settings[`${key}`] = e[`${key}`];
+
+        if(key.includes("current_")) this.editNotes({element: {getAttribute: () => {
+            let sentence = "";
+
+            for(let i=key.indexOf("_")+1; i< key.length; i++)
+            {
+              sentence += key[i];
+            };
+
+            return sentence;
+          }},
+          change: {value: e[`${key}`]}
+        })
       });
+
     });
   }
 
-  editNotes(data: {element: HTMLElement, change: any}): void
+  editNotes(data: {element: any, change: any}): void
   {
     const newValue = data.change['value'];
     const attribute = data.element.getAttribute("data-attribute");
@@ -62,6 +76,7 @@ export class NotesSettingsComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
+
     this.elementFontInput.nativeElement.value = this.settings.fontSize;
     this.elementLetterSpaceInput.nativeElement.value = this.settings.letterSpacing;
 
@@ -80,6 +95,5 @@ export class NotesSettingsComponent implements AfterViewInit
 
       count++;
     })
-
   }
 }
