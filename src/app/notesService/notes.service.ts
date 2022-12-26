@@ -24,7 +24,10 @@ export class NotesService {
       Bottom: number,
       Right: number
     },
-    lines: {notStyleCss: boolean, worth: boolean}
+    lines: {notStyleCss: boolean, worth: boolean},
+
+    current_fontFamily: string,
+    current_color: string
   }
 
   fontsList: string[] = [
@@ -40,6 +43,7 @@ export class NotesService {
   constructor()
   {}
 
+  // pobieranie pliku pdf
   createPDF(): void
   {
     html2PDF(this.a4,
@@ -52,6 +56,7 @@ export class NotesService {
     .save();
   }
 
+  // pobieranie pliku typu docx (word)
   createDOCX()
   {
     const preHtml = 
@@ -153,6 +158,9 @@ export class NotesService {
 
   setStyle(data)
   {
+    
+    this.settings[`current_${data.name}`] = data.worth.checked? data.worth.checked: data.worth;
+
     switch(data.name)
     {
       case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);

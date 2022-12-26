@@ -81,6 +81,5 @@ export class NotesSettingsComponent implements AfterViewInit
       count++;
     })
 
-    this.changeDetRef.detach();
   }
 }

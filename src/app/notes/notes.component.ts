@@ -1,7 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { AppService } from '../app.service';
 
 import { NotesService } from '../notesService/notes.service';
+import { UserExitFromPageService } from './userExit/user-exit-from-page.service';
 
 @Component({
   selector: 'app-notes',
@@ -13,9 +14,10 @@ export class NotesComponent implements AfterViewInit
   constructor(
     public notesService: NotesService,
     private appService: AppService,
+    private userExitService: UserExitFromPageService,
     private changeDetRef: ChangeDetectorRef
   ){
-    this.notesService.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}, lines: {notStyleCss: true, worth: true}};
+    this.notesService.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}, lines: {notStyleCss: true, worth: true}, current_color: "rgb(0, 0, 0)", current_fontFamily: "Roboto-Thin"};
   }
 
   @ViewChild("a4")
@@ -71,7 +73,7 @@ export class NotesComponent implements AfterViewInit
   {
     this.changeDetRef.detach();
     const notesText = document.getElementById("notesText");
-
+    
     this.notesService.a4 = notesText;
 
     this.subscribeSettigs(notesText);
@@ -94,6 +96,7 @@ export class NotesComponent implements AfterViewInit
       })
     });
     
+    window.addEventListener("beforeunload", () => this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent}));
   }
 
   updateView(notesText: HTMLElement, attribute: object): void

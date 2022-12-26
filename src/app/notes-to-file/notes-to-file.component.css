@@ -8,15 +8,11 @@ div{
     transform: translate(100%, 0%);
 }
 
-div:hover{
+div.show{
     min-height: 30px;
     min-width: 30px;
     animation: show .4s ease-in;
     animation-fill-mode: forwards;
-}
-
-div:hover > mat-icon{
-    display: none;
 }
 
 div>select{
@@ -36,17 +32,11 @@ div>button{
     cursor: pointer;
 }
 
-div:hover > select{
-    animation-name: showInsideSelect;
-}
-
-div:hover > button{
-    animation-name: showInsideButton;
-}
-
-div:hover > select, div:hover > button{
+div>select.showSelect{
     opacity: 0;
     display: block;
+    margin-left: 40px;
+    animation-name: showInsideSelect;
     animation-delay: .4s;
     animation-duration: .5s;
     animation-fill-mode: forwards;
@@ -55,18 +45,21 @@ div:hover > select, div:hover > button{
 mat-icon{
     color: aliceblue;
     text-align: center;
-    width: inherit;
+    width: 30px;
     line-height: 30px;
     height: auto;
     cursor: pointer;
+    float: left;
 }
 
 @keyframes show{
     0%{
-        padding: 0px 0px 0px 0px;
+        padding: 0px 0px;
+        width: 30px;
     }
     100%{
-        padding: 10px 60px 45px 35px;
+        width: 120px;
+        padding: 0px 10px 0px 0px;
     }
 }
 
@@ -78,16 +71,5 @@ mat-icon{
     100%{
         opacity: 1;
         margin-top: 5px;
-    }
-}
-
-@keyframes showInsideButton{
-    0%{
-        opacity: 0;
-        margin-top: 35px;
-    }
-    100%{
-        opacity: 1;
-        margin-top: 18px;
     }
 }

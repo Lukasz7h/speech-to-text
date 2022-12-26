@@ -12,7 +12,6 @@ export class AppComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
-    this.changeDetRef.detach();
     this.appService.addInstance(document.getElementsByClassName("padding"))
 
     document.querySelector("app-notes")
