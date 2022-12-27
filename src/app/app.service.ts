@@ -39,6 +39,8 @@ export class AppService {
   getCoordsLocalStorage(padding: any)
   {
     const that = this;
+    console.log(this.instances)
+
     function set(data)
     {
       switch(data.position)
@@ -70,11 +72,6 @@ export class AppService {
         break;
       }
     }
-
-    console.log(that.instances['1'].x, that.instances['1'].y);
-    console.log(that.instances['2'].x, that.instances['2'].y);
-    console.log(that.instances['3'].x, that.instances['3'].y);
-    console.log(that.instances['4'].x, that.instances['4'].y);
   }
 
   mouseupEvent(data): void

@@ -30,7 +30,14 @@ export class NotesService {
       Right: number
     }
   } | any = {
-    padding: {}
+    lines: true,
+    padding: {
+      Left: 0,
+      Top: 0,
+
+      Right: 0,
+      Bottom: 0
+    }
   }
 
   fontsList: string[] = [
@@ -67,6 +74,8 @@ export class NotesService {
       };
     }
 
+    if(!settingsFromStorage) return;
+
     const settingsArray = [];
     settingsFromStorage.forEach((e) => {
 
@@ -78,8 +87,6 @@ export class NotesService {
       settingsArray.push(obj);
       e[1] instanceof Object? isObjThen.apply(this, [e[0], e[1]]): this.settings[`${e[0]}`] = e[1];
     });
-
-    console.log(settingsArray)
 
     this.notesSettingsSubject.next(settingsArray);
     window.onload = () => this.a4.textContent = notesTextFromStorage;
@@ -205,11 +212,11 @@ export class NotesService {
     if(data.worth instanceof Object){
       var value = "checked" in data.worth? data.worth['checked']: data.worth;
       this.settings[`${data.name}`] = value;
-    }
-
+    };
 
     switch(data.name)
     {
+      
       case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);
       case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
       case "lines": return this.notesSettingsSubject.next([ { "lines": data.worth.checked } ]);

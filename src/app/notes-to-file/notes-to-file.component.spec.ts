@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon';
 
 import { NotesToFileComponent } from './notes-to-file.component';
 
@@ -8,7 +9,8 @@ describe('NotesToFileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotesToFileComponent ]
+      declarations: [ NotesToFileComponent ],
+      imports: [MatIconModule]
     })
     .compileComponents();
 

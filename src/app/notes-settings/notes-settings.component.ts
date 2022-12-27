@@ -45,7 +45,6 @@ export class NotesSettingsComponent implements AfterViewInit
 
   editNotes(data: {element: any, change: any}): void
   {
-
     const newValue = data.change['value'];
     const attribute = data.element.getAttribute("data-attribute");
 

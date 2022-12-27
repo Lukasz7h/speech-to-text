@@ -34,7 +34,9 @@ describe('NotesComponent', () => {
 
   // object settings test
   it('should had paddings', () => {
-    const padding = component.settings.padding;
+    
+    const padding = component.notesService.settings.padding;
+
     for(let e in padding)
     {
       expect(padding[`${e}`]).toBeGreaterThanOrEqual(0);
@@ -55,14 +57,11 @@ describe('NotesComponent', () => {
   });
 
   it('load line-component', async() => {
-    component.ngAfterViewInit();
-    fixture.detectChanges();
-
     expect(document.getElementsByTagName("app-line")).toBeDefined();
   });
 
   it('line-component should be true (*ngIf)', () => {
-    expect(component.settings.lines.worth).toBeTrue();
+    expect(component.notesService.settings.lines).toBeDefined()
   })
   
 });
