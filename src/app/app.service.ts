@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+
 import { Padding } from './padding.instance';
 
 @Injectable({
@@ -37,12 +38,24 @@ export class AppService {
 
   getCoordsLocalStorage(padding: any)
   {
+    const that = this;
     function set(data)
     {
+      switch(data.position)
+      {
+        case "top": that.instances[`1`].setCoords(undefined, data.value), that.instances[`2`].setCoords(undefined, data.value);
+        break;
+        case "bottom": that.instances[`3`].setCoords(undefined, data.value), that.instances[`4`].setCoords(undefined, data.value);
+        break;
+        case "left": that.instances[`1`].setCoords(data.value, undefined), that.instances[`4`].setCoords(data.value, undefined);
+        break;
+        case "right": that.instances[`2`].setCoords(data.value, undefined), that.instances[`3`].setCoords(data.value, undefined);
+        break;
+      }
+
       document.querySelector(`[data-padding='${data.int}']`)['style'][`${data.position}`] = data.value+"px";
     }
 
-    console.log(padding)
     for(let key in padding)
     {
       switch(key)
@@ -57,6 +70,11 @@ export class AppService {
         break;
       }
     }
+
+    console.log(that.instances['1'].x, that.instances['1'].y);
+    console.log(that.instances['2'].x, that.instances['2'].y);
+    console.log(that.instances['3'].x, that.instances['3'].y);
+    console.log(that.instances['4'].x, that.instances['4'].y);
   }
 
   mouseupEvent(data): void
@@ -88,6 +106,8 @@ export class AppService {
         this.instances[`3`].setCoords(undefined, this.diffrenceY);
       break;
     };
+
+    
   }
 
   mousedownEvent(data): void
@@ -138,14 +158,16 @@ export class AppService {
     if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x && this.instances[`${this.thatElement.getAttribute("data-padding")}`].x > 0)
     this.diffrenceX += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
 
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y && this.instances[`${this.thatElement.getAttribute("data-padding")}`].y < 0)
-    this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
+    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y)
+    this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y > 0?
+    -this.instances[`${this.thatElement.getAttribute("data-padding")}`].y:
+    this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
 
     // ustawianie stylu (oś x)
     (this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3)?
     this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "Right"):
     this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "Left");
-    
+
     // ustawianie stylu (oś y)
     (this.thatElement.getAttribute("data-padding") == 3 || this.thatElement.getAttribute("data-padding") == 4)?
     this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY}, "Bottom"):

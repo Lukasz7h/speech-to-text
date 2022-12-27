@@ -29,7 +29,6 @@ export class NotesComponent implements AfterViewInit, OnInit
   ngAfterViewInit(): void
   {
     this.changeDetRef.detach();
-    this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
 
     const notesText = document.getElementById("notesText");
     this.notesService.a4 = notesText;
@@ -42,12 +41,6 @@ export class NotesComponent implements AfterViewInit, OnInit
 
       data.forEach((e) => {
         const entries = Object.entries(e)[0];
-
-        if(this.notesService.settings[`${entries[0]}`] && this.notesService.settings[`${entries[0]}`].notStyleCss)
-        {
-          this.notesService.settings[`${entries[0]}`].worth = entries[1];
-          return;
-        }
         
         this.notesService.settings[`${entries[0]}`] = entries[1]; 
         this.updateView(notesText, entries);
@@ -58,6 +51,7 @@ export class NotesComponent implements AfterViewInit, OnInit
     
     setTimeout(() => {
       this.changeDetRef.reattach();
+      this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
     }, 0);
     
   }
@@ -95,12 +89,8 @@ export class NotesComponent implements AfterViewInit, OnInit
   {
     this.appService.settingsSubject.subscribe((data) => {
 
-      console.log(this.notesService.settings)
-
       const entries = Object.entries(data)[0];
       this.notesService.settings.padding[`${entries[0]}`] = entries[1];
-
-      console.log(this.notesService.settings)
 
       if(entries[0] == "Bottom")
       {
