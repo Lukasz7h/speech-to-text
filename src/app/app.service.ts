@@ -35,6 +35,30 @@ export class AppService {
 
   flag: boolean = false;
 
+  getCoordsLocalStorage(padding: any)
+  {
+    function set(data)
+    {
+      document.querySelector(`[data-padding='${data.int}']`)['style'][`${data.position}`] = data.value+"px";
+    }
+
+    console.log(padding)
+    for(let key in padding)
+    {
+      switch(key)
+      {
+        case "Top": [set({int: 1, value: padding[`${key}`], position: "top"}), set({int: 2, value: padding[`${key}`], position: "top"})];
+        break;
+        case "Bottom": [set({int: 3, value: padding[`${key}`], position: "bottom"}), set({int: 4, value: padding[`${key}`], position: "bottom"})]
+        break;
+        case "Left": [set({int: 1, value: padding[`${key}`], position: "left"}), set({int: 4, value: padding[`${key}`], position: "left"})]
+        break;
+        case "Right": [set({int: 2, value: padding[`${key}`], position: "right"}), set({int: 3, value: padding[`${key}`], position: "right"})]
+        break;
+      }
+    }
+  }
+
   mouseupEvent(data): void
   {
     this.flag = false;

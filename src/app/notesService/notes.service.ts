@@ -17,17 +17,20 @@ export class NotesService {
   a4: HTMLElement;
   settings: {
     fontSize: number,
+
+    fontList: string[],
+    letterSpacing: number,
+
+    lineHeight: number,
     padding: {
       Top: number,
       Left: number,
 
       Bottom: number,
       Right: number
-    },
-    lines: {notStyleCss: boolean, worth: boolean},
-
-    current_fontFamily: string,
-    current_color: string
+    }
+  } | any = {
+    padding: {}
   }
 
   fontsList: string[] = [
@@ -50,7 +53,7 @@ export class NotesService {
 
     function current(data: string, value: string): void
     {
-      const elementOf = data.includes("fontFamily")? this.fontsList.splice(0, 1, value): "";
+      const elementOf = this.fontsList.splice(0, 1, value);
 
       if(!elementOf[0]) return;
       if(!!this.fontsList.indexOf(elementOf[0])) this.fontsList.push(elementOf[0]);
@@ -60,7 +63,7 @@ export class NotesService {
     {
       for(let e in obj)
       {
-        this.settings[`${key}${e}`] = obj[`${e}`];
+        this.settings[`${key}`][`${e}`] = obj[`${e}`];
       };
     }
 
@@ -70,11 +73,13 @@ export class NotesService {
       const obj = {};
       obj[e[0]] = e[1];
 
-      if(e[0].includes("current")) current.call(this, e[0], e[1]);
+      if(e[0].includes("fontFamily")) current.call(this, e[0], e[1]);
 
       settingsArray.push(obj);
       e[1] instanceof Object? isObjThen.apply(this, [e[0], e[1]]): this.settings[`${e[0]}`] = e[1];
     });
+
+    console.log(settingsArray)
 
     this.notesSettingsSubject.next(settingsArray);
     window.onload = () => this.a4.textContent = notesTextFromStorage;
@@ -195,12 +200,13 @@ export class NotesService {
 
   setStyle(data)
   {
-    this.settings[`current_${data.name}`] = data.worth;
+    this.settings[`${data.name}`] = data.worth;
 
     if(data.worth instanceof Object){
       var value = "checked" in data.worth? data.worth['checked']: data.worth;
-      this.settings[`current_${data.name}`] = value;
+      this.settings[`${data.name}`] = value;
     }
+
 
     switch(data.name)
     {

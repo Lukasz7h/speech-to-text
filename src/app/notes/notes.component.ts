@@ -16,9 +16,7 @@ export class NotesComponent implements AfterViewInit, OnInit
     private appService: AppService,
     private userExitService: UserExitFromPageService,
     private changeDetRef: ChangeDetectorRef
-  ){
-    this.notesService.settings = {fontSize: undefined, padding: {Top: 0, Left:0, Bottom: 0, Right: 0}, lines: {notStyleCss: true, worth: true}, current_color: "rgb(0, 0, 0)", current_fontFamily: "Roboto-Thin"};
-  }
+  ){}
 
   @ViewChild("a4")
   element: ElementRef;
@@ -31,6 +29,7 @@ export class NotesComponent implements AfterViewInit, OnInit
   ngAfterViewInit(): void
   {
     this.changeDetRef.detach();
+    this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
 
     const notesText = document.getElementById("notesText");
     this.notesService.a4 = notesText;
@@ -96,8 +95,12 @@ export class NotesComponent implements AfterViewInit, OnInit
   {
     this.appService.settingsSubject.subscribe((data) => {
 
+      console.log(this.notesService.settings)
+
       const entries = Object.entries(data)[0];
       this.notesService.settings.padding[`${entries[0]}`] = entries[1];
+
+      console.log(this.notesService.settings)
 
       if(entries[0] == "Bottom")
       {
@@ -112,7 +115,15 @@ export class NotesComponent implements AfterViewInit, OnInit
 
   updateView(notesText: HTMLElement, attribute: object): void
   {
-    isNaN(Number(attribute[1])) && notesText.style[`${attribute[0]}`]?
+    if(attribute[1] instanceof Object)
+    {
+      for(let key in attribute[1])
+      {
+        this.updateView(notesText, [`${attribute[0]+key}`, attribute[1][key]]);
+      }
+    };
+
+    isNaN(Number(attribute[1])) && attribute[0] in notesText.style?
     notesText.style[`${attribute[0]}`] = attribute[1]:
     notesText.style[`${attribute[0]}`] = attribute[1] + "px";
   }

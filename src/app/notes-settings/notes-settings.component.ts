@@ -9,15 +9,6 @@ import { NotesService } from '../notesService/notes.service';
 })
 export class NotesSettingsComponent implements AfterViewInit
 {
-
-  settings: {
-    fontSize: number,
-    fontList: string[],
-    letterSpacing: number,
-    colors: string[],
-    lineHeight: number
-  } = {fontSize: undefined, fontList: undefined, letterSpacing: undefined, colors: undefined, lineHeight: undefined};
-
   button;
 
   user = { color: '#234532' };
@@ -27,13 +18,13 @@ export class NotesSettingsComponent implements AfterViewInit
   touchUi = false;
 
   constructor(
-    private notesService: NotesService,
+    public notesService: NotesService,
     private changeDetRef: ChangeDetectorRef
   ){
     notesService.notesSettingsSubject.subscribe((data: []) => {
       data.forEach((e) => {
         const key = Object.keys(e)[0];
-        this.settings[`${key}`] = e[`${key}`];
+        this.notesService.settings[`${key}`] = e[`${key}`];
 
         if(key.includes("current_")) this.editNotes({element: {getAttribute: () => {
             let sentence = "";
@@ -54,6 +45,7 @@ export class NotesSettingsComponent implements AfterViewInit
 
   editNotes(data: {element: any, change: any}): void
   {
+
     const newValue = data.change['value'];
     const attribute = data.element.getAttribute("data-attribute");
 
@@ -77,10 +69,10 @@ export class NotesSettingsComponent implements AfterViewInit
   ngAfterViewInit(): void
   {
 
-    this.elementFontInput.nativeElement.value = this.settings.fontSize;
-    this.elementLetterSpaceInput.nativeElement.value = this.settings.letterSpacing;
+    this.elementFontInput.nativeElement.value = this.notesService.settings.fontSize;
+    this.elementLetterSpaceInput.nativeElement.value = this.notesService.settings.letterSpacing;
 
-    this.lineHeightInp.nativeElement.value = this.settings.lineHeight;
+    this.lineHeightInp.nativeElement.value = this.notesService.settings.lineHeight;
 
     this.button = this.colorElement.nativeElement.getElementsByTagName("button").item(0);
     let count = 0;
