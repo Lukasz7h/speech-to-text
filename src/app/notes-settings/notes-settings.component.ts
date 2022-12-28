@@ -21,26 +21,6 @@ export class NotesSettingsComponent implements AfterViewInit
     public notesService: NotesService,
     private changeDetRef: ChangeDetectorRef
   ){
-    notesService.notesSettingsSubject.subscribe((data: []) => {
-      data.forEach((e) => {
-        const key = Object.keys(e)[0];
-        this.notesService.settings[`${key}`] = e[`${key}`];
-
-        if(key.includes("current_")) this.editNotes({element: {getAttribute: () => {
-            let sentence = "";
-
-            for(let i=key.indexOf("_")+1; i< key.length; i++)
-            {
-              sentence += key[i];
-            };
-
-            return sentence;
-          }},
-          change: {value: e[`${key}`]}
-        })
-      });
-
-    });
   }
 
   editNotes(data: {element: any, change: any}): void
@@ -67,7 +47,6 @@ export class NotesSettingsComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
-
     this.elementFontInput.nativeElement.value = this.notesService.settings.fontSize;
     this.elementLetterSpaceInput.nativeElement.value = this.notesService.settings.letterSpacing;
 

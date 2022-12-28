@@ -1,21 +1,21 @@
 <nav>
-    <h2>Ustawienia</h2>
+    <h2></h2>
     <ul>
-        <li #fontSize data-attribute="fontSize">Rozmiar czcionki <input #fontInp type="number" (input)="editNotes({element: fontSize, change: fontInp})"></li>
-        <li #fontList data-attribute="fontFamily">Czcionka 
-            <select  (change)='editNotes({element: fontList, change: $event.target})'>
-                <option *ngFor="let e of this.notesService.settings.fontList">{{e}}</option>
+        <li #fontSize data-attribute="fontSize"><input #fontInp type="number" (input)="editNotes({element: fontSize, change: fontInp})"></li>
+        <li #fontList data-attribute="fontFamily">
+            <select (change)='editNotes({element: fontList, change: $event.target})'>
+                <option *ngFor="let e of this.notesService.fontsList">{{e}}</option>
             </select>
         </li>
 
-        <li #letterSpacing data-attribute="letterSpacing">Odległość między literami oś x
+        <li #letterSpacing data-attribute="letterSpacing">
              <input #letterInp (input)="editNotes({element: letterSpacing, change: letterInp})" type="number">
         </li>
-        <li #letterHeight data-attribute="lineHeight">Odległosć między literami oś y 
+        <li #letterHeight data-attribute="lineHeight">
             <input #lineInp (input)="editNotes({element: letterHeight, change: lineInp})" type="number">
         </li>
         
-        <li #colorElement data-attribute="color">Kolor czcionki
+        <li #colorElement data-attribute="color">
             <mat-form-field>
                 <input (ngModel)="(0)" (ngModelChange)="editNotes({element: colorElement, change: {value: $event.rgba}})" matInput [ngxMatColorPicker]="picker" [disabled]="disabled">
                 <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
@@ -23,8 +23,8 @@
             </mat-form-field>
         </li>
 
-        <li #lines data-attribute="lines">Linijka
-            <input #checkboxInp type="checkbox" checked (input)="editNotes({element: lines, change: {value: checkboxInp}})">
+        <li #lines data-attribute="lines">
+            <input #checkboxInp type="checkbox" [checked]="this.notesService.settings.lines" (input)="editNotes({element: lines, change: {value: checkboxInp}})">
         </li>
         
     </ul>

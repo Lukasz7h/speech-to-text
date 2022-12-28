@@ -10,13 +10,13 @@ export class AppService {
 
   constructor(){}
 
-  instances = {};
-  thatElement;
+  instances = {}
+  thatElement
 
-  settingsSubject: Subject<{Top?: number, Left?: number, Bottom?: number, Right?: number}> = new Subject<{Top: number, Left: number, Bottom: number, Right: number}>();
+  settingsSubject: Subject<{Top?: number, Left?: number, Bottom?: number, Right?: number}> = new Subject<{Top: number, Left: number, Bottom: number, Right: number}>()
 
-  diffrenceX;
-  diffrenceY;
+  diffrenceX
+  diffrenceY
 
   setPaddingX(element: HTMLElement): number
   {
@@ -39,7 +39,6 @@ export class AppService {
   getCoordsLocalStorage(padding: any)
   {
     const that = this;
-    console.log(this.instances)
 
     function set(data)
     {
@@ -103,8 +102,6 @@ export class AppService {
         this.instances[`3`].setCoords(undefined, this.diffrenceY);
       break;
     };
-
-    
   }
 
   mousedownEvent(data): void

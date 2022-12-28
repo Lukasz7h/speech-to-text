@@ -41,12 +41,13 @@ export class NotesComponent implements AfterViewInit, OnInit
 
       data.forEach((e) => {
         const entries = Object.entries(e)[0];
-        
+
         this.notesService.settings[`${entries[0]}`] = entries[1]; 
         this.updateView(notesText, entries);
       })
     });
     
+   
     window.addEventListener("beforeunload", () => this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent}));
     
     setTimeout(() => {
@@ -56,6 +57,7 @@ export class NotesComponent implements AfterViewInit, OnInit
     
   }
 
+  // ustalamy zmiany dla dolnych paddingów
   bottomPadding(notesText: HTMLElement, paddingBottom: number)
   {
     const a4Height = this.element.nativeElement.offsetHeight;
@@ -85,6 +87,7 @@ export class NotesComponent implements AfterViewInit, OnInit
     };
   }
 
+  // nasłuchiwanie zmian jakie zachodzą w notatniku (tylko paddingi)
   subscribeSettigs(notesText: HTMLElement): void
   {
     this.appService.settingsSubject.subscribe((data) => {
@@ -101,7 +104,6 @@ export class NotesComponent implements AfterViewInit, OnInit
       notesText.style[`padding${entries[0]}`] = `${entries[1]}px`;
     })
   }
-
 
   updateView(notesText: HTMLElement, attribute: object): void
   {

@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import html2PDF from 'jspdf-html2canvas';
 
+// objekt który używamy do nasłuchiwania mikrofonu użytkownika
 interface IWindow extends Window
 {
   webkitSpeechRecognition: any;
@@ -48,7 +49,7 @@ export class NotesService {
     "Roboto-LightItalic", "Roboto-Medium", "Roboto-MediumItalic", "Roboto-Regular", 
   ];
 
-  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {fontList: this.fontsList}, {letterSpacing: 1}, {lineHeight: 25}]);
+  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {letterSpacing: 1}, {lineHeight: 25}]);
 
   constructor()
   {}
@@ -58,7 +59,8 @@ export class NotesService {
     const settingsFromStorage = JSON.parse(window.localStorage.getItem("settings"));
     const notesTextFromStorage = window.localStorage.getItem("notesText");
 
-    function current(data: string, value: string): void
+    // uaktualnianie listy czcionek która znajduje się w settings component w zależności od tego jaką aktualnie czcionke używa użytkownik
+    function currentFont(data: string, value: string): void
     {
       const elementOf = this.fontsList.splice(0, 1, value);
 
@@ -74,7 +76,7 @@ export class NotesService {
       };
     }
 
-    if(!settingsFromStorage) return;
+    if(!settingsFromStorage) return; // jeśli nie posiadamy pobranych ustawiem z local storage kończymy wykonanie funkcji
 
     const settingsArray = [];
     settingsFromStorage.forEach((e) => {
@@ -82,7 +84,7 @@ export class NotesService {
       const obj = {};
       obj[e[0]] = e[1];
 
-      if(e[0].includes("fontFamily")) current.call(this, e[0], e[1]);
+      if(e[0].includes("fontFamily")) currentFont.call(this, e[0], e[1]);
 
       settingsArray.push(obj);
       e[1] instanceof Object? isObjThen.apply(this, [e[0], e[1]]): this.settings[`${e[0]}`] = e[1];
@@ -155,7 +157,7 @@ export class NotesService {
 
     window.addEventListener("keydown", (e) => {
 
-      if(e.target['id'] == "notesText" && e.key == "Tab")
+      if(e.target['id'] == "notesText" && e.key == "Tab") // jeśli użytkownik nacisnął tab w notatniku
       {
         e.preventDefault();
 
@@ -176,7 +178,7 @@ export class NotesService {
       if(flag) return;
       flag = true;
 
-      if(e.keyCode == 75)
+      if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
         speechRecognition.onresult = (event) => {
 
@@ -208,7 +210,7 @@ export class NotesService {
   setStyle(data)
   {
     this.settings[`${data.name}`] = data.worth;
-
+    
     if(data.worth instanceof Object){
       var value = "checked" in data.worth? data.worth['checked']: data.worth;
       this.settings[`${data.name}`] = value;
@@ -216,11 +218,9 @@ export class NotesService {
 
     switch(data.name)
     {
-      
-      case "fontFamily": return document.documentElement.style.setProperty("--font-Family", data.worth);
+      case "fontFamily": return this.a4.style.fontFamily = data.worth;
       case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
       case "lines": return this.notesSettingsSubject.next([ { "lines": data.worth.checked } ]);
     };
-    
   }
 }
