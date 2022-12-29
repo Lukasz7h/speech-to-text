@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { backend } from '../backend/data';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegisterService {
 
@@ -13,7 +13,7 @@ export class RegisterService {
   currentElement: string;
 
   registerForm: FormGroup;
-  constructor(private httpCliet: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   addListeners(...elementArr)
   {
@@ -72,7 +72,7 @@ export class RegisterService {
     data.append("login", this.registerForm.value['login']);
     data.append("password", this.registerForm.value['password']);
 
-    this.httpCliet.post(backend.url+"/register", data)
+    this.httpClient.post(backend.url+"/register", data)
     .subscribe((data) => {
       console.log(data)
     })

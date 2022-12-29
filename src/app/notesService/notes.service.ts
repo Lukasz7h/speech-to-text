@@ -32,6 +32,11 @@ export class NotesService {
     }
   } | any = {
     lines: true,
+    fontSize: 20,
+
+    letterSpacing: 1,
+
+    lineHeight: 1,
     padding: {
       Left: 0,
       Top: 0,

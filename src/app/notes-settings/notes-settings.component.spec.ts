@@ -39,7 +39,6 @@ describe('NotesSettingsComponent', () => {
   });
 
   it('check font', () => {
-    component.ngAfterViewInit();
     expect(moreThen(component.elementFontInput.nativeElement.value, 0)).toBeTrue();
 
     expect(moreThen(component.elementLetterSpaceInput.nativeElement.value, 0)).toBeTrue();

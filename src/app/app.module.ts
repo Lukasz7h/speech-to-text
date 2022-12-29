@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MainComponent } from './main/main.component';
 
 import { RegisterModule } from './register/register.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [

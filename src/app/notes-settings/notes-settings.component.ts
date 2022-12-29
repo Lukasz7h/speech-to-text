@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+
 import { NotesService } from '../notesService/notes.service';
 
 @Component({
@@ -47,6 +48,7 @@ export class NotesSettingsComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
+    
     this.elementFontInput.nativeElement.value = this.notesService.settings.fontSize;
     this.elementLetterSpaceInput.nativeElement.value = this.notesService.settings.letterSpacing;
 
