@@ -1,0 +1,9 @@
+<form [formGroup]="this.registerService.registerForm" (ngSubmit)="sendForm()">
+    <label>Login:</label>
+    <input #inpLogin data-attribute="login" type="text" formControlName="login">
+    <label>Hasło:</label>
+    <input #inpPassword data-attribute="password" type="password" formControlName="password">
+    <label>Powtórz hasło:</label>
+    <input #inpRepeatPassword data-attribute="repeat_password" type="password" id="repeat_pass" formControlName="repeat_password">
+    <button type="submit">Wyślij</button>
+</form>

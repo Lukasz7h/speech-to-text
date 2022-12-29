@@ -6,18 +6,6 @@ import { AppService } from './app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit
+export class AppComponent
 {
-  constructor(private appService: AppService, private changeDetRef: ChangeDetectorRef){}
-
-  ngAfterViewInit(): void
-  {
-    this.appService.addInstance(document.getElementsByClassName("padding"))
-
-    document.querySelector("app-notes")
-    .addEventListener("mousedown", this.appService.mousedownEvent.bind(this.appService));
-
-    document.querySelector("body")
-    .addEventListener("mouseup", this.appService.mouseupEvent.bind(this.appService));
-  }
 }
