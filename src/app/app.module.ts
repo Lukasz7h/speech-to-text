@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MainComponent } from './main/main.component';
 
 import { RegisterModule } from './register/register.module';
-import { HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     NotesModule,
     MatIconModule,
-    RegisterModule
+    RegisterModule,
+    LoginModule
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]

@@ -10,10 +10,16 @@ describe('RegisterService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule]
     });
+    
     service = TestBed.inject(RegisterService);
   });
 
   it('should be created', () => {
+    console.log(service)
     expect(service).toBeTruthy();
   });
+
+  it('current element should be not defined', () => {
+    expect(service.currentElement).not.toBeDefined()
+  })
 });

@@ -5,6 +5,7 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {path: "register", loadChildren: () => import("./register/register.module").then(module => module.RegisterModule)},
+  {path: "login", loadChildren: () => import("./login/login.module").then(module => module.LoginModule)},
   {path: "**", component: MainComponent}
 ];
 

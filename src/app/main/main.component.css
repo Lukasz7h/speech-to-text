@@ -1,5 +1,12 @@
 button{
     position: absolute;
     right: 150px;
+}
+
+#register{
     top: 150px;
+}
+
+#login{
+    top: 170px;
 }

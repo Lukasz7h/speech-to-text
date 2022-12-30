@@ -1,0 +1,7 @@
+<form [formGroup]="loginService.loginForm" (ngSubmit)="send()">
+    <label>Login:</label>
+    <input type="text" formControlName="login">
+    <label>Hasło:</label>
+    <input type="password" formControlName="password">
+    <button type="submit">Zaloguj się</button>
+</form>
