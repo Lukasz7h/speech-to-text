@@ -11,13 +11,7 @@ import { RegisterService } from './register.service';
 export class RegisterComponent implements AfterViewInit
 {
 
-  constructor(private formBuilder: FormBuilder, public registerService: RegisterService){
-    this.registerService.registerForm = formBuilder.group({
-      login: "",
-      password: "",
-
-      repeat_password: ""
-    });
+  constructor(public registerService: RegisterService){
 
     this.registerService.formSubscribe(this.registerService.registerForm);
   }
@@ -36,8 +30,11 @@ export class RegisterComponent implements AfterViewInit
     this.registerService.addListeners(this.inpLogin, this.inpPassword, this.inpRepeatPassword);
   }
 
-  sendForm()
+  async sendForm()
   {
-    if(this.registerService.canSend()) this.registerService.registerUser();
+    if(!this.registerService.canSend()) return;
+    const result = await this.registerService.registerUser();
+
+    
   }
 }

@@ -10,7 +10,7 @@ export class NotesToFileComponent implements AfterViewInit
 {
 
   constructor(private notesService: NotesService){}
-  documentTypes: string[] = ["pdf", "docx"];
+  documentTypes: string[] = ["pdf", "docx"]
 
   createDocument(type: string): void
   {
@@ -39,7 +39,7 @@ export class NotesToFileComponent implements AfterViewInit
 
       div.classList.add("show");
       select.classList.add("showSelect");
-    })
+    });
 
     div.addEventListener("mouseleave", (e) => {
       if(flag)
@@ -54,6 +54,6 @@ export class NotesToFileComponent implements AfterViewInit
           }
         }, 2200);
       };
-    })
+    });
   }
 }

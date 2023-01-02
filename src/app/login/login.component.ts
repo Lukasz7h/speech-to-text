@@ -11,18 +11,12 @@ import { LoginService } from './login.service';
 export class LoginComponent
 {
 
-  constructor(public loginService: LoginService, private formBuilder: FormBuilder)
-  {
-    loginService.loginForm = formBuilder.group({
-      login: "",
-      password: ""
-    });
-  }
+  constructor(public loginService: LoginService)
+  {}
 
   send()
   {
     this.loginService.sendForm();
   }
-
 
 }

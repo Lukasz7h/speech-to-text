@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { backend } from '../backend/data';
 
 @Injectable({
@@ -13,7 +13,14 @@ export class RegisterService {
   currentElement: string;
 
   registerForm: FormGroup;
-  constructor(private httpClient: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+    this.registerForm = formBuilder.group({
+      login: "",
+      password: "",
+
+      repeat_password: ""
+    })
+  }
 
   addListeners(...elementArr)
   {
@@ -35,18 +42,18 @@ export class RegisterService {
     })
   }
 
-  validRegisterValue: {checkLen, repeat_password} = {
-    checkLen: (word: string, min: number, max: number): boolean => word.length >= min && word.length <= max,
-    repeat_password: (pass1: string, pass2: string): boolean => pass1 === pass2,
-  }
-
   checkValue(): boolean
   {
+    const validRegisterValue: {checkLen, repeat_password} = {
+      checkLen: (word: string, min: number, max: number): boolean => word.length >= min && word.length <= max,
+      repeat_password: (pass1: string, pass2: string): boolean => pass1 === pass2,
+    };
+
     return this.currentElement == "repeat_password"?
-    this.validRegisterValue.repeat_password(this.registerForm.value["password"], this.registerForm.value['repeat_password']):
+    validRegisterValue.repeat_password(this.registerForm.value["password"], this.registerForm.value['repeat_password']):
     (
-      this.currentElement == "login"? this.validRegisterValue.checkLen(this.registerForm.value["login"], 4, 22): 
-      this.validRegisterValue.checkLen(this.registerForm.value["password"], 6, 32)
+      this.currentElement == "login"? validRegisterValue.checkLen(this.registerForm.value["login"], 4, 22): 
+      validRegisterValue.checkLen(this.registerForm.value["password"], 6, 32)
     );
   }
 
@@ -65,16 +72,19 @@ export class RegisterService {
     return result;
   }
 
-  registerUser()
+  registerUser(): Promise<any>
   {
-    const data = new FormData();
+    return new Promise((resolve) => {
+      const data = new FormData();
 
-    data.append("login", this.registerForm.value['login']);
-    data.append("password", this.registerForm.value['password']);
-
-    this.httpClient.post(backend.url+"/register", data)
-    .subscribe((data) => {
-      console.log(data)
+      data.append("login", this.registerForm.value['login']);
+      data.append("password", this.registerForm.value['password']);
+  
+      this.httpClient.post(backend.url+"/register", data)
+      .subscribe((data) => {
+        resolve(data);
+      })
     })
+    
   }
 }

@@ -22,4 +22,12 @@ describe('NotesToFileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('documentTypes should be array of string', () => {
+    expect(component.documentTypes instanceof Array).toBeTrue();
+  });
+
+  it('documentType array should had only string', () => {
+    expect(component.documentTypes.every((e) => typeof e == "string")).toBeTrue();
+  });
 });
