@@ -12,24 +12,26 @@ export class NotesToFileComponent implements AfterViewInit
   constructor(private notesService: NotesService){}
   documentTypes: string[] = ["pdf", "docx"]
 
-  createDocument(type: string): void
+  createDocument(type: string, name: string): void
   {
     switch(type)
     {
-      case "pdf": this.notesService.createPDF();
+      case "pdf": this.notesService.createPDF(name);
       break;
-      case "docx": this.notesService.createDOCX();
+      case "docx": this.notesService.createDOCX(name);
       break;
     }
   }
 
   ngAfterViewInit(): void
   {
-    
     let flag = false;
 
     const div = document.getElementById("fileDownload");
     const select = div.getElementsByTagName("select").item(0);
+
+    const inpName = div.getElementsByTagName("input").item(0);
+    const label = div.getElementsByTagName("label").item(0);
 
     div.addEventListener("mousemove", () => {
       if(flag) return;
@@ -39,6 +41,9 @@ export class NotesToFileComponent implements AfterViewInit
 
       div.classList.add("show");
       select.classList.add("showSelect");
+
+      inpName.classList.add("showName");
+      label.classList.add("showName");
     });
 
     div.addEventListener("mouseleave", (e) => {
@@ -51,6 +56,9 @@ export class NotesToFileComponent implements AfterViewInit
 
             select.classList.remove("showSelect");
             div.classList.remove("show");
+
+            inpName.classList.remove("showName");
+            label.classList.remove("showName");
           }
         }, 2200);
       };

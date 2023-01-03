@@ -1,6 +1,7 @@
 <div id="fileDownload">
-    <mat-icon>get_app</mat-icon>
+    <mat-icon (click)="createDocument(document.value, fileName.value)">get_app</mat-icon>
     <select #document>
         <option *ngFor="let doc of documentTypes">{{doc}}</option>
     </select>
+    <label>nazwa: </label><input type="text" #fileName>
 </div>

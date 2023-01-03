@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { backend } from "../backend/data";
 
 @Injectable({
@@ -10,7 +12,7 @@ import { backend } from "../backend/data";
 export class LoginService {
 
   loginForm: FormGroup;
-  constructor(private httpClient: HttpClient, private formBuilder: FormBuilder){
+  constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, private router: Router){
     this.loginForm = formBuilder.group({
       login: "",
       password: ""
@@ -32,8 +34,8 @@ export class LoginService {
     form.append("password", this.loginForm.value['password']);
 
     this.httpClient.post(backend.url+"/login", form, {withCredentials: true})
-    .subscribe((data) => {
-      console.log(data)
+    .subscribe((x: any) => {
+      if(x.data.login) this.router.navigate(['/']);
     });
   }
 }

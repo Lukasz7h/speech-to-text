@@ -120,14 +120,4 @@ export class NotesComponent implements AfterViewInit, OnInit
     notesText.style[`${attribute[0]}`] = attribute[1] + "px";
   }
 
-  createDocument(type): void
-  {
-    switch(type)
-    {
-      case "pdf": this.notesService.createPDF();
-      break;
-      case "docx": this.notesService.createDOCX();
-      break;
-    }
-  }
 }

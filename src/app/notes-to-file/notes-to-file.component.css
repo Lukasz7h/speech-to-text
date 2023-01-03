@@ -2,7 +2,7 @@ div{
     height: 30px;
     width: 30px;
     background: rgb(41,167,131);
-    background: linear-gradient(138deg, rgba(8,154,154,1) 0%, rgb(25, 88, 88) 100%); 
+    background: linear-gradient(138deg, rgb(8, 154, 69) 0%, rgb(25, 88, 88) 100%); 
     border-radius: 5px;
     overflow: hidden;
     transform: translate(100%, 0%);
@@ -38,10 +38,38 @@ div>button{
 
 div>select.showSelect{
     opacity: 0;
+    border-radius: 2px;
     display: block;
     margin-left: 40px;
     animation-name: showInsideSelect;
     animation-delay: .4s;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+div>label{
+    opacity: 0;
+}
+
+div>label.showName{
+    color: aliceblue;
+    font-family: Roboto-Light;
+    margin-left: -25px;
+    float: left;
+    animation-name: showName;
+    animation-delay: .7s;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+div>input{
+    opacity: 0;
+}
+
+div>input.showName{
+    width: 63%;
+    animation-name: showName;
+    animation-delay: .7s;
     animation-duration: .5s;
     animation-fill-mode: forwards;
 }
@@ -59,10 +87,12 @@ mat-icon{
 @keyframes show{
     0%{
         padding: 0px 0px;
+        height: 30px;
         width: 30px;
     }
     100%{
-        width: 120px;
+        width: 160px;
+        height: 70px;
         padding: 0px 10px 0px 0px;
     }
 }
@@ -71,10 +101,12 @@ mat-icon{
     0%{
         opacity: 0;
         margin-top: 20px;
+        margin-left: 55px;
     }
     100%{
         opacity: 1;
         margin-top: 5px;
+        margin-left: 55px;
     }
 }
 
@@ -86,5 +118,16 @@ mat-icon{
     100%{
         width: 30px;
         padding: 0px;
+    }
+}
+
+@keyframes showName {
+    0%{
+        opacity: 0;
+        margin-top: 25px;
+    }
+    100%{
+        opacity: 1;
+        margin-top: 12px;
     }
 }

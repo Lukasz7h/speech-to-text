@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import html2PDF from 'jspdf-html2canvas';
+import * as html2pdf from "html2pdf-jspdf2";
 
 // objekt który używamy do nasłuchiwania mikrofonu użytkownika
 interface IWindow extends Window
@@ -100,20 +100,19 @@ export class NotesService {
   }
 
   // pobieranie pliku pdf
-  createPDF(): void
+  createPDF(name: string): void
   {
-    html2PDF(this.a4,
+    html2pdf(this.a4,
     {
-      filename: 'myfile.pdf',
+      filename: name+".pdf",
       image: { type: 'jpg', quality: 0.5 },
       html2canvas: { scale: 1.5, dpi: 122 },
       jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
-    })
-    .save();
+    });
   }
 
   // pobieranie pliku typu docx (word)
-  createDOCX()
+  createDOCX(name: string): void
   {
     const preHtml = 
     `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -142,14 +141,12 @@ export class NotesService {
     var html = preHtml+paragraphContent+postHtml;
     
     const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-    let filename = 'document.doc';
-    
     var downloadLink = document.createElement("a");
 
     document.body.appendChild(downloadLink);
     downloadLink.href = url;
         
-    downloadLink.download = filename;
+    downloadLink.download = name+".doc";
     downloadLink.click();
   }
 
