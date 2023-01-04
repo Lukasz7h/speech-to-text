@@ -1,5 +1,9 @@
 <app-notes-settings></app-notes-settings>
 <app-notes></app-notes>
 <app-notes-to-file></app-notes-to-file>
-<button id="register" routerLink="/register">rejestracja</button>
-<button id="login" routerLink="/login">zaloguj się</button>
+
+<button id="register" routerLink="/register" *ngIf="!guard.isLoged">rejestracja</button>
+<button id="login" routerLink="/login" *ngIf="!guard.isLoged">zaloguj się</button>
+
+<button id="logout" *ngIf="guard.isLoged" (click)="logoutService.logout()">wyloguj się</button>
+<button id="save" *ngIf="guard.isLoged" (click)="serverService.saveDoc()">zapisz dokument</button>

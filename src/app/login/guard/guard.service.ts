@@ -9,16 +9,17 @@ import { backend } from 'src/app/backend/data';
 })
 export class GuardService implements CanActivate
 {
-  constructor(private httpClient: HttpClient) { }
+  isLoged: boolean = false;
+  constructor(private httpClient: HttpClient) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean>
+  canActivate(): Promise<boolean>
   {
     return new Promise((resolve) => {
       this.httpClient.get(backend.url+"/auth", {withCredentials: true})
       .subscribe((e: any) => {
-        console.log(e)
+        this.isLoged = !!e.auth;
         return resolve(!e.auth);
-      })
-    })
+      });
+    });
   }
 }
