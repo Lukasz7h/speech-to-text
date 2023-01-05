@@ -7,3 +7,5 @@
 
 <button id="logout" *ngIf="guard.isLoged" (click)="logoutService.logout()">wyloguj się</button>
 <button id="save" *ngIf="guard.isLoged" (click)="serverService.saveDoc()">zapisz dokument</button>
+
+<button id="files" *ngIf="guard.isLoged" routerLink="/documents">Moje dokumenty</button>

@@ -18,7 +18,8 @@ export class GuardService implements CanActivate
       this.httpClient.get(backend.url+"/auth", {withCredentials: true})
       .subscribe((e: any) => {
         this.isLoged = !!e.auth;
-        return resolve(!e.auth);
+
+        return resolve(!!e.auth);
       });
     });
   }
