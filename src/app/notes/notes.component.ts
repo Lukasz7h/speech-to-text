@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscriber } from 'rxjs';
 import { AppService } from '../app.service';
 
 import { NotesService } from '../notesService/notes.service';
@@ -9,7 +10,7 @@ import { UserExitFromPageService } from './userExit/user-exit-from-page.service'
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css']
 })
-export class NotesComponent implements AfterViewInit, OnInit
+export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
 {
   constructor(
     public notesService: NotesService,
@@ -17,6 +18,8 @@ export class NotesComponent implements AfterViewInit, OnInit
     private userExitService: UserExitFromPageService,
     private changeDetRef: ChangeDetectorRef
   ){}
+
+  subscribe: Subscriber<any> = new Subscriber<any>();
 
   @ViewChild("a4")
   element: ElementRef;
@@ -33,10 +36,13 @@ export class NotesComponent implements AfterViewInit, OnInit
     const notesText = document.getElementById("notesText");
     this.notesService.a4 = notesText;
 
+    if(this.notesService.notesTextFromStorage) this.notesService.a4.textContent = this.notesService.notesTextFromStorage;
+
     this.subscribeSettigs(notesText);
     this.notesService.listenUser(notesText);
 
-    this.notesService.notesSettingsSubject.subscribe((data: []) => {
+    this.subscribe.add( this.notesService.notesSettingsSubject.subscribe((data: []) => {
+      console.log(data)
       if(!data || data == null) return;
 
       data.forEach((e) => {
@@ -45,16 +51,21 @@ export class NotesComponent implements AfterViewInit, OnInit
         this.notesService.settings[`${entries[0]}`] = entries[1]; 
         this.updateView(notesText, entries);
       })
-    });
-    
-   
-    window.addEventListener("beforeunload", () => this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent}));
+    }) );
     
     setTimeout(() => {
       this.changeDetRef.reattach();
       this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
     }, 0);
     
+  }
+
+  ngOnDestroy(): void
+  {
+    this.subscribe.unsubscribe();
+    
+    const notesText = document.getElementById("notesText");
+    this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent});
   }
 
   // ustalamy zmiany dla dolnych paddingów

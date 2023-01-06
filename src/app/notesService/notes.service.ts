@@ -55,6 +55,7 @@ export class NotesService {
   ];
 
   notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {letterSpacing: 1}, {lineHeight: 25}]);
+  notesTextFromStorage: string;
 
   constructor()
   {}
@@ -62,7 +63,7 @@ export class NotesService {
   setSettings()
   {
     const settingsFromStorage = JSON.parse(window.localStorage.getItem("settings"));
-    const notesTextFromStorage = window.localStorage.getItem("notesText");
+    this.notesTextFromStorage = window.localStorage.getItem("notesText");
 
     // uaktualnianie listy czcionek która znajduje się w settings component w zależności od tego jaką aktualnie czcionke używa użytkownik
     function currentFont(data: string, value: string): void
@@ -71,7 +72,7 @@ export class NotesService {
 
       if(!elementOf[0]) return;
       if(!!this.fontsList.indexOf(elementOf[0])) this.fontsList.push(elementOf[0]);
-    }
+    };
 
     function isObjThen(key, obj): void
     {
@@ -79,7 +80,7 @@ export class NotesService {
       {
         this.settings[`${key}`][`${e}`] = obj[`${e}`];
       };
-    }
+    };
 
     if(!settingsFromStorage) return; // jeśli nie posiadamy pobranych ustawiem z local storage kończymy wykonanie funkcji
 
@@ -95,8 +96,8 @@ export class NotesService {
       e[1] instanceof Object? isObjThen.apply(this, [e[0], e[1]]): this.settings[`${e[0]}`] = e[1];
     });
 
+
     this.notesSettingsSubject.next(settingsArray);
-    window.onload = () => this.a4.textContent = notesTextFromStorage;
   }
 
   // pobieranie pliku pdf

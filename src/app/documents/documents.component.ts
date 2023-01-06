@@ -1,24 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { backend } from '../backend/data';
 import * as html2canvas from "html2canvas";
+import { DocumentsService } from './documents.service';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements OnInit
+export class DocumentsComponent implements OnInit, AfterViewInit
 {
 
   files = [];
 
-  constructor(private httpClient: HttpClient){}
+  constructor(private httpClient: HttpClient, private documentService: DocumentsService){}
 
   ngOnInit(): void
   {
     this.getFiles();
+  }
+
+  @ViewChild("container")
+  element: ElementRef;
+
+  ngAfterViewInit(): void
+  {
+    this.documentService.mousemoveEvent(this.element.nativeElement);
   }
 
   getFiles()
@@ -28,7 +38,7 @@ export class DocumentsComponent implements OnInit
       if(e instanceof Array)
       {
         e.forEach((x) => {
-          console.log(x)
+          this.files.push(x.img);
         })
       }
     });

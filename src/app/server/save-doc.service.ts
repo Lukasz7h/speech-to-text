@@ -17,7 +17,9 @@ export class SaveDocService {
 
     const formData = new FormData();
 
-    html2canvas(a4)
+    html2canvas(a4, {
+      scale: 1.3
+    })
     .then((canvas) => {
       formData.append("doc", a4.innerHTML);
       formData.append("img", canvas.toDataURL("image/png"));
