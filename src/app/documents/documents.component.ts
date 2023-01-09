@@ -1,34 +1,26 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 
 import { backend } from '../backend/data';
-import * as html2canvas from "html2canvas";
 import { DocumentsService } from './documents.service';
-import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements OnInit, AfterViewInit
+export class DocumentsComponent implements AfterViewInit
 {
-
   files = [];
 
-  constructor(private httpClient: HttpClient, private documentService: DocumentsService){}
-
-  ngOnInit(): void
-  {
-    this.getFiles();
-  }
+  constructor(private httpClient: HttpClient, private documentService: DocumentsService, private changeDetRef: ChangeDetectorRef){}
 
   @ViewChild("container")
   element: ElementRef;
 
   ngAfterViewInit(): void
   {
-    this.documentService.mousemoveEvent(this.element.nativeElement);
+    this.getFiles();
   }
 
   getFiles()
@@ -41,6 +33,9 @@ export class DocumentsComponent implements OnInit, AfterViewInit
           this.files.push(x.img);
         })
       }
+
+      this.changeDetRef.detectChanges();
+      if(this.element) this.documentService.mousemoveEvent(this.element.nativeElement);
     });
   }
 }

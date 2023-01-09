@@ -1,6 +1,10 @@
-<div id="container" #container>
+<div *ngIf="files.length > 0; else lack" id="container" #container>
     <div class="hadImage" *ngFor="let file of files">
         <span></span>
         <img [src]="file">
     </div>
 </div>
+
+<ng-template #lack>
+    <h2 id="lack_header">Nie posiadasz zapisanych plików</h2>
+</ng-template>

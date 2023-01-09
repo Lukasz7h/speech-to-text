@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { RegisterService } from './register.service';
@@ -8,12 +8,11 @@ import { RegisterService } from './register.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements AfterViewInit
+export class RegisterComponent implements AfterViewInit, OnDestroy
 {
 
   constructor(public registerService: RegisterService){
-
-    this.registerService.formSubscribe(this.registerService.registerForm);
+    this.registerService.formSubscribe();
   }
 
   @ViewChild("inpLogin")
@@ -30,11 +29,13 @@ export class RegisterComponent implements AfterViewInit
     this.registerService.addListeners(this.inpLogin, this.inpPassword, this.inpRepeatPassword);
   }
 
+  ngOnDestroy(): void {
+    this.registerService.subscriber.unsubscribe();
+  }
+
   async sendForm()
   {
     if(!this.registerService.canSend()) return;
-    const result = await this.registerService.registerUser();
-
-    
+    await this.registerService.registerUser();
   }
 }

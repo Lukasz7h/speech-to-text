@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscriber, Subscription } from 'rxjs';
+
 import { backend } from '../backend/data';
 
 @Injectable({
@@ -11,6 +13,8 @@ export class RegisterService {
 
   firstChange: boolean = false;
   currentElement: string;
+
+  subscriber: Subscription;
 
   registerForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
@@ -34,12 +38,11 @@ export class RegisterService {
     }))
   }
 
-  formSubscribe(registerForm)
+  formSubscribe()
   {
-    registerForm.valueChanges.subscribe((data: any) => {
+    this.subscriber = this.registerForm.valueChanges.subscribe((data: any) => {
       if(!this.firstChange) return;
-      console.log(this.currentElement);
-    })
+    });
   }
 
   checkValue(): boolean

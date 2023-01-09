@@ -14,7 +14,6 @@ export class SaveDocService {
   saveDoc()
   {
     const a4 = document.getElementById("a4");
-
     const formData = new FormData();
 
     html2canvas(a4, {

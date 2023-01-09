@@ -56,6 +56,5 @@ export class DocumentsService {
     img.id = "show";
 
     document.body.insertAdjacentElement("afterbegin", img);
-    
   }
 }

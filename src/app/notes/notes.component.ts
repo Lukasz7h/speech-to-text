@@ -1,8 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscriber } from 'rxjs';
-import { AppService } from '../app.service';
 
+import { AppService } from '../app.service';
 import { NotesService } from '../notesService/notes.service';
+
 import { UserExitFromPageService } from './userExit/user-exit-from-page.service';
 
 @Component({
@@ -42,7 +43,6 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
     this.notesService.listenUser(notesText);
 
     this.subscribe.add( this.notesService.notesSettingsSubject.subscribe((data: []) => {
-      console.log(data)
       if(!data || data == null) return;
 
       data.forEach((e) => {
