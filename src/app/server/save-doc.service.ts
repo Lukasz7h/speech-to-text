@@ -16,19 +16,18 @@ export class SaveDocService {
     const a4 = document.getElementById("a4");
     const formData = new FormData();
 
-    html2canvas(a4, {
-      scale: 1.3
+    html2canvas(a4,{
+      scale: 0.7
     })
     .then((canvas) => {
+
       formData.append("doc", a4.innerHTML);
-      formData.append("img", canvas.toDataURL("image/png"));
+      formData.append("img", canvas.toDataURL());
 
       this.httpClient.post(backend.url+"/save", formData, {withCredentials: true})
       .subscribe((e: any) => {
         console.log(e)
       });
     })
-
-    
   }
 }

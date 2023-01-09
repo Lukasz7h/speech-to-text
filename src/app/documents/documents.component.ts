@@ -12,6 +12,7 @@ import { DocumentsService } from './documents.service';
 export class DocumentsComponent implements AfterViewInit
 {
   files = [];
+  size: number;
 
   constructor(private httpClient: HttpClient, private documentService: DocumentsService, private changeDetRef: ChangeDetectorRef){}
 
@@ -26,10 +27,13 @@ export class DocumentsComponent implements AfterViewInit
   getFiles()
   {
     this.httpClient.get(backend.url+"/files", {withCredentials: true})
-    .subscribe((e) => {
-      if(e instanceof Array)
+    .subscribe((e: {files: [], size: number}) => {
+      console.log(e)
+
+      this.size = Math.round((e.size / 1000 / 1024) * 100) / 100;
+      if(e.files instanceof Array)
       {
-        e.forEach((x) => {
+        e.files.forEach((x: any) => {
           this.files.push(x.img);
         })
       }

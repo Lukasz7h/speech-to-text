@@ -1,4 +1,5 @@
 <div *ngIf="files.length > 0; else lack" id="container" #container>
+    <div>Rozmiar: {{size}}MB</div>
     <div class="hadImage" *ngFor="let file of files">
         <span></span>
         <img [src]="file">
