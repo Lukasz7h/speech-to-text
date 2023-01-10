@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { backend } from '../backend/data';
 import { DocumentsService } from './documents.service';
@@ -11,16 +11,23 @@ import { DocumentsService } from './documents.service';
 })
 export class DocumentsComponent implements AfterViewInit
 {
+  isEnd: boolean;
+
   files = [];
   size: number;
 
   constructor(private httpClient: HttpClient, private documentService: DocumentsService, private changeDetRef: ChangeDetectorRef){}
 
-  @ViewChild("container")
-  element: ElementRef;
+  @ViewChild("inside")
+  filesElement: ElementRef;
 
-  ngAfterViewInit(): void
-  {
+  @ViewChild("editNotes")
+  editElement: ElementRef;
+
+  @ViewChild("sizeElement")
+  sizeElement: ElementRef;
+
+  ngAfterViewInit(): void {
     this.getFiles();
   }
 
@@ -38,8 +45,15 @@ export class DocumentsComponent implements AfterViewInit
         })
       }
 
+      this.isEnd = true;
       this.changeDetRef.detectChanges();
-      if(this.element) this.documentService.mousemoveEvent(this.element.nativeElement);
+
+      if(this.filesElement)
+      {
+        this.documentService.mousemoveEvent(this.filesElement.nativeElement);
+        this.documentService.mousedownEvent(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement);
+        this.documentService.mouseUp(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement);
+      };
     });
   }
 }

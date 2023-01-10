@@ -1,11 +1,20 @@
-<div *ngIf="files.length > 0; else lack" id="container" #container>
-    <div>Rozmiar: {{size}}MB</div>
-    <div class="hadImage" *ngFor="let file of files">
-        <span></span>
-        <img [src]="file">
-    </div>
-</div>
 
-<ng-template #lack>
-    <h2 id="lack_header">Nie posiadasz zapisanych plików</h2>
-</ng-template>
+<main *ngIf="isEnd">
+    <div id="edit" #editNotes>
+    
+    </div>
+    <div *ngIf="files.length > 0; else lack" id="container">
+        <div id="size" #sizeElement>Rozmiar: {{size}}MB</div>
+        <div id="inside" #inside>
+            <div class="hadImage" *ngFor="let file of files">
+                <span></span>
+                <img [src]="file">
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #lack>
+        <h2 id="lack_header">Nie posiadasz zapisanych plików</h2>
+    </ng-template>
+</main>
+
