@@ -58,13 +58,16 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
       this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
     }, 0);
     
+      const notesText = document.getElementById("notesText");
+      this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent});
+    }
   }
 
   ngOnDestroy(): void
   {
     this.subscribe.unsubscribe();
-    
     const notesText = document.getElementById("notesText");
+
     this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent});
   }
 

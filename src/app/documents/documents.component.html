@@ -3,10 +3,10 @@
     <div id="edit" #editNotes>
     
     </div>
-    <div *ngIf="files.length > 0; else lack" id="container">
+    <div *ngIf="this.documentService.files.length > 0; else lack" id="container">
         <div id="size" #sizeElement>Rozmiar: {{size}}MB</div>
         <div id="inside" #inside>
-            <div class="hadImage" *ngFor="let file of files">
+            <div class="hadImage" *ngFor="let file of this.documentService.files; let i=index;" [ngClass]="this.documentService.documents[i].class">
                 <span></span>
                 <img [src]="file">
             </div>

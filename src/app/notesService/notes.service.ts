@@ -222,7 +222,7 @@ export class NotesService {
     switch(data.name)
     {
       case "fontFamily": return this.a4.style.fontFamily = data.worth;
-      case "color": return document.documentElement.style.setProperty("--notes-color", data.worth);
+      case "color": return this.a4.style.color = data.worth;
       case "lines": return this.notesSettingsSubject.next([ { "lines": data.worth.checked } ]);
     };
   }
