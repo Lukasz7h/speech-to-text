@@ -34,5 +34,15 @@ describe('RegisterService', () => {
     service.registerForm.value['repeat_password'] = "123456";
 
     expect(service.canSend()).toBeTrue();
-  })
+  });
+
+  it('method register should return proper worth', async() => {
+    service.registerForm.value['login'] = 'test123';
+    service.registerForm.value['password'] = 'test123456';
+    
+    let result = await service.registerUser();
+    result = result['register'] || result['error'];
+
+    expect(result).toBeTruthy();
+  });
 });

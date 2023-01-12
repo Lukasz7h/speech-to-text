@@ -127,7 +127,7 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
       for(let key in attribute[1])
       {
         this.updateView(notesText, [`${attribute[0]+key}`, attribute[1][key]]);
-      }
+      };
     };
 
     isNaN(Number(attribute[1])) && attribute[0] in notesText.style?

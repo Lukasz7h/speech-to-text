@@ -13,4 +13,12 @@ describe('NotesService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('behaviorSubject should had poper first value', () => {
+    const list = ['fontSize', 'letterSpacing', 'lineHeight'];
+
+    service.notesSettingsSubject.subscribe((data: []) => {
+      expect( list.filter((e) => data.find(x => Object.keys(x)[0] == e)).length ).toEqual(list.length);
+    })
+  });
 });

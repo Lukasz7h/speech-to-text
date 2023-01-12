@@ -167,7 +167,6 @@ export class DocumentsService {
     function canRemove(event: MouseEvent)
     {
       const thatElement: HTMLElement = event.target['classList'].contains("hadImage")? event.target: event.target['parentElement'];
-      
       thatElement.style.position = "relative";
 
       thatElement.style.top = '0';
