@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { backend } from '../backend/data';
 import { DocumentsService } from './documents.service';
@@ -9,7 +9,7 @@ import { DocumentsService } from './documents.service';
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements AfterViewInit
+export class DocumentsComponent implements AfterViewInit, OnDestroy
 {
   isEnd: boolean;
   size: number;
@@ -27,6 +27,11 @@ export class DocumentsComponent implements AfterViewInit
 
   ngAfterViewInit(): void {
     this.getFiles();
+  }
+
+  ngOnDestroy(): void {
+    const showImage = document.getElementById("show");
+    if(showImage) showImage.remove();
   }
 
   getFiles()

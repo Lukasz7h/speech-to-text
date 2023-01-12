@@ -118,8 +118,22 @@ export class AppService {
     this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("mousemove", this.moveElement.bind(this));
   }
 
-  setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string)
+  setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string, some: number)
   {
+    function checkDiffrance(): boolean
+    {
+      const allow = {
+        x: 600,
+        y: 950
+      };
+
+      let result = Math.abs(Number(this.instances[`${some}`][`${data.kind}`])) + Number(data.diffrence);
+      return result > allow[`${data.kind}`]; 
+    };
+
+    if((position == "Right" || position == "Left") && checkDiffrance.call(this)) return;
+    if((position == "Top" || position == "Bottom") && checkDiffrance.call(this)) return;
+
     if(data.diffrence < 0) return;
 
     elements.forEach((id: number) => {
@@ -140,31 +154,34 @@ export class AppService {
   moveElement(data): void
   {
     if(!this.flag) return;
+    const elementAttribute = this.thatElement.getAttribute("data-padding");
 
     // ustawiamy różnice dla osi x i y o jaką nasz element będzie się poruszał
-    this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3?
+    elementAttribute == 2 || elementAttribute == 3?
     this.diffrenceX = this.clientX - data.clientX: this.diffrenceX = data.clientX - this.clientX;
 
-    this.thatElement.getAttribute("data-padding") == 1 || this.thatElement.getAttribute("data-padding") == 2?
+    elementAttribute == 1 || elementAttribute == 2?
     this.diffrenceY = this.clientY - data.clientY: this.diffrenceY = data.clientY - this.clientY;
 
     // aktualizowanie wartości różnicy dla osi x lub y (jeśli padding danego elementy był już zmieniany)
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].x && this.instances[`${this.thatElement.getAttribute("data-padding")}`].x > 0)
-    this.diffrenceX += this.instances[`${this.thatElement.getAttribute("data-padding")}`].x;
+    if(this.instances[`${elementAttribute}`].x && this.instances[`${elementAttribute}`].x > 0)
+    this.diffrenceX += Number(this.instances[`${elementAttribute}`].x);
 
-    if(this.instances[`${this.thatElement.getAttribute("data-padding")}`].y)
-    this.diffrenceY += this.instances[`${this.thatElement.getAttribute("data-padding")}`].y > 0?
-    -this.instances[`${this.thatElement.getAttribute("data-padding")}`].y:
-    this.instances[`${this.thatElement.getAttribute("data-padding")}`].y;
+    if(this.instances[`${elementAttribute}`].y)
+    this.diffrenceY += this.instances[`${elementAttribute}`].y > 0?
+    -this.instances[`${elementAttribute}`].y:
+    this.instances[`${elementAttribute}`].y;
+
+    
 
     // ustawianie stylu (oś x)
-    (this.thatElement.getAttribute("data-padding") == 2 || this.thatElement.getAttribute("data-padding") == 3)?
-    this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "Right"):
-    this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "Left");
+    (elementAttribute == 2 || elementAttribute == 3)?
+    this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "Right", 1):
+    this.setStyle([1, 4], {kind: "x", diffrence: this.diffrenceX}, "Left", 2);
 
     // ustawianie stylu (oś y)
-    (this.thatElement.getAttribute("data-padding") == 3 || this.thatElement.getAttribute("data-padding") == 4)?
-    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY}, "Bottom"):
-    this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY}, "Top");
+    (elementAttribute == 3 || elementAttribute == 4)?
+    this.setStyle([3, 4], {kind: "y", diffrence: -this.diffrenceY}, "Bottom", 1):
+    this.setStyle([1, 2], {kind: "y", diffrence: -this.diffrenceY}, "Top", 4);
   }
 }
