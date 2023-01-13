@@ -64,6 +64,20 @@
     animation-fill-mode: forwards;
 }
 
+#removeFile{
+    position: fixed;
+    top: 200px;
+    bottom: 200px;
+    right: 250px;
+    width: 200px;
+    background: rgb(165, 65, 51);
+}
+
+#removeFile.show{
+    animation: show_remove .6s ease-out;
+    animation-fill-mode: forwards;
+}
+
 @keyframes anim_show {
     0%{
         width: 0%;
@@ -99,5 +113,14 @@
     }
     100%{
         left: calc(var(--editSize) * 1px + 35px);
+    }
+}
+
+@keyframes show_remove {
+    0%{
+        bottom: 200px;
+    }
+    100%{
+        bottom: 420px;
     }
 }

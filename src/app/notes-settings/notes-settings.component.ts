@@ -48,7 +48,6 @@ export class NotesSettingsComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
-    
     this.elementFontInput.nativeElement.value = this.notesService.settings.fontSize;
     this.elementLetterSpaceInput.nativeElement.value = this.notesService.settings.letterSpacing;
 

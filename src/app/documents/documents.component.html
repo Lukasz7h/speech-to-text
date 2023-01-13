@@ -1,7 +1,6 @@
 
 <main *ngIf="isEnd">
     <div id="edit" #editNotes>
-    
     </div>
     <div *ngIf="this.documentService.files.length > 0; else lack" id="container">
         <div id="size" #sizeElement>Rozmiar: {{size}}MB</div>
@@ -12,7 +11,8 @@
             </div>
         </div>
     </div>
-    
+    <div id="removeFile" #remove>
+    </div>
     <ng-template #lack>
         <h2 id="lack_header">Nie posiadasz zapisanych plików</h2>
     </ng-template>

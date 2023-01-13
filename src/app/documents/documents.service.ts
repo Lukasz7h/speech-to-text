@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
+import { Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
+
+import { backend } from '../backend/data';
 import { UserExitFromPageService } from '../notes/userExit/user-exit-from-page.service';
 
 import { NotesService } from '../notesService/notes.service';
@@ -22,13 +25,16 @@ export class DocumentsService {
 
   private elementsCoords: {
     editELement?: {right: number, left: number, top: number, bottom: number, html: HTMLElement} | any,
-    sizeElement?: {right: number, left: number, top: number, bottom: number, html: HTMLElement}| any
-  } = { editELement: {}, sizeElement: {}}
+    removeElement?: {right: number, left: number, top: number, bottom: number, html: HTMLElement}| any
+  } = { editELement: {}, removeElement: {}}
 
   private actionElement: HTMLElement;
   private modifyElement: HTMLElement;
 
-  constructor(private userExitService: UserExitFromPageService, private notesService: NotesService, private route: Router) { }
+  constructor(
+    private userExitService: UserExitFromPageService, private notesService: NotesService,
+    private route: Router, private httpClient: HttpClient
+    ) { }
 
   mousemoveEvent(element: any): void
   {
@@ -69,14 +75,14 @@ export class DocumentsService {
     });
   }
 
-  mousedownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement): void
+  mousedownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
   {
     const check = (_element: EventTarget) => _element['parentElement'].classList.contains("hadImage");
     const that = this;
 
     function setCoords(thatElement, toEdit)
     {
-      const toChange = toEdit == "editElement"? that.elementsCoords.editELement: that.elementsCoords.sizeElement;
+      const toChange = toEdit == "editElement"? that.elementsCoords.editELement: that.elementsCoords.removeElement;
 
       toChange.right = thatElement.offsetLeft + thatElement.offsetWidth;
       toChange.left = thatElement.offsetLeft;
@@ -85,7 +91,8 @@ export class DocumentsService {
       toChange.bottom = thatElement.offsetTop + thatElement.offsetHeight;
 
       toChange.html = thatElement;
-      that.actionElement = thatElement;
+
+      console.log(toChange)
     };
 
     function doIt(event: MouseEvent)
@@ -104,8 +111,10 @@ export class DocumentsService {
       editElement.classList.add("show_edit");
       sizeElement.classList.add("move");
 
+      removeElement.classList.add("show");
+
       setCoords(editElement, 'editElement');
-      setCoords(sizeElement, 'sizeElement');
+      setCoords(removeElement, 'removeElement');
 
       that.event.unsubscribe();
       that.mouseMoveThatElement(event);
@@ -126,19 +135,33 @@ export class DocumentsService {
 
     function toDo(element)
     {
-      if(!element) return;
+      if(!element){ 
+        that.actionElement = undefined;
+        return;
+      };
       element.classList.add('action');
 
       that.actionElement = element;
     }
 
-    function action(x: number, y: number): void | boolean | HTMLElement
+    function action(x: number, y: number): boolean | HTMLElement
     {
-      return ( x < that.elementsCoords.editELement.right && x > that.elementsCoords.editELement.left)? //editeELement
-      (y < that.elementsCoords.editELement.bottom && y > that.elementsCoords.editELement.top)? that.elementsCoords.editELement.html:
-      (x < that.elementsCoords.sizeElement.right && x > that.elementsCoords.sizeElement.left)? //deleteElement
-      (y < that.elementsCoords.sizeElement.bottom && y > that.elementsCoords.sizeElement.top)? that.elementsCoords.sizeElement.html:
-      false: false: false;
+
+      //editeELement
+      if(
+        (x < that.elementsCoords.editELement.right && x > that.elementsCoords.editELement.left)
+        && 
+        (y < that.elementsCoords.editELement.bottom && y > that.elementsCoords.editELement.top)
+      ) return that.elementsCoords.editELement.html;
+
+      //deleteElement
+      if(
+        (x < that.elementsCoords.removeElement.right && x > that.elementsCoords.removeElement.left)
+        && 
+        (y < that.elementsCoords.removeElement.bottom && y > that.elementsCoords.removeElement.top)
+      )return that.elementsCoords.removeElement.html;
+
+      return false;
     };
 
     function moveThat(_event: MouseEvent)
@@ -147,10 +170,12 @@ export class DocumentsService {
       that.modifyElement = thatElement;
 
       thatElement.style.position = 'absolute';
+      thatElement.style.zIndex = "3";
 
       thatElement.style.top = `${_event.clientY - offsetY}px`;
       thatElement.style.left = `${_event.clientX - offsetX}px`;
 
+      console.log(action(_event.screenX, _event.screenY))
       toDo(action(_event.screenX, _event.screenY));
     };
 
@@ -211,12 +236,34 @@ export class DocumentsService {
     this.route.navigate(["**"]);
   }
 
-  fileAction()
+  removeElement(): void
+  {
+    const id: string = this.modifyElement.classList.item(1);
+
+    this.httpClient.get(backend.url+"/remove/"+id, {withCredentials: true})
+    .subscribe((data: any) => {
+      if(data && data.remove) removeThatElement.call(this);
+    })
+
+    function removeThatElement()
+    {
+      const index = this.documents.indexOf(this.documents.find(e => e.class == id));
+      this.documents.splice(index, 1);
+
+      this.files.splice(this.files.indexOf(this.currentImage.src), 1);
+      this.actionElement = undefined;
+    };
+  }
+
+  fileAction(): void
   {
     if(!this.actionElement) return;
+    console.log(this.actionElement)
     switch(this.actionElement.id)
     {
       case "edit": this.editChosenElement();
+      break;
+      case "removeFile": this.removeElement();
       break;
     }
   };
