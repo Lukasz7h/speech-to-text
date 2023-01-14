@@ -65,16 +65,87 @@
 }
 
 #removeFile{
-    position: fixed;
-    top: 200px;
-    bottom: 200px;
-    right: 250px;
+    position: absolute;
+    top: 300px;
+    right: 350px;
     width: 200px;
-    background: rgb(165, 65, 51);
+    height: 125px;
+    background: rgb(215 77 57);
+    transform: translate(0%, -100%);
+    opacity: 0;
+    overflow: hidden;
+}
+
+#removeFile span{
+    position: absolute;
+    top: 33%;
+    left: 14%;
+    height: 70px;
+    width: 50px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: aliceblue;
+    z-index: 2;
+}
+
+#removeFile span::after{
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 50px;
+    height: 5px;
+    background: aliceblue;
+}
+
+#removeFile span::before{
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 18px;
+    width: 14px;
+    height: 5px;
+    background: aliceblue;
+}
+
+#removeFile.show span{
+    animation: delete_animation_1 .6s ease-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+
+#removeFile.show span::after{
+    animation: delete_animation_2 .6s ease-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+
+#removeFile.show span::before{
+    animation: delete_animation_3 .6s ease-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
 }
 
 #removeFile.show{
     animation: show_remove .6s ease-out;
+    animation-fill-mode: forwards;
+    box-shadow: inset -2px 0px 24px -4px rgb(71, 71, 71);
+}
+
+#removeFile mat-icon{
+    position: absolute;
+    left: 65%;
+    top: 40%;
+    font-size: 52px;
+    height: 65px;
+    width: 45px;
+    color: rgb(240, 240, 240);
+    z-index: 1;
+}
+
+#removeFile.show mat-icon{
+    animation: delete_animation_4 .6s ease-out;
+    animation-delay: 1.2s;
     animation-fill-mode: forwards;
 }
 
@@ -118,9 +189,47 @@
 
 @keyframes show_remove {
     0%{
-        bottom: 200px;
+        top: 200px;
+        opacity: 0;
     }
     100%{
-        bottom: 420px;
+        top: 300px;
+        opacity: 1;
+    }
+}
+
+@keyframes delete_animation_1 {
+    0%{
+        transform: scale(1) rotate(0deg) translateY(0px);
+    }
+    100%{
+        transform: scale(1.5) rotate(60deg) translateY(10px);
+    }
+}
+
+@keyframes delete_animation_2 {
+    0%{
+        transform: rotate(0deg) translateX(0%) translateY(0px);
+    }
+    100%{
+        transform: rotate(-90deg) translateX(48%) translateY(-30px);
+    }
+}
+
+@keyframes delete_animation_3 {
+    0%{
+        transform: rotate(0deg) translateX(0px);
+    }
+    100%{
+        transform: rotate(-90deg) translateY(-34px) translateX(20px);
+    }
+}
+
+@keyframes delete_animation_4 {
+    0%{
+        transform: scale(1) rotate(0deg) translateX(0px);
+    }
+    100%{
+        transform: scale(0.6) rotate(-70deg) translateY(-155px) translateX(-25px);
     }
 }

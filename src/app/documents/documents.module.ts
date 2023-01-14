@@ -5,6 +5,7 @@ import { DocumentsComponent } from './documents.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GuardService } from '../login/guard/guard.service';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {path: "**", component: DocumentsComponent, canActivate: [GuardService]}
@@ -16,7 +17,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatIconModule
   ],
   exports: [RouterModule]
 })

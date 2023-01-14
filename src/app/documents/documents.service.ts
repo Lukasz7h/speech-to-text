@@ -91,8 +91,6 @@ export class DocumentsService {
       toChange.bottom = thatElement.offsetTop + thatElement.offsetHeight;
 
       toChange.html = thatElement;
-
-      console.log(toChange)
     };
 
     function doIt(event: MouseEvent)
@@ -139,14 +137,13 @@ export class DocumentsService {
         that.actionElement = undefined;
         return;
       };
+      
       element.classList.add('action');
-
       that.actionElement = element;
     }
 
     function action(x: number, y: number): boolean | HTMLElement
     {
-
       //editeELement
       if(
         (x < that.elementsCoords.editELement.right && x > that.elementsCoords.editELement.left)
@@ -175,7 +172,6 @@ export class DocumentsService {
       thatElement.style.top = `${_event.clientY - offsetY}px`;
       thatElement.style.left = `${_event.clientX - offsetX}px`;
 
-      console.log(action(_event.screenX, _event.screenY))
       toDo(action(_event.screenX, _event.screenY));
     };
 
@@ -185,7 +181,7 @@ export class DocumentsService {
     event.target.addEventListener("mousemove", moveThat);
   }
 
-  mouseUp(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement)
+  mouseUp(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement)
   {
     const that = this;
 
@@ -202,7 +198,9 @@ export class DocumentsService {
       editElement.classList.remove("show_edit");
       sizeElement.classList.remove("move");
 
+      removeElement.classList.remove("show");
       that.mousemoveEvent(document.getElementById("inside"));
+
       if(that.moveThatListener) that.moveThatListener.removeEventListener("mousemove", that.cb);
 
       that.fileAction();
@@ -258,7 +256,7 @@ export class DocumentsService {
   fileAction(): void
   {
     if(!this.actionElement) return;
-    console.log(this.actionElement)
+
     switch(this.actionElement.id)
     {
       case "edit": this.editChosenElement();
