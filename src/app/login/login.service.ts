@@ -35,7 +35,7 @@ export class LoginService {
 
     this.httpClient.post(backend.url+"/login", form, {withCredentials: true})
     .subscribe((x: any) => {
-      if(x.data.login) this.router.navigate(['/']);
+      if(x.login) this.router.navigate(['/']);
     });
   }
 }

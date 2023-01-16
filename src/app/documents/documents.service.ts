@@ -47,7 +47,7 @@ export class DocumentsService {
      {
       this.timeOut = setTimeout(() => {
         if(this.currentImage) this.peepImage(this.currentImage);
-      }, 1400);
+      }, 850);
      };
 
       this.currentImage = image;
@@ -65,7 +65,7 @@ export class DocumentsService {
 
       this.currentImage.parentElement.getElementsByTagName("span").item(0).classList.remove("anim_show");
       this.currentImage = undefined;
-    }
+    };
 
     this.event = fromEvent(element, "mousemove")
     .subscribe((data: Event) => {
@@ -77,7 +77,13 @@ export class DocumentsService {
 
   mousedownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
   {
-    const check = (_element: EventTarget) => _element['parentElement'].classList.contains("hadImage");
+    let toMove;
+
+    const check = (_element: EventTarget) => {
+      toMove = _element['parentElement'];
+      return _element['parentElement'].classList.contains("hadImage");
+    };
+
     const that = this;
 
     function setCoords(thatElement, toEdit)
@@ -115,7 +121,7 @@ export class DocumentsService {
       setCoords(removeElement, 'removeElement');
 
       that.event.unsubscribe();
-      that.mouseMoveThatElement(event);
+      that.mouseMoveThatElement(event, toMove);
     };
 
     element.addEventListener("mousedown", doIt);
@@ -124,7 +130,7 @@ export class DocumentsService {
   moveThatListener;
   cb;
 
-  mouseMoveThatElement(event: MouseEvent): void
+  mouseMoveThatElement(event: MouseEvent, toMove: HTMLElement): void
   {
     const offsetX = event.offsetX;
     const offsetY = event.offsetY;
@@ -175,10 +181,10 @@ export class DocumentsService {
       toDo(action(_event.screenX, _event.screenY));
     };
 
-    this.moveThatListener = event.target;
+    this.moveThatListener = toMove;
     this.cb = moveThat;
 
-    event.target.addEventListener("mousemove", moveThat);
+    toMove.addEventListener("mousemove", moveThat);
   }
 
   mouseUp(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement)
@@ -198,7 +204,8 @@ export class DocumentsService {
       editElement.classList.remove("show_edit");
       sizeElement.classList.remove("move");
 
-      removeElement.classList.remove("show");
+      if(!that.actionElement) removeElement.classList.remove("show");
+
       that.mousemoveEvent(document.getElementById("inside"));
 
       if(that.moveThatListener) that.moveThatListener.removeEventListener("mousemove", that.cb);
@@ -241,15 +248,35 @@ export class DocumentsService {
     this.httpClient.get(backend.url+"/remove/"+id, {withCredentials: true})
     .subscribe((data: any) => {
       if(data && data.remove) removeThatElement.call(this);
-    })
+    });
 
     function removeThatElement()
     {
-      const index = this.documents.indexOf(this.documents.find(e => e.class == id));
-      this.documents.splice(index, 1);
+      function deleteAnimation()
+      {
+        for(let i=0; i<20; i++)
+        {
+          const span = document.createElement("span");
+          span.classList.add("crush");
 
-      this.files.splice(this.files.indexOf(this.currentImage.src), 1);
-      this.actionElement = undefined;
+          this.actionElement.insertAdjacentElement("beforeend", span);
+        };
+      }
+
+      deleteAnimation.apply(this);
+      this.actionElement.classList.add("delete");
+
+      setTimeout(() => {
+        this.actionElement.classList.remove("delete");
+        this.actionElement.classList.remove("action");
+
+        this.actionElement.classList.remove("show");
+        const index = this.documents.indexOf(this.documents.find(e => e.class == id));
+        this.documents.splice(index, 1);
+
+        this.files.splice(this.files.indexOf(this.currentImage.src), 1);
+        this.actionElement = undefined;
+      }, 1000);
     };
   }
 

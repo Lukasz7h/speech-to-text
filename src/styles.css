@@ -8,6 +8,7 @@
     --notes-color: black; /*for notes component*/
 
     --editSize: 400; /*for document component*/
+    --delete-left: 350;
 }
 
 html, body{

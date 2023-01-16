@@ -1,10 +1,43 @@
 
+#cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(247, 247, 247);
+}
+
 #inside{
     width: 100%;
     display: flex;
     margin-top: 65vh;
     justify-content: space-around;
     padding: 75px 0px;
+}
+
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+}
+
+header mat-icon{
+    font-size: 126px;
+    color: #a4ceb7;
+    width: 250px;
+    height: 250px;
+    margin-top: 45px;
+}
+
+#lack_header{
+    font-family: 'Roboto-Thin';
+    margin-top: 27vh;
+    letter-spacing: 3px;
+    font-size: 28px;
 }
 
 #inside>div{
@@ -27,16 +60,26 @@
 }
 
 #inside>div>span.anim_show{
-    animation: anim_show 1.4s ease-in;
+    animation: anim_show .8s ease-in;
 }
 
 #edit{
     position: fixed;
+    text-align: center;
+    line-height: 100vh;
     top: 0;
     bottom: 0;
     width: calc( var(--editSize) * 1px);
-    background-color: rgba(90, 180, 150, 0.568);
     transform: translate(-100%, 0);
+    box-shadow: inset 10px 10px 10px -1px rgb(10, 99, 170, 0.16),
+                inset -10px -10px 10px -1px rgb(241, 241, 241, 0.7);
+}
+
+#edit mat-icon{
+    font-size: 84px;
+    width: 150px;
+    height: 150px;
+    color: rgb(94, 202, 126);
 }
 
 ::ng-deep #edit.show_edit{
@@ -47,6 +90,63 @@
     position: absolute;
     top: 50px;
     left: 150px;
+    font-family: 'Roboto-Light';
+}
+
+#vial{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: #ebebeb;
+    border-radius: 50%;
+    top: 40px;
+}
+
+#vial::after{
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    border: 14px solid rgb(207, 207, 207);
+    border-radius: 50%;
+    height: 25px;
+    width: 75px;
+}
+
+#vial::before{
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #cfcfcf6b;
+    z-index: 2;
+    border-radius: 50%;
+    height: 55px;
+    width: 105px;
+}
+
+#liquid{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background-color: #bfd379;
+    border-bottom-left-radius: 150px;
+    border-bottom-right-radius: 150px;
+    filter: drop-shadow(0 0 40px #bfd379);
+}
+
+#liquid::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 23px;
+    background-color: #98a761;
+    border-radius: 50%;
+    top: -10px;
 }
 
 ::ng-deep #size.move{
@@ -55,6 +155,7 @@
 
 ::ng-deep #show{
     position: absolute;
+    z-index: 3;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -66,14 +167,23 @@
 
 #removeFile{
     position: absolute;
-    top: 300px;
-    right: 350px;
-    width: 200px;
-    height: 125px;
-    background: rgb(215 77 57);
-    transform: translate(0%, -100%);
+    top: 200px;
+    right: calc( var(--delete-left) * 1px);
+    width: 220px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.808);
+    transform: translate(0%, -200px);
     opacity: 0;
+    border-radius: 4px;
+}
+
+#removeFile>div{
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 #removeFile span{
@@ -84,7 +194,7 @@
     width: 50px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: aliceblue;
+    background-color: #5ac58c;
     z-index: 2;
 }
 
@@ -95,7 +205,7 @@
     left: 0;
     width: 50px;
     height: 5px;
-    background: aliceblue;
+    background: #5ac58c;
 }
 
 #removeFile span::before{
@@ -105,31 +215,32 @@
     left: 18px;
     width: 14px;
     height: 5px;
-    background: aliceblue;
+    background: #5ac58c;
 }
 
 #removeFile.show span{
     animation: delete_animation_1 .6s ease-out;
-    animation-delay: 1.2s;
+    animation-delay: .8s;
     animation-fill-mode: forwards;
 }
 
 #removeFile.show span::after{
     animation: delete_animation_2 .6s ease-out;
-    animation-delay: 1.2s;
+    animation-delay: .8s;
     animation-fill-mode: forwards;
 }
 
 #removeFile.show span::before{
     animation: delete_animation_3 .6s ease-out;
-    animation-delay: 1.2s;
+    animation-delay: .8s;
     animation-fill-mode: forwards;
 }
 
 #removeFile.show{
     animation: show_remove .6s ease-out;
     animation-fill-mode: forwards;
-    box-shadow: inset -2px 0px 24px -4px rgb(71, 71, 71);
+    box-shadow: inset 10px 10px 10px -1px rgb(10, 99, 170, 0.16),
+                inset -10px -10px 10px -1px rgb(241, 241, 241, 0.7);
 }
 
 #removeFile mat-icon{
@@ -139,13 +250,164 @@
     font-size: 52px;
     height: 65px;
     width: 45px;
-    color: rgb(240, 240, 240);
+    color: #5ac58c;
     z-index: 1;
+}
+
+#removeFile.show.delete{
+    opacity: 1;
+    animation: crush_doc .5s ease-in;
+    animation-fill-mode: forwards;
 }
 
 #removeFile.show mat-icon{
     animation: delete_animation_4 .6s ease-out;
     animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush{
+    border-radius: 50%;
+    position: absolute;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(1){
+    background-color: #5ac58c;
+    animation: span_1_crush .4s ease-in;
+    animation-delay: .2s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(2){
+    background-color: #79b7d3;
+    animation: span_2_crush .4s ease-in;
+    animation-delay: .4s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(3){
+    background-color: #79b7d3;
+    animation: span_3_crush .4s ease-in;
+    animation-delay: .2s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(4){
+    background-color: #5ac58c;
+    animation: span_4_crush .4s ease-in;
+    animation-delay: .4s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(5){
+    background-color: #79b7d3;
+    animation: span_5_crush .4s ease-in;
+    animation-delay: .3s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(6){
+    background-color: #79d39b;
+    animation: span_6_crush .4s ease-in;
+    animation-delay: .4s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(7){
+    background-color: #79b7d3;
+    animation: span_7_crush .4s ease-in;
+    animation-delay: .1s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(8){
+    background-color: #79d3a1;
+    animation: span_8_crush .4s ease-in;
+    animation-delay: .5s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(9){
+    background-color: #79d3a6;
+    animation: span_9_crush .4s ease-in;
+    animation-delay: .17s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(10){
+    background-color: #79b7d3;
+    animation: span_10_crush .4s ease-in;
+    animation-delay: .33s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(11){
+    background-color: #79d39e;
+    animation: span_11_crush .4s ease-in;
+    animation-delay: .25s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(12){
+    background-color: #79c1d3;
+    animation: span_12_crush .4s ease-in;
+    animation-delay: .25s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(13){
+    background-color: #79d39e;
+    animation: span_13_crush .4s ease-in;
+    animation-delay: .25s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(14){
+    background-color: #79b9d3;
+    animation: span_14_crush .4s ease-in;
+    animation-delay: .38s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(15){
+    background-color: #79d39e;
+    animation: span_15_crush .4s ease-in;
+    animation-delay: .45s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(16){
+    background-color: #79d39e;
+    animation: span_16_crush .4s ease-in;
+    animation-delay: .52s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(17){
+    background-color: #79b9d3;
+    animation: span_17_crush .4s ease-in;
+    animation-delay: .24s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(18){
+    background-color: #79c5d3;
+    animation: span_18_crush .4s ease-in;
+    animation-delay: .29s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(19){
+    background-color: #79d39e;
+    animation: span_19_crush .4s ease-in;
+    animation-delay: .16s;
+    animation-fill-mode: forwards;
+}
+
+::ng-deep #removeFile>span.crush:nth-of-type(20){
+    background-color: #79c1d3;
+    animation: span_20_crush .4s ease-in;
+    animation-delay: .41s;
     animation-fill-mode: forwards;
 }
 
@@ -189,11 +451,11 @@
 
 @keyframes show_remove {
     0%{
-        top: 200px;
+        top: 400px;
         opacity: 0;
     }
     100%{
-        top: 300px;
+        top: 500px;
         opacity: 1;
     }
 }
@@ -231,5 +493,434 @@
     }
     100%{
         transform: scale(0.6) rotate(-70deg) translateY(-155px) translateX(-25px);
+    }
+}
+
+@keyframes crush_doc{
+    0%{
+        top: 500px;
+        right: calc(var(--delete-left) * 1px);
+    }
+    8%{
+        right: calc(var(--delete-left) * 1px - 2px);
+    }
+    23%{
+        right: calc(var(--delete-left) * 1px + 3px);
+    }
+    40%{
+        right: calc(var(--delete-left) * 1px  - 2px);
+    }
+    55%{
+        right: calc(var(--delete-left) * 1px + 2px);
+    }
+    72%{
+        right: calc(var(--delete-left) * 1px - 4px);
+    }
+    89%{
+        right: calc(var(--delete-left) * 1px + 4px);
+    }
+    95%{
+        right: calc(var(--delete-left) * 1px - 3px);
+    }
+    100%{
+        top: 500px;
+        right: calc(var(--delete-left) * 1px);
+    }
+}
+
+@keyframes span_1_crush {
+    0%{
+        top: 95%;
+        left: 4%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    100%{
+        top: 197%;
+        left: 1%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_2_crush {
+    0%{
+        top: 95%;
+        left: 8%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 6%;
+    }
+    100%{
+        top: 197%;
+        left: 11%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_3_crush {
+    0%{
+        top: 95%;
+        left: 9%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 12%;
+    }
+    100%{
+        top: 187%;
+        left: 8%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_4_crush {
+    0%{
+        top: 95%;
+        left: 13%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 11%;
+    }
+    100%{
+        top: 180%;
+        left: 11%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_5_crush {
+    0%{
+        top: 95%;
+        left: 18%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 15%;
+    }
+    100%{
+        top: 192%;
+        left: 17%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_6_crush {
+    0%{
+        top: 95%;
+        left: 22%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 23%;
+    }
+    100%{
+        top: 198%;
+        left: 20%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_7_crush {
+    0%{
+        top: 95%;
+        left: 26%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 24%;
+    }
+    100%{
+        top: 178%;
+        left: 25%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_8_crush {
+    0%{
+        top: 95%;
+        left: 31%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 30%;
+    }
+    100%{
+        top: 195%;
+        left: 33%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_9_crush {
+    0%{
+        top: 95%;
+        left: 35%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 34%;
+    }
+    100%{
+        top: 195%;
+        left: 36%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_10_crush {
+    0%{
+        top: 95%;
+        left: 35%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 34%;
+    }
+    100%{
+        top: 195%;
+        left: 36%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_11_crush {
+    0%{
+        top: 95%;
+        left: 43%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 47%;
+    }
+    100%{
+        top: 190%;
+        left: 45%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_12_crush {
+    0%{
+        top: 95%;
+        left: 50%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 49%;
+    }
+    100%{
+        top: 195%;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_13_crush {
+    0%{
+        top: 95%;
+        left: 56%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 59%;
+    }
+    100%{
+        top: 209%;
+        left: 58%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_14_crush {
+    0%{
+        top: 95%;
+        left: 61%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    40%{
+        left: 63%;
+    }
+    100%{
+        top: 177%;
+        left: 65%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_15_crush {
+    0%{
+        top: 95%;
+        left: 68%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    55%{
+        left: 67%;
+    }
+    100%{
+        top: 186%;
+        left: 70%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_16_crush {
+    0%{
+        top: 95%;
+        left: 74%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 77%;
+    }
+    100%{
+        top: 168%;
+        left: 76%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_17_crush {
+    0%{
+        top: 95%;
+        left: 80%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 82%;
+    }
+    100%{
+        top: 190%;
+        left: 81%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_18_crush {
+    0%{
+        top: 95%;
+        left: 86%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 89%;
+    }
+    100%{
+        top: 175%;
+        left: 88%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_19_crush {
+    0%{
+        top: 95%;
+        left: 92%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 93%;
+    }
+    100%{
+        top: 200%;
+        left: 96%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+    }
+}
+
+@keyframes span_20_crush {
+    0%{
+        top: 95%;
+        left: 98%;
+        width: 22px;
+        height: 22px;
+        opacity: 1;
+    }
+    50%{
+        left: 97%;
+    }
+    100%{
+        top: 199%;
+        left: 95%;
+        width: 14px;
+        height: 14px;
+        opacity: 0;
     }
 }

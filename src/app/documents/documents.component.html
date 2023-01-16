@@ -1,22 +1,32 @@
-
-<main *ngIf="isEnd">
-    <div id="edit" #editNotes>
-    </div>
-    <div *ngIf="this.documentService.files.length > 0; else lack" id="container">
-        <div id="size" #sizeElement>Rozmiar: {{size}}MB</div>
-        <div id="inside" #inside>
-            <div class="hadImage" *ngFor="let file of this.documentService.files; let i=index;" [ngClass]="this.documentService.documents[i].class">
-                <span></span>
-                <img [src]="file">
+<div id="cover">
+    <main *ngIf="isEnd">
+        <div id="edit" #editNotes>
+            <mat-icon>add</mat-icon>
+        </div>
+        <div *ngIf="this.documentService.files.length > 0; else lack" id="container">
+            <div id="size" #sizeElement>Rozmiar: {{size}}MB
+                <div id="vial">
+                    <div id="liquid"></div>
+                </div>
+            </div>
+            <div id="inside" #inside>
+                <div class="hadImage" *ngFor="let file of this.documentService.files; let i=index;" [ngClass]="this.documentService.documents[i].class">
+                    <span></span>
+                    <img [src]="file">
+                </div>
             </div>
         </div>
-    </div>
-    <div id="removeFile" #remove>
-        <span></span>
-        <mat-icon>description</mat-icon>
-    </div>
-    <ng-template #lack>
-        <h2 id="lack_header">Nie posiadasz zapisanych plików</h2>
-    </ng-template>
-</main>
-
+        <div id="removeFile" #remove>
+            <div>
+                <span></span>
+                <mat-icon>description</mat-icon>
+            </div>
+        </div>
+        <ng-template #lack>
+            <header>
+                <h2 id="lack_header">Nie posiadasz zapisanych plików.</h2>
+                <mat-icon>find_in_page</mat-icon>
+            </header>
+        </ng-template>
+    </main>
+</div>
