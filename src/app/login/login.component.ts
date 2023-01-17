@@ -1,6 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
+import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 
 @Component({
