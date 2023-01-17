@@ -1,24 +1,31 @@
 button{
     position: absolute;
-    right: 150px;
+    right: 170px;
+    background: linear-gradient(138deg, rgb(8, 154, 69) 0%, rgb(25, 88, 88) 100%);
+    color: whitesmoke;
+    font-family: 'Roboto-Light';
+    padding: 7px 11px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
 }
 
 #register{
-    top: 150px;
-}
-
-#login{
     top: 170px;
 }
 
+#login{
+    top: 120px;
+}
+
 #logout{
-    top: 50px;
+    top: 100px;
 }
 
 #save{
-    top: 80px;
+    top: 150px;
 }
 
 #files{
-    top: 120px;
+    top: 200px;
 }

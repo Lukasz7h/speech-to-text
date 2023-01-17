@@ -36,7 +36,7 @@ export class DocumentsService {
     private route: Router, private httpClient: HttpClient
     ) { }
 
-  mousemoveEvent(element: any): void
+  mouseMoveEvent(element: any): void
   {
     function showImage(element: HTMLElement)
     {
@@ -75,7 +75,7 @@ export class DocumentsService {
     });
   }
 
-  mousedownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
+  mouseDownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
   {
     let toMove;
 
@@ -107,7 +107,7 @@ export class DocumentsService {
       if(that.timeOut)
       {
         clearTimeout(that.timeOut);
-        that.currentImage.parentElement.getElementsByTagName("span").item(0).classList.remove("anim_show");
+        that.currentImage?.parentElement?.getElementsByTagName("span").item(0).classList.remove("anim_show");
       };
 
       that.flag = true;
@@ -173,7 +173,7 @@ export class DocumentsService {
       that.modifyElement = thatElement;
 
       thatElement.style.position = 'absolute';
-      thatElement.style.zIndex = "3";
+      thatElement.style.zIndex = "6";
 
       thatElement.style.top = `${_event.clientY - offsetY}px`;
       thatElement.style.left = `${_event.clientX - offsetX}px`;
@@ -194,6 +194,8 @@ export class DocumentsService {
     function canRemove(event: MouseEvent)
     {
       const thatElement: HTMLElement = event.target['classList'].contains("hadImage")? event.target: event.target['parentElement'];
+      if(!thatElement.classList.contains('hadImage')) return;
+
       thatElement.style.position = "relative";
 
       thatElement.style.top = '0';
@@ -206,10 +208,9 @@ export class DocumentsService {
 
       if(!that.actionElement) removeElement.classList.remove("show");
 
-      that.mousemoveEvent(document.getElementById("inside"));
+      that.mouseMoveEvent(document.getElementById("inside"));
 
       if(that.moveThatListener) that.moveThatListener.removeEventListener("mousemove", that.cb);
-
       that.fileAction();
     };
 
@@ -272,9 +273,10 @@ export class DocumentsService {
 
         this.actionElement.classList.remove("show");
         const index = this.documents.indexOf(this.documents.find(e => e.class == id));
-        this.documents.splice(index, 1);
 
+        this.documents.splice(index, 1);
         this.files.splice(this.files.indexOf(this.currentImage.src), 1);
+
         this.actionElement = undefined;
       }, 1000);
     };

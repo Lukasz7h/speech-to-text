@@ -5,13 +5,14 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgb(247, 247, 247);
+    background-color: var(--document-background);
+    overflow-x: hidden;
 }
 
 #inside{
     width: 100%;
     display: flex;
-    margin-top: 65vh;
+    margin-top: 66vh;
     justify-content: space-around;
     padding: 75px 0px;
 }
@@ -36,8 +37,39 @@ header mat-icon{
 #lack_header{
     font-family: 'Roboto-Thin';
     margin-top: 27vh;
-    letter-spacing: 3px;
-    font-size: 28px;
+    letter-spacing: 8px;
+    font-size: 30px;
+}
+
+#inside #line{
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background: #c0c0c0;
+    margin-top: -40px;
+}
+
+#inside #line::before{
+    content: 'Pliki';
+    position: absolute;
+    top: -50px;
+    right: 72%;
+    font-size: 36px;
+    letter-spacing: 6px;
+    font-family: 'Roboto-Light';
+    color: #5a9ac5;
+}
+
+#inside #line::after{
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: 72%;
+    width: 100px;
+    height: 38px;
+    background-color: var(--document-background);
+    animation: writer 4.9s step-end;
+    animation-fill-mode: forwards;
 }
 
 #inside>div{
@@ -48,13 +80,13 @@ header mat-icon{
     position: absolute;
     top: 0;
     left: 0;
-    height: 282px;
-    background: rgba(77, 167, 77, 0.479);
+    height: 272px;
+    background: #7fc59185;
     cursor: pointer;
 }
 
 #inside>div>img{
-    height: 280px;
+    height: 270px;
     border: 1px solid rgb(192, 192, 192);
     cursor: pointer;
 }
@@ -73,6 +105,23 @@ header mat-icon{
     transform: translate(-100%, 0);
     box-shadow: inset 10px 10px 10px -1px rgb(10, 99, 170, 0.16),
                 inset -10px -10px 10px -1px rgb(241, 241, 241, 0.7);
+    background-color: var(--document-background);
+    z-index: 2;
+}
+
+#edit h3, #removeFile h3{
+    position: absolute;
+    top: -450px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    font-family: 'Roboto-LightItalic';
+    font-size: 30px;
+    letter-spacing: 6px;
+    color: #5ac58c;
+}
+
+#removeFile h3{
+    top: 180px;
 }
 
 #edit mat-icon{
@@ -83,13 +132,13 @@ header mat-icon{
 }
 
 ::ng-deep #edit.show_edit{
-    animation: show_edit .3s ease-out forwards;
+    animation: show_edit .6s ease-out forwards;
 }
 
 #size{
     position: absolute;
-    top: 50px;
-    left: 150px;
+    top: 110px;
+    left: 220px;
     font-family: 'Roboto-Light';
 }
 
@@ -133,10 +182,10 @@ header mat-icon{
     left: 5px;
     right: 5px;
     bottom: 5px;
-    background-color: #bfd379;
+    background-color: #77ca9a;
     border-bottom-left-radius: 150px;
     border-bottom-right-radius: 150px;
-    filter: drop-shadow(0 0 40px #bfd379);
+    filter: drop-shadow(0 0 40px #7fc591);
 }
 
 #liquid::before{
@@ -144,13 +193,13 @@ header mat-icon{
     position: absolute;
     width: 100%;
     height: 23px;
-    background-color: #98a761;
+    background-color: #608159;
     border-radius: 50%;
     top: -10px;
 }
 
 ::ng-deep #size.move{
-    animation: move_size .2s ease-in forwards;
+    animation: move_size .4s ease-in forwards;
 }
 
 ::ng-deep #show{
@@ -167,14 +216,14 @@ header mat-icon{
 
 #removeFile{
     position: absolute;
-    top: 200px;
-    right: calc( var(--delete-left) * 1px);
-    width: 220px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.808);
-    transform: translate(0%, -200px);
-    opacity: 0;
+    top: 0px;
+    right: 0px;
+    width: calc( var(--delete-left) * 1px);
+    bottom: 0px;
+    transform: translate(100%, 0%);
     border-radius: 4px;
+    background-color: var(--document-background);
+    z-index: 2;
 }
 
 #removeFile>div{
@@ -188,13 +237,13 @@ header mat-icon{
 
 #removeFile span{
     position: absolute;
-    top: 33%;
-    left: 14%;
-    height: 70px;
-    width: 50px;
+    top: 45%;
+    left: 6%;
+    height: 195px;
+    width: 120px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #5ac58c;
+    background-color: #7fc591;
     z-index: 2;
 }
 
@@ -203,19 +252,19 @@ header mat-icon{
     position: absolute;
     top: -9px;
     left: 0;
-    width: 50px;
+    width: 120px;
     height: 5px;
-    background: #5ac58c;
+    background: #7fc591;
 }
 
 #removeFile span::before{
     content: "";
     position: absolute;
     top: -13px;
-    left: 18px;
-    width: 14px;
+    left: 35px;
+    width: 44px;
     height: 5px;
-    background: #5ac58c;
+    background: #7fc591;
 }
 
 #removeFile.show span{
@@ -239,18 +288,18 @@ header mat-icon{
 #removeFile.show{
     animation: show_remove .6s ease-out;
     animation-fill-mode: forwards;
-    box-shadow: inset 10px 10px 10px -1px rgb(10, 99, 170, 0.16),
-                inset -10px -10px 10px -1px rgb(241, 241, 241, 0.7);
+    box-shadow: inset 1px 3px 25px -3px rgb(10 99 170 / 16%),
+                inset -10px -10px 10px -1px rgb(241 241 241 / 70%);
 }
 
 #removeFile mat-icon{
     position: absolute;
     left: 65%;
-    top: 40%;
-    font-size: 52px;
-    height: 65px;
-    width: 45px;
-    color: #5ac58c;
+    top: 46%;
+    font-size: 75px;
+    height: 95px;
+    width: 85px;
+    color: #7fc591;
     z-index: 1;
 }
 
@@ -411,6 +460,82 @@ header mat-icon{
     animation-fill-mode: forwards;
 }
 
+@keyframes writer{
+    0%{
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    5%{
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    10%{
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    15%{
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    20%{
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    25%{
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    30%{
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    35%{
+        width: 71px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    40%{
+        width: 53px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    45%{
+        width: 43px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    50%{
+        width: 16px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    55%{
+        width: 12px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    60%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    65%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    70%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    75%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    80%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    85%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+    90%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138);
+    }
+    100%{
+        width: 0px;
+        border-left: 2px solid rgb(138, 138, 138, 0);
+    }
+}
+
 @keyframes anim_show {
     0%{
         width: 0%;
@@ -442,21 +567,19 @@ header mat-icon{
 
 @keyframes move_size {
     0%{
-        left: 150px;
+        left: 220px;
     }
     100%{
-        left: calc(var(--editSize) * 1px + 35px);
+        left: calc(var(--editSize) * 1px + 145px);
     }
 }
 
 @keyframes show_remove {
     0%{
-        top: 400px;
-        opacity: 0;
+        transform: translate(100%, 0%);
     }
     100%{
-        top: 500px;
-        opacity: 1;
+        transform: translate(0%, 0%);
     }
 }
 
@@ -465,7 +588,7 @@ header mat-icon{
         transform: scale(1) rotate(0deg) translateY(0px);
     }
     100%{
-        transform: scale(1.5) rotate(60deg) translateY(10px);
+        transform: scale(1.5) rotate(52deg) translateY(10px);
     }
 }
 
@@ -474,7 +597,7 @@ header mat-icon{
         transform: rotate(0deg) translateX(0%) translateY(0px);
     }
     100%{
-        transform: rotate(-90deg) translateX(48%) translateY(-30px);
+        transform: rotate(-90deg) translateX(48%) translateY(-60px);
     }
 }
 
@@ -483,7 +606,7 @@ header mat-icon{
         transform: rotate(0deg) translateX(0px);
     }
     100%{
-        transform: rotate(-90deg) translateY(-34px) translateX(20px);
+        transform: rotate(-90deg) translateY(-60px) translateX(51px);
     }
 }
 
@@ -498,7 +621,6 @@ header mat-icon{
 
 @keyframes crush_doc{
     0%{
-        top: 500px;
         right: calc(var(--delete-left) * 1px);
     }
     8%{
@@ -523,14 +645,13 @@ header mat-icon{
         right: calc(var(--delete-left) * 1px - 3px);
     }
     100%{
-        top: 500px;
         right: calc(var(--delete-left) * 1px);
     }
 }
 
 @keyframes span_1_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 4%;
         width: 22px;
         height: 22px;
@@ -547,7 +668,7 @@ header mat-icon{
 
 @keyframes span_2_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 8%;
         width: 22px;
         height: 22px;
@@ -567,7 +688,7 @@ header mat-icon{
 
 @keyframes span_3_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 9%;
         width: 22px;
         height: 22px;
@@ -587,7 +708,7 @@ header mat-icon{
 
 @keyframes span_4_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 13%;
         width: 22px;
         height: 22px;
@@ -607,7 +728,7 @@ header mat-icon{
 
 @keyframes span_5_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 18%;
         width: 22px;
         height: 22px;
@@ -627,7 +748,7 @@ header mat-icon{
 
 @keyframes span_6_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 22%;
         width: 22px;
         height: 22px;
@@ -647,7 +768,7 @@ header mat-icon{
 
 @keyframes span_7_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 26%;
         width: 22px;
         height: 22px;
@@ -667,7 +788,7 @@ header mat-icon{
 
 @keyframes span_8_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 31%;
         width: 22px;
         height: 22px;
@@ -687,7 +808,7 @@ header mat-icon{
 
 @keyframes span_9_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 35%;
         width: 22px;
         height: 22px;
@@ -707,7 +828,7 @@ header mat-icon{
 
 @keyframes span_10_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 35%;
         width: 22px;
         height: 22px;
@@ -727,7 +848,7 @@ header mat-icon{
 
 @keyframes span_11_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 43%;
         width: 22px;
         height: 22px;
@@ -747,7 +868,7 @@ header mat-icon{
 
 @keyframes span_12_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 50%;
         width: 22px;
         height: 22px;
@@ -767,7 +888,7 @@ header mat-icon{
 
 @keyframes span_13_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 56%;
         width: 22px;
         height: 22px;
@@ -787,7 +908,7 @@ header mat-icon{
 
 @keyframes span_14_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 61%;
         width: 22px;
         height: 22px;
@@ -807,7 +928,7 @@ header mat-icon{
 
 @keyframes span_15_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 68%;
         width: 22px;
         height: 22px;
@@ -827,7 +948,7 @@ header mat-icon{
 
 @keyframes span_16_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 74%;
         width: 22px;
         height: 22px;
@@ -847,7 +968,7 @@ header mat-icon{
 
 @keyframes span_17_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 80%;
         width: 22px;
         height: 22px;
@@ -867,7 +988,7 @@ header mat-icon{
 
 @keyframes span_18_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 86%;
         width: 22px;
         height: 22px;
@@ -887,7 +1008,7 @@ header mat-icon{
 
 @keyframes span_19_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 92%;
         width: 22px;
         height: 22px;
@@ -907,7 +1028,7 @@ header mat-icon{
 
 @keyframes span_20_crush {
     0%{
-        top: 95%;
+        top: 15%;
         left: 98%;
         width: 22px;
         height: 22px;

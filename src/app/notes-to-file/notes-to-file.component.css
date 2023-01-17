@@ -60,6 +60,7 @@ div>label.showName{
     animation-delay: .7s;
     animation-duration: .5s;
     animation-fill-mode: forwards;
+    margin-right: 8px;
 }
 
 div>input{
@@ -91,7 +92,7 @@ mat-icon{
         width: 30px;
     }
     100%{
-        width: 160px;
+        width: 200px;
         height: 70px;
         padding: 0px 10px 0px 0px;
     }
@@ -112,7 +113,7 @@ mat-icon{
 
 @keyframes remove {
     0%{
-        width: 120px;
+        width: 200px;
         padding: 0px 10px 0px 0px;
     }
     100%{

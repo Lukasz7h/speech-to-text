@@ -9,6 +9,7 @@
 
     --editSize: 400; /*for document component*/
     --delete-left: 350;
+    --document-background: rgb(247, 247, 247);
 }
 
 html, body{
@@ -79,9 +80,8 @@ app-line:nth-of-type(2)
 
 app-notes-to-file{
     position: fixed;
-    right: 400px;
-    margin-top: 5%;
-    
+    right: 580px;
+    margin-top: 9vh;
 }
 
 @font-face {

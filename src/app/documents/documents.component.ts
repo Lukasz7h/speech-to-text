@@ -59,8 +59,8 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
 
       if(this.filesElement)
       {
-        this.documentService.mousemoveEvent(this.filesElement.nativeElement);
-        this.documentService.mousedownEvent(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement, this.removeElement.nativeElement);
+        this.documentService.mouseMoveEvent(this.filesElement.nativeElement);
+        this.documentService.mouseDownEvent(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement, this.removeElement.nativeElement);
         this.documentService.mouseUp(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement, this.removeElement.nativeElement);
       };
     });
