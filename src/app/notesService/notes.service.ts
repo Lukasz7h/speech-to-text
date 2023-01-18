@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import * as html2pdf from "html2pdf-jspdf2";
+import { HttpClient } from '@angular/common/http';
 
 // objekt który używamy do nasłuchiwania mikrofonu użytkownika
 interface IWindow extends Window
@@ -57,7 +58,7 @@ export class NotesService {
   notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {letterSpacing: 1}, {lineHeight: 25}]);
   notesTextFromStorage: string;
 
-  constructor()
+  constructor(private httpClient: HttpClient)
   {}
 
   setSettings()
@@ -158,6 +159,8 @@ export class NotesService {
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     const speechRecognition = new webkitSpeechRecognition();
 
+    speechRecognition.lang = 'pl-PL';
+
     window.addEventListener("keydown", (e) => {
 
       if(e.target['id'] == "notesText" && e.key == "Tab") // jeśli użytkownik nacisnął tab w notatniku
@@ -184,7 +187,7 @@ export class NotesService {
       if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
         speechRecognition.onresult = (event) => {
-
+          
           const sentence = event.results[0][0].transcript;
           notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+".";
 
