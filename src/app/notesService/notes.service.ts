@@ -155,6 +155,7 @@ export class NotesService {
   listenUser(notesText: HTMLElement): void
   {
     let flag = false;
+    const previousSentence = [];
 
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     const speechRecognition = new webkitSpeechRecognition();
@@ -187,10 +188,9 @@ export class NotesService {
       if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
         speechRecognition.onresult = (event) => {
-          
-          const sentence = event.results[0][0].transcript;
-          notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+".";
 
+          previousSentence.push(event.results[0][0].transcript);
+        
           const time = setTimeout(() => {
             if(!flag)
             {
@@ -206,9 +206,71 @@ export class NotesService {
     })
 
     window.addEventListener("keyup", (e) => {
+      function write()
+      {
+        const whenComma = [
+          'a', 'ale', 'aliści', 'inaczej', 'jednak',
+          'jednakże', 'jedynie', 'lecz', 'natomiast',
+          'przecież', 'raczej', 'tylko', 'tylko że',
+          'tymczasem', 'wszakże', 'zaś', 'za to',
+          'więc', 'dlatego', 'toteż', 'to', 'zatem', 
+          'stąd', 'wobec tego', 'skutkiem tego',
+          'wskutek tego', 'przeto', 'tedy', 'chyba',
+          'ewentualnie', 'na przykład', 'nawet',
+          'prawdopodobnie', 'przynajmniej', 'raczej',
+          'taki jak', 'ach', 'halo', 'hej', 'ho',
+          'o', 'oj', 'bez wątpienia', 'bynajmniej',
+          'doprawdy, istotnie', 'na odwrót', 'naturalnie',
+          'niestety', 'niewątpliwie', 'niezawodnie',
+          'oczywiście', 'odwrotnie', 'owszem', 'przeciwnie',
+          'rzecz jasna', 'rzeczywiście', 'zapewne', 'być może',
+          'jak widać', 'niestety', 'przypuszczam',
+          'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
+          ];
+
+          let sentence = previousSentence.join(" ");
+          let arrSentence;
+
+          whenComma.forEach((word)=> {
+            if(sentence.includes(" "+word+"")) {
+
+              const newSentence = sentence.replace(word, ", "+word);
+              arrSentence = newSentence.split(" ");
+            };
+          });
+          
+          function isLen()
+          {
+            let finalSentence = "";
+            for(let i = 0; i<arrSentence.length; i++)
+            {
+              if(arrSentence[i+1] == ',')
+              {
+                finalSentence += arrSentence[i];
+                continue;
+              };
+              if(i == arrSentence.length-1)
+              {
+                finalSentence += arrSentence[i];
+                break;
+              };
+              finalSentence += arrSentence[i]+ " ";
+            };
+  
+            notesText.textContent += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
+          };
+
+          arrSentence && arrSentence.length > 0? isLen(): notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
+      };
+
       if(e.keyCode == 75) {
         flag = false;
         speechRecognition.stop();
+
+        setTimeout(() => {
+          write();
+        }, 150);
+        
       };
     })
   }
