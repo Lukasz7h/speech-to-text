@@ -9,7 +9,7 @@ import { backend } from 'src/app/backend/data';
 })
 export class GuardService implements CanActivate
 {
-  isLoged: boolean = false;
+  public isLoged: boolean = false;
   constructor(private httpClient: HttpClient) {}
 
   canActivate(): Promise<boolean>

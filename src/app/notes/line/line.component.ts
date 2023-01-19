@@ -7,7 +7,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input } from '@angular/cor
 })
 export class LineComponent implements AfterViewInit
 {
-  @Input() data: string;
+  @Input() public data: string;
 
   constructor(private changeDetRef: ChangeDetectorRef){
     changeDetRef.detach();

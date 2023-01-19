@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { backend } from '../backend/data';
 
@@ -11,12 +11,12 @@ import { backend } from '../backend/data';
 })
 export class RegisterService {
 
-  firstChange: boolean = false;
-  currentElement: string;
+  private firstChange: boolean = false;
+  private currentElement: string;
 
-  subscriber: Subscription;
+  public subscriber: Subscription;
 
-  registerForm: FormGroup;
+  public registerForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
     this.registerForm = formBuilder.group({
       login: "",

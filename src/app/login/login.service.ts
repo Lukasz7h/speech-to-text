@@ -11,7 +11,7 @@ import { backend } from "../backend/data";
 })
 export class LoginService {
 
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
   constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, private router: Router){
     this.loginForm = formBuilder.group({
       login: "",

@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { AppService } from './app.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,4 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent
-{
-}
+{}

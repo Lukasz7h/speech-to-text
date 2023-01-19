@@ -9,15 +9,15 @@ interface IWindow extends Window
 {
   webkitSpeechRecognition: any;
   SpeechRecognition: any;
-}
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
 
-  a4: HTMLElement;
-  settings: {
+  public a4: HTMLElement;
+  public settings: {
     fontSize: number,
 
     fontList: string[],
@@ -47,7 +47,7 @@ export class NotesService {
     }
   }
 
-  fontsList: string[] = [
+  public fontsList: string[] = [
     "Roboto-Thin", "Roboto-ThinItalic","Roboto-Black", "Roboto-BlackItalic",
     
     "Roboto-Bold","Roboto-BoldItalic", "Roboto-Italic", "Roboto-Light",
@@ -55,8 +55,8 @@ export class NotesService {
     "Roboto-LightItalic", "Roboto-Medium", "Roboto-MediumItalic", "Roboto-Regular", 
   ];
 
-  notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {letterSpacing: 1}, {lineHeight: 25}]);
-  notesTextFromStorage: string;
+  public notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{fontSize: 20}, {letterSpacing: 1}, {lineHeight: 25}]);
+  public notesTextFromStorage: string;
 
   constructor(private httpClient: HttpClient)
   {}

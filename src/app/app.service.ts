@@ -10,13 +10,13 @@ export class AppService {
 
   constructor(){}
 
-  instances = {}
-  thatElement
+  private instances = {};
+  private thatElement;
 
-  settingsSubject: Subject<{Top?: number, Left?: number, Bottom?: number, Right?: number}> = new Subject<{Top: number, Left: number, Bottom: number, Right: number}>()
+  public settingsSubject: Subject<{Top?: number, Left?: number, Bottom?: number, Right?: number}> = new Subject<{Top: number, Left: number, Bottom: number, Right: number}>();
 
-  diffrenceX
-  diffrenceY
+  private diffrenceX;
+  private diffrenceY;
 
   setPaddingX(element: HTMLElement): number
   {
@@ -31,10 +31,10 @@ export class AppService {
     });
   }
 
-  clientX: number;
-  clientY: number;
+  private clientX: number;
+  private clientY: number;
 
-  flag: boolean = false;
+  private flag: boolean = false;
 
   getCoordsLocalStorage(padding: any)
   {
@@ -171,8 +171,6 @@ export class AppService {
     this.diffrenceY += this.instances[`${elementAttribute}`].y > 0?
     -this.instances[`${elementAttribute}`].y:
     this.instances[`${elementAttribute}`].y;
-
-    
 
     // ustawianie stylu (oś x)
     (elementAttribute == 2 || elementAttribute == 3)?

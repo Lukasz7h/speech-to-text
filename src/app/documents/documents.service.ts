@@ -41,14 +41,14 @@ export class DocumentsService {
     function showImage(element: HTMLElement)
     {
       const image = element.getElementsByTagName("img").item(0);
-     if(this.currentImage && image == this.currentImage) return;
+      if(this.currentImage && image == this.currentImage) return;
 
-     function time()
-     {
-      this.timeOut = setTimeout(() => {
-        if(this.currentImage) this.peepImage(this.currentImage);
-      }, 850);
-     };
+      function time()
+      {
+        this.timeOut = setTimeout(() => {
+          if(this.currentImage) this.peepImage(this.currentImage);
+        }, 850);
+      };
 
       this.currentImage = image;
       element.getElementsByTagName("span").item(0).classList.add("anim_show");
@@ -172,7 +172,7 @@ export class DocumentsService {
       const thatElement: HTMLElement = event.target['classList'].contains("hadImage")? event.target: event.target['parentElement'];
       that.modifyElement = thatElement;
 
-      thatElement.style.position = 'absolute';
+      thatElement.style.position = 'fixed';
       thatElement.style.zIndex = "6";
 
       thatElement.style.top = `${_event.clientY - offsetY}px`;

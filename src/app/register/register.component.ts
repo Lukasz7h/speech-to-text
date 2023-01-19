@@ -1,6 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -16,13 +14,13 @@ export class RegisterComponent implements AfterViewInit, OnDestroy
   }
 
   @ViewChild("inpLogin")
-  inpLogin: ElementRef;
+  private inpLogin: ElementRef;
 
   @ViewChild("inpPassword")
-  inpPassword: ElementRef;
+  private inpPassword: ElementRef;
 
   @ViewChild("inpRepeatPassword")
-  inpRepeatPassword: ElementRef;
+  private inpRepeatPassword: ElementRef;
 
   ngAfterViewInit(): void
   {

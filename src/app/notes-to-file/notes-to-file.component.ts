@@ -10,7 +10,7 @@ export class NotesToFileComponent implements AfterViewInit
 {
 
   constructor(private notesService: NotesService){}
-  documentTypes: string[] = ["pdf", "docx"]
+  protected documentTypes: string[] = ["pdf", "docx"]
 
   createDocument(type: string, name: string): void
   {

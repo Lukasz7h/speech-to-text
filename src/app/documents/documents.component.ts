@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { backend } from '../backend/data';
 import { DocumentsService } from './documents.service';
@@ -11,22 +11,24 @@ import { DocumentsService } from './documents.service';
 })
 export class DocumentsComponent implements AfterViewInit, OnDestroy
 {
-  isEnd: boolean;
-  size: number;
+  protected isEnd: boolean;
+  protected size: number;
+
+  private maxSize: number = 5; //MB
 
   constructor(private httpClient: HttpClient, public documentService: DocumentsService, private changeDetRef: ChangeDetectorRef){}
 
   @ViewChild("inside")
-  filesElement: ElementRef;
+  private filesElement: ElementRef;
 
   @ViewChild("editNotes")
-  editElement: ElementRef;
+  private editElement: ElementRef;
 
   @ViewChild("sizeElement")
-  sizeElement: ElementRef;
+  private sizeElement: ElementRef;
 
   @ViewChild("remove")
-  removeElement: ElementRef;
+  private removeElement: ElementRef;
 
   ngAfterViewInit(): void {
     this.getFiles();
@@ -43,6 +45,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
     .subscribe((e: {files: [], size: number}) => {
 
       this.size = Math.round((e.size / 1000 / 1024) * 100) / 100;
+
       if(e.files instanceof Array)
       {
         this.documentService.files = [];
@@ -57,8 +60,16 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
       this.isEnd = true;
       this.changeDetRef.detectChanges();
 
+      function setFileSizeStyle()
+      {
+        const filesSizeInProcent = Math.ceil( this.size / this.maxSize * 100);
+        document.getElementById("liquid").style.height = `${filesSizeInProcent}%`;
+      };
+
       if(this.filesElement)
       {
+        setFileSizeStyle.call(this);
+
         this.documentService.mouseMoveEvent(this.filesElement.nativeElement);
         this.documentService.mouseDownEvent(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement, this.removeElement.nativeElement);
         this.documentService.mouseUp(this.filesElement.nativeElement, this.editElement.nativeElement, this.sizeElement.nativeElement, this.removeElement.nativeElement);

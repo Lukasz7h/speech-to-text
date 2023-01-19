@@ -15,6 +15,7 @@
     margin-top: 66vh;
     justify-content: space-around;
     padding: 75px 0px;
+    flex-wrap: wrap;
 }
 
 header{
@@ -93,6 +94,12 @@ header mat-icon{
 
 #inside>div>span.anim_show{
     animation: anim_show .8s ease-in;
+}
+
+.hadImage{
+    margin-left: 65px;
+    margin-right: 65px;
+    margin-top: 50px;
 }
 
 #edit{
@@ -178,7 +185,7 @@ header mat-icon{
 
 #liquid{
     position: absolute;
-    top: 50%;
+    height: 0%;
     left: 5px;
     right: 5px;
     bottom: 5px;
@@ -212,10 +219,11 @@ header mat-icon{
     animation-name: show_image;
     animation-duration: .4s;
     animation-fill-mode: forwards;
+    box-shadow: 8px 8px 15px -11px rgba(66, 68, 90, 1);
 }
 
 #removeFile{
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     width: calc( var(--delete-left) * 1px);

@@ -10,13 +10,13 @@ import { NotesService } from '../notesService/notes.service';
 })
 export class NotesSettingsComponent implements AfterViewInit
 {
-  button;
+  private button;
 
-  user = { color: '#234532' };
-  disabled = false;
+  private user = { color: '#234532' };
+  protected disabled = false;
 
-  color: ThemePalette = 'primary';
-  touchUi = false;
+  protected color: ThemePalette = 'primary';
+  protected touchUi = false;
 
   constructor(
     public notesService: NotesService,
@@ -35,16 +35,16 @@ export class NotesSettingsComponent implements AfterViewInit
   }
 
   @ViewChild("fontInp")
-  elementFontInput: ElementRef;
+  private elementFontInput: ElementRef;
 
   @ViewChild("letterInp")
-  elementLetterSpaceInput: ElementRef;
+  private elementLetterSpaceInput: ElementRef;
 
   @ViewChild("colorElement")
-  colorElement: ElementRef;
+  private colorElement: ElementRef;
 
   @ViewChild("lineInp")
-  lineHeightInp: ElementRef;
+  private lineHeightInp: ElementRef;
 
   ngAfterViewInit(): void
   {

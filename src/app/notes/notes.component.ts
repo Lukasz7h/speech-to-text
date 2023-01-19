@@ -20,10 +20,10 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
     private changeDetRef: ChangeDetectorRef
   ){}
 
-  subscribe: Subscriber<any> = new Subscriber<any>();
+  private subscribe: Subscriber<any> = new Subscriber<any>();
 
   @ViewChild("a4")
-  element: ElementRef;
+  private element: ElementRef;
 
   ngOnInit()
   {
