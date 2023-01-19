@@ -155,7 +155,7 @@ export class NotesService {
   listenUser(notesText: HTMLElement): void
   {
     let flag = false;
-    const previousSentence = [];
+    let previousSentence = [];
 
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     const speechRecognition = new webkitSpeechRecognition();
@@ -189,6 +189,7 @@ export class NotesService {
       {
         speechRecognition.onresult = (event) => {
 
+          console.log(event.results[0][0].transcript)
           previousSentence.push(event.results[0][0].transcript);
         
           const time = setTimeout(() => {
@@ -228,6 +229,7 @@ export class NotesService {
           'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
           ];
 
+          console.log(previousSentence);
           let sentence = previousSentence.join(" ");
           let arrSentence;
 
@@ -261,6 +263,7 @@ export class NotesService {
           };
 
           arrSentence && arrSentence.length > 0? isLen(): notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
+          previousSentence = [];
       };
 
       if(e.keyCode == 75) {
@@ -269,7 +272,7 @@ export class NotesService {
 
         setTimeout(() => {
           write();
-        }, 150);
+        }, 450);
         
       };
     })
