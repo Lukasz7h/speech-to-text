@@ -10,6 +10,8 @@
     --editSize: 400; /*for document component*/
     --delete-left: 350;
     --document-background: rgb(247, 247, 247);
+
+    --liquid-percent: '0';
 }
 
 html, body{

@@ -64,6 +64,8 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
       {
         const filesSizeInProcent = Math.ceil( this.size / this.maxSize * 100);
         document.getElementById("liquid").style.height = `${filesSizeInProcent}%`;
+        
+        document.getElementById("vial").getElementsByTagName("span").item(0).textContent = `${filesSizeInProcent}%`;
       };
 
       if(this.filesElement)

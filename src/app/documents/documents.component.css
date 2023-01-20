@@ -1,4 +1,3 @@
-
 #cover{
     position: absolute;
     top: 0;
@@ -154,33 +153,34 @@ header mat-icon{
     width: 200px;
     height: 200px;
     background-color: #ebebeb;
-    border-radius: 50%;
     top: 40px;
-}
-
-#vial::after{
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    border: 14px solid rgb(207, 207, 207);
-    border-radius: 50%;
-    height: 25px;
-    width: 75px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 #vial::before{
     content: "";
+    text-align: center;
     position: absolute;
-    top: 40%;
+    top: 0%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #cfcfcf6b;
+    background-color: #cfcfcfc0;
     z-index: 2;
     border-radius: 50%;
-    height: 55px;
-    width: 105px;
+    height: 35px;
+    width: 100%;
+}
+
+#vial span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(150, 150, 150);
+    font-family: 'Roboto-Light';
+    font-size: 26px;
+    letter-spacing: 3px;
 }
 
 #liquid{
@@ -190,9 +190,9 @@ header mat-icon{
     right: 5px;
     bottom: 5px;
     background-color: #77ca9a;
-    border-bottom-left-radius: 150px;
-    border-bottom-right-radius: 150px;
     filter: drop-shadow(0 0 40px #7fc591);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 #liquid::before{

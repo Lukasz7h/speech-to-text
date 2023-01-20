@@ -286,3 +286,67 @@ form>button{
         top: 104vh;
     }
 }
+
+/* rwd */
+
+@media (min-width: 220px){
+    h3{
+        left: 0%;
+        transform: translate(0, 0);
+        font-size: 33px;
+        text-align: center;
+        width: 100%;
+        letter-spacing: 4px;
+    }
+    
+    form{
+        top: 52%;
+        width: 80%;
+    }
+
+    form>input{
+        width: 54%;
+    }
+}
+
+@media (min-width: 550px){
+    h3{
+        font-size: 43px;
+        letter-spacing: 6px;
+    }
+    
+    form{
+        top: 52%;
+        width: 75%;
+    }
+
+    form>input{
+        width: 45%;
+    }
+}
+
+@media (min-width: 720px){
+    h3{
+        font-size: 46px;
+        letter-spacing: 9px;
+    }
+
+    form{
+        top: 50%;
+    }
+
+    form>input{
+        width: 43%;
+    }
+}
+
+@media (min-width: 950px){
+    h3{
+        font-size: 54px;
+        letter-spacing: 12px;
+    }
+
+    form>input{
+        width: 40%;
+    }
+}
