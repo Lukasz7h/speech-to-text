@@ -11,7 +11,7 @@
 #inside{
     width: 100%;
     display: flex;
-    margin-top: 66vh;
+    margin-top: 63vh;
     justify-content: space-around;
     padding: 75px 0px;
     flex-wrap: wrap;
@@ -211,7 +211,7 @@ header mat-icon{
 
 ::ng-deep #show{
     position: absolute;
-    z-index: 3;
+    z-index: 6;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -1051,5 +1051,16 @@ header mat-icon{
         width: 14px;
         height: 14px;
         opacity: 0;
+    }
+}
+
+@media (min-width: 300px){
+    #size{
+        left: 50%;
+        transform: translate(-50%, -30%);
+    }
+    
+    #inside #line::before, #inside #line::after{
+        right: 62%;
     }
 }

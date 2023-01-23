@@ -13,3 +13,9 @@
     text-align: center;
     top: -12px;
 }
+
+@media (min-width: 320px) {
+    ::ng-deep .cm{
+        font-size: 13px;
+    }
+}

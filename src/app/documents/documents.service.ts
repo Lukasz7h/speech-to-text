@@ -134,7 +134,7 @@ export class DocumentsService {
   {
     const offsetX = event.offsetX;
     const offsetY = event.offsetY;
-
+    
     const that = this;
 
     function toDo(element)
@@ -175,8 +175,11 @@ export class DocumentsService {
       thatElement.style.position = 'fixed';
       thatElement.style.zIndex = "6";
 
-      thatElement.style.top = `${_event.clientY - offsetY}px`;
-      thatElement.style.left = `${_event.clientX - offsetX}px`;
+      const marginLeft = 65;
+      const marginTop = 50;
+
+      thatElement.style.top = `${_event.clientY - offsetY - marginTop}px`;
+      thatElement.style.left = `${_event.clientX - offsetX - marginLeft}px`;
 
       toDo(action(_event.screenX, _event.screenY));
     };
@@ -197,6 +200,7 @@ export class DocumentsService {
       if(!thatElement.classList.contains('hadImage')) return;
 
       thatElement.style.position = "relative";
+      thatElement.style.zIndex = '2';
 
       thatElement.style.top = '0';
       thatElement.style.left = '0';
@@ -239,6 +243,8 @@ export class DocumentsService {
     this.notesService.settings.padding.Right = div.style.paddingRight.match(/\d/g).join("");
 
     this.userExitService.userExit({settings: this.notesService.settings, notes});
+    this.modifyElement = undefined;
+
     this.route.navigate(["**"]);
   }
 
@@ -284,7 +290,11 @@ export class DocumentsService {
 
   fileAction(): void
   {
-    if(!this.actionElement) return;
+    if(!this.actionElement) {
+      this.modifyElement.style.zIndex = '3';
+      this.modifyElement = undefined;
+      return;
+    };
 
     switch(this.actionElement.id)
     {

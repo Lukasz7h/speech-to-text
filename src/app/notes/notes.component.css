@@ -1,87 +1,91 @@
-#a4{
-    height: calc((297 - 2*0.068) *1mm);
-    width: 210mm;
-    box-shadow: 3px 4px 24px -13px rgb(150, 150, 150);
-    border: 1px solid rgba(206, 206, 206, 0.322);
-    background-color: white;
-    outline: none;
-    font-family: var(--font-Family);
-    box-sizing: border-box;
-    color: var(--notes-color);
-}
 
-#notesText{
-    width: 100%;
-    height: 100%;
-    outline: none;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-}
 
-#notesText>div{
-    height: 20px;
-}
+    #a4{
+        height: calc((297 - 2*0.068) *1mm);
+        width: 210mm;
+        box-shadow: 3px 4px 24px -13px rgb(150, 150, 150);
+        border: 1px solid rgba(206, 206, 206, 0.322);
+        background-color: white;
+        outline: none;
+        font-family: var(--font-Family);
+        box-sizing: border-box;
+        color: var(--notes-color);
+    }
+    
+    #notesText{
+        width: 100%;
+        height: 100%;
+        outline: none;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+    }
+    
+    #notesText>div{
+        height: 20px;
+    }
+    
+    .padding{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 4;
+    }
+    
+    .padding > .vertical{
+        position: absolute;
+        width: 4px;
+        height: 100%;
+        background-color: brown;
+    }
+    
+    .padding > .horizon{
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background-color: brown;
+    }
+    
+    .padding:nth-of-type(1)
+    {
+        transform: translate(-100%, -100%);
+    }
+    
+    .padding:nth-of-type(2)
+    {
+        transform: translate(100%, -100%);
+    }
+    
+    .padding:nth-of-type(3)
+    {
+        transform: translate(100%, 0%);
+    }
+    
+    .padding:nth-of-type(4)
+    {
+        transform: translate(-100%, 0%);
+    }
+    
+    .padding:nth-child(even)
+    {
+        right: 0;
+    }
+    
+    .padding:nth-of-type(1) .horizon, .padding:nth-of-type(2) .horizon
+    {
+        bottom: 0;
+    }
+    
+    .padding:nth-of-type(1) .vertical{
+        right: 0;
+    }
+    
+    .padding:nth-of-type(3) .vertical{
+        left: 0;
+    }
+    
+    .padding:nth-of-type(4) .vertical{
+        right: 0;
+    }
 
-.padding{
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 4;
-}
-
-.padding > .vertical{
-    position: absolute;
-    width: 4px;
-    height: 100%;
-    background-color: brown;
-}
-
-.padding > .horizon{
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background-color: brown;
-}
-
-.padding:nth-of-type(1)
-{
-    transform: translate(-100%, -100%);
-}
-
-.padding:nth-of-type(2)
-{
-    transform: translate(100%, -100%);
-}
-
-.padding:nth-of-type(3)
-{
-    transform: translate(100%, 0%);
-}
-
-.padding:nth-of-type(4)
-{
-    transform: translate(-100%, 0%);
-}
-
-.padding:nth-child(even)
-{
-    right: 0;
-}
-
-.padding:nth-of-type(1) .horizon, .padding:nth-of-type(2) .horizon
-{
-    bottom: 0;
-}
-
-.padding:nth-of-type(1) .vertical{
-    right: 0;
-}
-
-.padding:nth-of-type(3) .vertical{
-    left: 0;
-}
-
-.padding:nth-of-type(4) .vertical{
-    right: 0;
-}
+    

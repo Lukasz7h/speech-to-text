@@ -10,6 +10,22 @@ button{
     cursor: pointer;
 }
 
+#reveal_settings{
+    display: none;
+    position: relative;
+    top: 9vh;
+    left: 10%;
+    width: 35px;
+    height: 35px;
+}
+
+#reveal_settings>mat-icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(25%, 25%);
+}
+
 #register{
     top: 170px;
 }
@@ -28,4 +44,30 @@ button{
 
 #files{
     top: 200px;
+}
+
+@media (max-width: 1980px)
+{
+    #logout{
+        top: 275px;
+    }
+
+    #save{
+        top: 335px;
+    }
+
+    #files{
+        top: 385px;
+    }
+}
+
+@media (max-width: 1675px)
+{
+    #reveal_settings{
+        display: block;
+    }
+
+    .move{
+        top: 25vh !important;
+    }
 }

@@ -18,6 +18,15 @@ export class MainComponent implements AfterViewInit, OnInit
   ngOnInit(): void
   {
     this.guard.canActivate();
+    this.settingButton();
+  }
+
+  settingButton()
+  {
+    document.getElementById("reveal_settings").addEventListener("click", (e) => {
+      document.getElementById("reveal_settings").classList.toggle("move");
+      document.querySelector("app-notes-settings").classList.toggle("show");
+    });
   }
 
   ngAfterViewInit(): void
