@@ -27,7 +27,7 @@ app-notes{
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0%);
-    margin-top: 5%;
+    margin-top: 6vh;
     padding-bottom: 20px;
 }
 
@@ -46,7 +46,7 @@ app-line{
     position: absolute;
     top: 0;
     font-size: 10px;
-    letter-spacing: 1.68px;
+    letter-spacing: 1.6px;
 }
 
 app-line::after{
@@ -174,5 +174,90 @@ app-notes-to-file{
     ul{
         display: flex;
         justify-content: space-around;
+    }
+}
+
+@media (max-width: 1450px)
+{
+    app-notes{
+        margin-top: 7vh;
+    }
+
+    app-notes-to-file{
+        top: 10vh;
+        left: 6%;
+        transform: translate(0, 0);
+    }
+}
+
+@media (max-width: 1070px)
+{
+    app-notes-settings.show ul{
+        flex-wrap: wrap;
+        font-size: 13px;
+    }
+
+    ul>li{
+        margin: 0px 8px;
+    }
+
+    app-notes{
+        left: 17vw;
+        transform: translate(0, 0);
+        margin-top: 12vh;
+    }
+
+    app-line:nth-of-type(1)
+    {
+        width: 100% !important;
+        letter-spacing: .145vw !important;
+        font-size: .85vw;
+        top: -25px !important;
+    }
+
+    app-line:nth-of-type(2)
+    {
+        top: auto;
+        bottom: 0;
+        height: 102% !important;
+        letter-spacing: 0.117vw;
+        font-size: 1.04vw;
+    }
+}
+
+@media (max-width: 650px)
+{
+    app-notes-to-file{
+        top: -4vh;
+        left: 8%;
+    }
+
+    app-line:nth-of-type(1)
+    {
+        top: -18px !important;
+    }
+
+    app-notes-settings.show{
+        height: 340px;
+    }
+
+    app-notes-settings h2{
+        margin-top: 50px !important;
+    }
+
+    app-notes-settings ul{
+        margin-top: 20px !important;
+    }
+}
+
+@media (max-width: 450px)
+{
+    app-notes-settings.show{
+        height: 435px;
+    }
+
+    app-line:nth-of-type(1)
+    {
+        top: -12px !important;
     }
 }

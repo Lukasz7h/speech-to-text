@@ -82,6 +82,8 @@ export class RegisterService {
 
       data.append("login", this.registerForm.value['login']);
       data.append("password", this.registerForm.value['password']);
+
+      data.append("repeat_password", this.registerForm.value['repeat_password']);
   
       this.httpClient.post(backend.url+"/register", data)
       .subscribe((data) => {

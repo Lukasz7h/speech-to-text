@@ -1054,7 +1054,7 @@ header mat-icon{
     }
 }
 
-@media (min-width: 300px){
+@media (max-width: 650px){
     #size{
         left: 50%;
         transform: translate(-50%, -30%);

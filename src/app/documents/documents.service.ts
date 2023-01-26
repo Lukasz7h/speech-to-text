@@ -245,7 +245,7 @@ export class DocumentsService {
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;
 
-    this.route.navigate(["**"]);
+    this.route.navigate([""]);
   }
 
   removeElement(): void
@@ -282,6 +282,9 @@ export class DocumentsService {
 
         this.documents.splice(index, 1);
         this.files.splice(this.files.indexOf(this.currentImage.src), 1);
+
+        const spans = Array.from(document.getElementById("removeFile").getElementsByClassName("crush"));
+        spans.forEach((e) => e.remove());
 
         this.actionElement = undefined;
       }, 1000);

@@ -34,6 +34,7 @@ export class RegisterComponent implements AfterViewInit, OnDestroy
   async sendForm()
   {
     if(!this.registerService.canSend()) return;
-    await this.registerService.registerUser();
+    const result = await this.registerService.registerUser();
+    console.log(result);
   }
 }

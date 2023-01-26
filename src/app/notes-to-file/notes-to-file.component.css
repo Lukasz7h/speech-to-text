@@ -132,3 +132,10 @@ mat-icon{
         margin-top: 12px;
     }
 }
+
+@media (max-width: 1450px)
+{
+    div{
+        transform: translate(0, 0);
+    }
+}

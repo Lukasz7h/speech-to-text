@@ -88,4 +88,10 @@
         right: 0;
     }
 
-    
+@media (max-width: 1070px)
+{
+    #a4{
+        height: 105vw;
+        width: 73vw;
+    }
+}

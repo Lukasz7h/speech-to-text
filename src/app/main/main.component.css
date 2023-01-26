@@ -8,13 +8,14 @@ button{
     border: none;
     border-radius: 9px;
     cursor: pointer;
+    width: 125px;
 }
 
 #reveal_settings{
     display: none;
     position: relative;
     top: 9vh;
-    left: 10%;
+    left: 6%;
     width: 35px;
     height: 35px;
 }
@@ -27,11 +28,11 @@ button{
 }
 
 #register{
-    top: 170px;
+    top: 260px;
 }
 
 #login{
-    top: 120px;
+    top: 200px;
 }
 
 #logout{
@@ -57,7 +58,7 @@ button{
     }
 
     #files{
-        top: 385px;
+        top: 395px;
     }
 }
 
@@ -68,6 +69,117 @@ button{
     }
 
     .move{
-        top: 25vh !important;
+        top: 35vh !important;
+    }
+}
+
+@media (max-width: 1450px)
+{
+    #files, #save, #logout, #login, #register{
+        top: 40px;
+        right: auto;
+    }
+
+    #logout{
+        left: 28%;
+    }
+
+    #save{
+        left: 43%;
+    }
+
+    #files{
+        left: 59%;
+    }
+
+    #login{
+        left: 31%;
+    }
+
+    #register{
+        left: 62%;
+    }
+}
+
+@media (max-width: 1070px)
+{
+    #logout{
+        left: 18%;
+    }
+
+    #save{
+        left: 41%;
+    }
+
+    #files{
+        left: 67%;
+    }
+}
+
+@media (max-width: 650px)
+{
+    button{
+        font-size: 11px;
+    }
+
+    #reveal_settings{
+        top: 4vh;
+        left: 72%;
+    }
+
+    #reveal_settings.move{
+        top: 45% !important;
+        z-index: 4;
+    }
+
+    #logout, #login, #register, #save{
+        top: 91%;
+    }
+
+    #login{
+        left: 11%;
+    }
+
+    #register{
+        left: 55%;
+    }
+
+    #logout{
+        left: 8%;
+    }
+
+    #save{
+        left: 50%;
+    }
+
+    #files{
+        top: 97%;
+        left: 50%;
+    }
+}
+
+@media (max-width: 450px)
+{
+    #reveal_settings.move{
+        top: 70% !important;
+    }
+
+    button{
+        font-size: 11px;
+    }
+
+    #logout{
+        top: 95%;
+        left: 8%;
+    }
+
+    #save{
+        top: 95%;
+        left: 50%;
+    }
+
+    #files{
+        top: 102%;
+        left: 50%;
     }
 }

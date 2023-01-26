@@ -66,6 +66,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
         document.getElementById("liquid").style.height = `${filesSizeInProcent}%`;
         
         document.getElementById("vial").getElementsByTagName("span").item(0).textContent = `${filesSizeInProcent}%`;
+        document.getElementById("vial").getElementsByTagName("span").item(0).style.zIndex = `5`;
       };
 
       if(this.filesElement)
