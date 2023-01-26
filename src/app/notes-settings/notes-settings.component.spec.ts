@@ -1,4 +1,5 @@
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +24,8 @@ describe('NotesSettingsComponent', () => {
         NgxMatColorPickerModule,
         MatFormFieldModule,
         MatInputModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        HttpClientModule
       ],
       providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }]
     })
@@ -39,10 +41,10 @@ describe('NotesSettingsComponent', () => {
   });
 
   it('check font', () => {
-    expect(moreThen(component.elementFontInput.nativeElement.value, 0)).toBeTrue();
+    expect(moreThen(component['elementFontInput'].nativeElement.value, 0)).toBeTrue();
 
-    expect(moreThen(component.elementLetterSpaceInput.nativeElement.value, 0)).toBeTrue();
-    expect(moreThen(component.lineHeightInp.nativeElement.value, 0)).toBeTrue();
+    expect(moreThen(component['elementLetterSpaceInput'].nativeElement.value, 0)).toBeTrue();
+    expect(moreThen(component['lineHeightInp'].nativeElement.value, 0)).toBeTrue();
   });
 
   it('line showed', () => {

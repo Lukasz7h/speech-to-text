@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -10,7 +11,7 @@ describe('NotesToFileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ NotesToFileComponent ],
-      imports: [MatIconModule]
+      imports: [MatIconModule, HttpClientModule]
     })
     .compileComponents();
 
@@ -24,10 +25,10 @@ describe('NotesToFileComponent', () => {
   });
 
   it('documentTypes should be array of string', () => {
-    expect(component.documentTypes instanceof Array).toBeTrue();
+    expect(component['documentTypes'] instanceof Array).toBeTrue();
   });
 
   it('documentType array should had only string', () => {
-    expect(component.documentTypes.every((e) => typeof e == "string")).toBeTrue();
+    expect(component['documentTypes'].every((e) => typeof e == "string")).toBeTrue();
   });
 });

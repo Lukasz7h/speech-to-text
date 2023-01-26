@@ -27,6 +27,12 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
   @ViewChild("sizeElement")
   private sizeElement: ElementRef;
 
+  @ViewChild("vial")
+  private vialElement: ElementRef;
+
+  @ViewChild("liquid")
+  private liquidElement: ElementRef;
+
   @ViewChild("remove")
   private removeElement: ElementRef;
 
@@ -63,10 +69,10 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
       function setFileSizeStyle()
       {
         const filesSizeInProcent = Math.ceil( this.size / this.maxSize * 100);
-        document.getElementById("liquid").style.height = `${filesSizeInProcent}%`;
+        this.liquidElement.nativeElement.style.height = `${filesSizeInProcent}%`;
         
-        document.getElementById("vial").getElementsByTagName("span").item(0).textContent = `${filesSizeInProcent}%`;
-        document.getElementById("vial").getElementsByTagName("span").item(0).style.zIndex = `5`;
+        this.vialElement.nativeElement.getElementsByTagName("span").item(0).textContent = `${filesSizeInProcent}%`;
+        this.vialElement.nativeElement.getElementsByTagName("span").item(0).style.zIndex = `5`;
       };
 
       if(this.filesElement)
@@ -79,4 +85,10 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
       };
     });
   }
+
+  deleteAll()
+  {
+    this.documentService.delete(document.getElementsByClassName("hadImage"));
+  }
+  
 }

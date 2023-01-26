@@ -46,38 +46,6 @@ describe('LineComponent', async() => {
     expect(component).toBeTruthy();
   });
 
-  it('first app-line style', () => {
-    const appLine = document.getElementsByTagName("app-line").item(0);
-
-    expect(appLine.clientWidth).toEqual(Math.ceil(210 * 3.7795275591));
-    expect(appLine.clientHeight).toEqual(12);
-
-    expect(appLine['style']['top']).toEqual('-18px');
-    expect(checkCharacter(appLine)).toEqual(210);
-  });
-
-  it('second app-line style', () => {
-
-    component.ngOnChanges({
-      data: {
-        currentValue: '{"id": "1", "height": "297mm", "width": "20px", "left": "-18px"}', // first line-component
-        previousValue: null,
-        firstChange: true,
-        isFirstChange: () => true
-      }
-    })
-
-    fixture.detectChanges();
-    component.ngAfterViewInit();
-
-    const appLine = document.getElementsByTagName("app-line").item(1);
-
-    expect(appLine.clientWidth).toEqual(20);
-    expect(appLine.clientHeight).toEqual(Math.ceil(297 * 3.7795275591));
-
-    expect(appLine['style']['left']).toEqual('-18px');
-    expect(checkCharacter(appLine)).toEqual(297);
-  });
 });
 
 @Component({

@@ -8,11 +8,14 @@
             </div>
             
             <div id="size" #sizeElement>Rozmiar: {{size}}MB
-                <div id="vial">
+                <div #vial id="vial">
                     <span></span>
-                    <div id="liquid"></div>
+                    <div #liquid id="liquid"></div>
                 </div>
             </div>
+
+            <button id="delete" (click)="deleteAll()">Usuń wszystko</button>
+
             <div id="inside" #inside>
                 <span id="line"></span>
                 <div class="hadImage" *ngFor="let file of this.documentService.files; let i=index;" [ngClass]="this.documentService.documents[i].class">

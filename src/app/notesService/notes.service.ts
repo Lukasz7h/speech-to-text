@@ -189,7 +189,6 @@ export class NotesService {
       {
         speechRecognition.onresult = (event) => {
 
-          console.log(event.results[0][0].transcript)
           previousSentence.push(event.results[0][0].transcript);
         
           const time = setTimeout(() => {
@@ -229,7 +228,6 @@ export class NotesService {
           'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
           ];
 
-          console.log(previousSentence);
           let sentence = previousSentence.join(" ");
           let arrSentence;
 

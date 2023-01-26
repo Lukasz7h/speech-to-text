@@ -21,7 +21,7 @@ describe('RegisterService', () => {
   });
 
   it('current element should be not defined', () => {
-    expect(service.currentElement).not.toBeDefined()
+    expect(service['currentElement']).not.toBeDefined()
   });
 
   it('should had defined register form as "FormGroup" type', () => {

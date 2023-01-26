@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,7 +15,8 @@ describe('NotesComponent', () => {
       declarations: [
         NotesComponent,
         LineComponent
-      ]
+      ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
 
@@ -52,8 +54,8 @@ describe('NotesComponent', () => {
       return x - 3 > shouldBe - 5 || x + 3 < shouldBe + 5;
     };
 
-    expect(check(component.element.nativeElement.offsetHeight, pixelsOfHeight)).toBe(true);
-    expect(check(component.element.nativeElement.offsetWidth, pixelsOfWidth)).toBe(true);
+    expect(check(component['element'].nativeElement.offsetHeight, pixelsOfHeight)).toBe(true);
+    expect(check(component['element'].nativeElement.offsetWidth, pixelsOfWidth)).toBe(true);
   });
 
   it('load line-component', async() => {

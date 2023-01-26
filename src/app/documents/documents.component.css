@@ -9,12 +9,31 @@
 }
 
 #inside{
+    position: relative;
     width: 100%;
     display: flex;
     margin-top: 63vh;
     justify-content: space-around;
     padding: 75px 0px;
     flex-wrap: wrap;
+}
+
+select{
+    margin-top: 1vh;
+    position: absolute;
+    right: 75px;
+    width: 110px;
+    height: 35px;
+    z-index: 6;
+}
+
+#delete{
+    margin-top: 5vh;
+    position: absolute;
+    right: 195px;
+    width: 110px;
+    height: 35px;
+    z-index: 6;
 }
 
 header{

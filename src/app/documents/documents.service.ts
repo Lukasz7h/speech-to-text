@@ -31,6 +31,8 @@ export class DocumentsService {
   private actionElement: HTMLElement;
   private modifyElement: HTMLElement;
 
+  protected listener: boolean = false;
+
   constructor(
     private userExitService: UserExitFromPageService, private notesService: NotesService,
     private route: Router, private httpClient: HttpClient
@@ -293,7 +295,10 @@ export class DocumentsService {
 
   fileAction(): void
   {
-    if(!this.actionElement) {
+    if(!this.actionElement)
+    {
+      if(!this.modifyElement) return;
+
       this.modifyElement.style.zIndex = '3';
       this.modifyElement = undefined;
       return;
@@ -315,5 +320,23 @@ export class DocumentsService {
 
     img.id = "show";
     document.body.insertAdjacentElement("afterbegin", img);
+  }
+
+  delete(elements)
+  {
+    const ArrayId = Array.from(elements).map((e: HTMLElement) => e.classList.item(1));
+    const formData = new FormData();
+
+    formData.append("files", JSON.stringify(ArrayId));
+    
+    this.httpClient.post(backend.url+"/deleteFiles", formData, {withCredentials: true})
+    .subscribe((e: any) => {
+      if(e.remove){
+
+        document.getElementById("inside").textContent = "";
+        this.files = [];
+        this.documents = [];
+      }
+    })
   }
 }
