@@ -11,6 +11,7 @@ export class SaveDocService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // zapisywanie dokumentu użytkownika w bazie danych
   saveDoc()
   {
     const a4 = document.getElementById("a4");

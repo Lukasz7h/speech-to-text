@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { backend } from 'src/app/backend/data';
-import { GuardService } from 'src/app/login/guard/guard.service';
+import { GuardService } from 'src/app/guards/loginGuard/guard.service';
 
 @Injectable({
   providedIn: 'root'

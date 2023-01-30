@@ -45,6 +45,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
     if(showImage) showImage.remove();
   }
 
+  // pobieranie zapisanych przez użytkownika plików
   getFiles()
   {
     this.httpClient.get(backend.url+"/files", {withCredentials: true})
@@ -86,6 +87,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy
     });
   }
 
+  // usuwanie wszystkich zapisanych plików
   deleteAll()
   {
     this.documentService.delete(document.getElementsByClassName("hadImage"));

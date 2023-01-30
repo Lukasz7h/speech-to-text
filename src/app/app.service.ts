@@ -23,6 +23,7 @@ export class AppService {
     return element.offsetLeft > 0? element.offsetLeft + element.clientWidth: element.offsetLeft;
   }
 
+  // tworzenie nowych instancji dla każdego elementu padding
   addInstance(elements: HTMLCollection): void
   {
     Array.from(elements).forEach((element: HTMLElement) => {
@@ -73,6 +74,7 @@ export class AppService {
     }
   }
 
+  // ustawiamy nowe koordynaty dla paddingów
   mouseupEvent(data): void
   {
     this.flag = false;

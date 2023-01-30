@@ -31,10 +31,10 @@ export class RegisterComponent implements AfterViewInit, OnDestroy
     this.registerService.subscriber.unsubscribe();
   }
 
+  // wysyłanie formularza
   async sendForm()
   {
     if(!this.registerService.canSend()) return;
     const result = await this.registerService.registerUser();
-    console.log(result);
   }
 }

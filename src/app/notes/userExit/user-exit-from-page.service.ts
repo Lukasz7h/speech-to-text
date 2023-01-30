@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserExitFromPageService
 {
+  // zapisywanie danych użytkownika w localStorage
   userExit(userData)
   {
     const values = Object.entries(userData.settings);

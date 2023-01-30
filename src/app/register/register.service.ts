@@ -45,6 +45,7 @@ export class RegisterService {
     });
   }
 
+  // sprawdzmy poprawność danych wprowadzonych przez użytkownika
   checkValue(): boolean
   {
     const validRegisterValue: {checkLen, repeat_password} = {
@@ -60,6 +61,7 @@ export class RegisterService {
     );
   }
 
+  // czy można wysłać formularz
   canSend(): boolean
   {
     let result: boolean = true;
@@ -75,6 +77,7 @@ export class RegisterService {
     return result;
   }
 
+  // wysyłanei formularzu rejestracji
   registerUser(): Promise<any>
   {
     return new Promise((resolve) => {

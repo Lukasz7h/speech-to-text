@@ -19,12 +19,14 @@ export class LoginService {
     });
   }
 
+  // sprawdzamy czy dane użytkownika mają odpowiednią długość
   validForm(): boolean
   {
     return this.loginForm.value['login'].length >= 4 && this.loginForm.value['login'].length <= 22 &&
     this.loginForm.value['password'].length >= 6 && this.loginForm.value['password'].length <= 32
   }
 
+  // wysyłany jest formularz logowania użytkownika
   sendForm()
   {
     const form = new FormData();

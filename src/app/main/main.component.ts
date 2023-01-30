@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 
-import { GuardService } from '../login/guard/guard.service';
-import { SaveDocService } from '../server/save-doc.service';
+import { GuardService } from '../guards/loginGuard/guard.service';
+import { IWindow } from '../notesService/notes.service';
 
+import { SaveDocService } from '../server/save-doc.service';
 import { LogoutService } from './logout/logout.service';
 
 @Component({
@@ -17,11 +18,10 @@ export class MainComponent implements AfterViewInit, OnInit
 
   ngOnInit(): void
   {
-    this.guard.canActivate();
-    this.settingButton();
+    this.checkWeb();
   }
 
-  settingButton()
+  settingButton(): void
   {
     document.getElementById("reveal_settings").addEventListener("click", (e) => {
       document.getElementById("reveal_settings").classList.toggle("move");
@@ -31,6 +31,9 @@ export class MainComponent implements AfterViewInit, OnInit
 
   ngAfterViewInit(): void
   {
+    this.guard.canActivate();
+    this.settingButton();
+
     this.appService.addInstance(document.getElementsByClassName("padding"));
 
     document.querySelector("app-notes")
@@ -38,5 +41,12 @@ export class MainComponent implements AfterViewInit, OnInit
 
     document.querySelector("body")
     .addEventListener("mouseup", this.appService.mouseupEvent.bind(this.appService));
+  }
+
+  // czy istnieje na stronie objekt dzięki któremu możemy nasłuchiwać to co użytkownik mówi
+  checkWeb(): boolean
+  {
+    const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
+    return !!webkitSpeechRecognition;
   }
 }

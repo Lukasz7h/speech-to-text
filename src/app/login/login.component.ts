@@ -16,5 +16,4 @@ export class LoginComponent
   {
     this.loginService.sendForm();
   }
-
 }

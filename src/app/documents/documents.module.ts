@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DocumentsComponent } from './documents.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GuardService } from '../login/guard/guard.service';
+import { GuardService } from '../guards/loginGuard/guard.service';
 import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [

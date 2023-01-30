@@ -37,8 +37,8 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
     const notesText = document.getElementById("notesText");
     this.notesService.a4 = notesText;
 
-    if(this.notesService.notesTextFromStorage) this.notesService.a4.textContent = this.notesService.notesTextFromStorage;
-
+    if(this.notesService.notesTextFromStorage) this.notesService.a4.innerHTML = this.notesService.notesTextFromStorage;
+    
     this.subscribeSettigs(notesText);
     this.notesService.listenUser(notesText);
 
@@ -58,9 +58,10 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
       this.appService.getCoordsLocalStorage(this.notesService.settings.padding);
     }, 0);
     
+    // po wyjściu użytkownika ze strony zapisujemy dane które wprowadził do notesu
     window.onbeforeunload = () => {
       const notesText = document.getElementById("notesText");
-      this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent});
+      this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.innerHTML});
     }
   }
 
@@ -69,7 +70,7 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
     this.subscribe.unsubscribe();
     const notesText = document.getElementById("notesText");
 
-    this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.textContent});
+    this.userExitService.userExit({settings: this.notesService.settings, notes: notesText.innerHTML});
   }
 
   // ustalamy zmiany dla dolnych paddingów

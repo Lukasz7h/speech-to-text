@@ -24,6 +24,7 @@ export class NotesSettingsComponent implements AfterViewInit
   ){
   }
 
+  // przekazujemy style do zmodyfikowania w notesie
   editNotes(data: {element: any, change: any}): void
   {
     const newValue = data.change['value'];

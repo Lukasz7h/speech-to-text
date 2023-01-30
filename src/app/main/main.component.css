@@ -27,6 +27,28 @@ button{
     transform: translate(25%, 25%);
 }
 
+#micro.active{
+    background-color: rgb(214, 52, 52);
+}
+
+#micro, #micro mat-icon{
+    width: 52px;
+    height: 52px;
+    font-size: 31px;
+    line-height: 52px;
+    color: aliceblue;
+}
+
+#micro{
+    position: absolute;
+    top: 470px;
+    right: 18vw;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+    box-shadow: inset 8px 8px 24px -12px rgba(66, 68, 90, 1);
+    border-radius: 7px;
+}
+
 #register{
     top: 260px;
 }
@@ -80,6 +102,10 @@ button{
         right: auto;
     }
 
+    #micro{
+        right: 6vw;
+    }
+
     #logout{
         left: 28%;
     }
@@ -103,6 +129,22 @@ button{
 
 @media (max-width: 1070px)
 {
+    #micro{
+        right: 45px;
+        top: 45px;
+        width: 40px;
+        height: 40px;
+        letter-spacing: 40px;
+        font-size: 26px;
+    }
+
+    #micro mat-icon{
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+        line-height: 40px;
+    }
+
     #logout{
         left: 18%;
     }

@@ -38,6 +38,7 @@ export class DocumentsService {
     private route: Router, private httpClient: HttpClient
     ) { }
 
+  // nasłuchiwany jest ruch myszki użytkownika i czy zatrzymuje się na jednym z jego plików
   mouseMoveEvent(element: any): void
   {
     function showImage(element: HTMLElement)
@@ -45,6 +46,7 @@ export class DocumentsService {
       const image = element.getElementsByTagName("img").item(0);
       if(this.currentImage && image == this.currentImage) return;
 
+      // po podanym czasie pojawi się podgląd pliku użytkownika
       function time()
       {
         this.timeOut = setTimeout(() => {
@@ -132,6 +134,7 @@ export class DocumentsService {
   moveThatListener;
   cb;
 
+  // użytkownika porusza wybranym plikiem
   mouseMoveThatElement(event: MouseEvent, toMove: HTMLElement): void
   {
     const offsetX = event.offsetX;
@@ -148,8 +151,9 @@ export class DocumentsService {
       
       element.classList.add('action');
       that.actionElement = element;
-    }
+    };
 
+    // sprawdzamy czy użytkownik wybrał jedną z akcji dla swojego pliku
     function action(x: number, y: number): boolean | HTMLElement
     {
       //editeELement
@@ -169,6 +173,7 @@ export class DocumentsService {
       return false;
     };
 
+    // plik naciśnięty przez użytkownika porusza się za kursorem
     function moveThat(_event: MouseEvent)
     {
       const thatElement: HTMLElement = event.target['classList'].contains("hadImage")? event.target: event.target['parentElement'];
@@ -192,6 +197,7 @@ export class DocumentsService {
     toMove.addEventListener("mousemove", moveThat);
   }
 
+  // jeśli użytkownik przestał poruszać plikiem przywracamy jego style
   mouseUp(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement)
   {
     const that = this;
@@ -223,6 +229,7 @@ export class DocumentsService {
     element.addEventListener("mouseup", canRemove);
   }
 
+  // edytujemy style dla pliku który będzie modyfikowany
   editChosenElement()
   {
     const item = this.documents.filter((x) => x.class == this.modifyElement.classList.item(1))[0].doc;
@@ -250,6 +257,7 @@ export class DocumentsService {
     this.route.navigate([""]);
   }
 
+  // usuwamy plik wybrany przez użytkownika
   removeElement(): void
   {
     const id: string = this.modifyElement.classList.item(1);
@@ -261,6 +269,8 @@ export class DocumentsService {
 
     function removeThatElement()
     {
+
+      // animacja usuwania
       function deleteAnimation()
       {
         for(let i=0; i<20; i++)
@@ -275,6 +285,7 @@ export class DocumentsService {
       deleteAnimation.apply(this);
       this.actionElement.classList.add("delete");
 
+      // po animacji aktualizujemy widok
       setTimeout(() => {
         this.actionElement.classList.remove("delete");
         this.actionElement.classList.remove("action");
@@ -293,6 +304,7 @@ export class DocumentsService {
     };
   }
 
+  // wykonujemy stosowną akcje dla wybranego pliku
   fileAction(): void
   {
     if(!this.actionElement)
@@ -313,6 +325,7 @@ export class DocumentsService {
     }
   };
 
+  // podglądamy widok danego pliku
   peepImage(image: HTMLImageElement): void
   {
     const img = document.createElement("img");
@@ -322,6 +335,7 @@ export class DocumentsService {
     document.body.insertAdjacentElement("afterbegin", img);
   }
 
+  // usuwanie wszystkich plików
   delete(elements)
   {
     const ArrayId = Array.from(elements).map((e: HTMLElement) => e.classList.item(1));

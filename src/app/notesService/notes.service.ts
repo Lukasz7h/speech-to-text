@@ -5,7 +5,7 @@ import * as html2pdf from "html2pdf-jspdf2";
 import { HttpClient } from '@angular/common/http';
 
 // objekt który używamy do nasłuchiwania mikrofonu użytkownika
-interface IWindow extends Window
+export interface IWindow extends Window
 {
   webkitSpeechRecognition: any;
   SpeechRecognition: any;
@@ -152,6 +152,7 @@ export class NotesService {
     downloadLink.click();
   }
 
+  // nasłuchiwanie działania użytkownika (notes)  
   listenUser(notesText: HTMLElement): void
   {
     let flag = false;
@@ -161,6 +162,7 @@ export class NotesService {
     const speechRecognition = new webkitSpeechRecognition();
 
     speechRecognition.lang = 'pl-PL';
+    const micro = document.getElementById("micro");
 
     window.addEventListener("keydown", (e) => {
 
@@ -187,18 +189,20 @@ export class NotesService {
 
       if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
-        speechRecognition.onresult = (event) => {
+        if(!micro.classList.contains("active")) micro.classList.add("active");
 
-          previousSentence.push(event.results[0][0].transcript);
+        speechRecognition.onresult = (event) => {
+          previousSentence.push(event.results[0][0].transcript.toLowerCase());
         
           const time = setTimeout(() => {
             if(!flag)
             {
+              micro.classList.remove("active");
               clearTimeout(time);
               return;
             };
             speechRecognition.start();
-          }, 200);
+          }, 70);
         };
 
         speechRecognition.start();
@@ -226,15 +230,15 @@ export class NotesService {
           'rzecz jasna', 'rzeczywiście', 'zapewne', 'być może',
           'jak widać', 'niestety', 'przypuszczam',
           'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
-          ];
+        ];
 
           let sentence = previousSentence.join(" ");
           let arrSentence;
 
           whenComma.forEach((word)=> {
-            if(sentence.includes(" "+word+"")) {
-
-              const newSentence = sentence.replace(word, ", "+word);
+            if(sentence.includes(" "+word+""))
+            {
+              const newSentence = sentence.replace(" "+word, ", "+word);
               arrSentence = newSentence.split(" ");
             };
           });
@@ -257,25 +261,30 @@ export class NotesService {
               finalSentence += arrSentence[i]+ " ";
             };
   
-            notesText.textContent += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
+            notesText.innerHTML += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
           };
 
-          arrSentence && arrSentence.length > 0? isLen(): notesText.textContent += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
+          if(!sentence) return;
+
+          arrSentence && arrSentence.length > 0? isLen(): notesText.innerHTML += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
           previousSentence = [];
       };
 
-      if(e.keyCode == 75) {
+      if(e.keyCode == 75) { // użytkownik skończył mówić do mikrofonu
         flag = false;
         speechRecognition.stop();
 
+        micro.classList.remove("active");
+
         setTimeout(() => {
           write();
-        }, 450);
+        }, 300);
         
       };
     })
   }
 
+  // ustawiwamy style dla kolory, czcionki lub linijki
   setStyle(data)
   {
     this.settings[`${data.name}`] = data.worth;

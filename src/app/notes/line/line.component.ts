@@ -26,6 +26,7 @@ export class LineComponent implements AfterViewInit
     [ appLineElement['style']['left'] = data.left, this.addLines(297, appLineElement)];
   }
 
+  // rysowanie linikjki
   addLines(amount: number, element: any): void
   {
     let lines = "";
