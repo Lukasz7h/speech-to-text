@@ -90,6 +90,7 @@ export class RegisterService {
   
       this.httpClient.post(backend.url+"/register", data)
       .subscribe((data) => {
+        console.log(data);
         resolve(data);
       })
     })

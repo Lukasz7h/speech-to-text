@@ -41,6 +41,7 @@ export class LoginService {
 
     this.httpClient.post(backend.url+"/login", form, {withCredentials: true})
     .subscribe((x: any) => {
+      console.log(x);
       if(x.error) document.getElementById("errors").textContent = x.error;
       if(x.login) this.router.navigate(['/']);
     });
