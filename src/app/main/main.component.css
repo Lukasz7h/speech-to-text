@@ -42,11 +42,22 @@ button{
 #micro{
     position: absolute;
     top: 470px;
-    right: 18vw;
+    right: 14vw;
     background-color: rgb(196, 196, 196);
     text-align: center;
     box-shadow: inset 8px 8px 24px -12px rgba(66, 68, 90, 1);
     border-radius: 7px;
+}
+
+#micro::after{
+    content: "Naciśnij 'K' i mów do mikrofonu.";
+    color: rgb(78, 78, 78);
+    font-size: 14px;
+    display: block;
+    width: 220px;
+    margin-left: -140%;
+    line-height: 20px;
+    letter-spacing: 1px !important;
 }
 
 #register{
@@ -103,7 +114,11 @@ button{
     }
 
     #micro{
-        right: 6vw;
+        right: 4vw;
+    }
+
+    #micro::after{
+        width: 190px;
     }
 
     #logout{
@@ -143,6 +158,10 @@ button{
         height: 40px;
         font-size: 26px;
         line-height: 40px;
+    }
+
+    #micro::after{
+        margin-left: -240%;
     }
 
     #logout{

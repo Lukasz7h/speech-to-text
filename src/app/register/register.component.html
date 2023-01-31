@@ -14,6 +14,7 @@
     <span class="anim"></span>
     <span class="anim"></span>
 </div>
+
 <h3>Stwórz konto</h3>
 <form [formGroup]="this.registerService.registerForm" (ngSubmit)="sendForm()">
     <label>Login:</label>
@@ -24,3 +25,4 @@
     <input #inpRepeatPassword data-attribute="repeat_password" type="password" id="repeat_pass" formControlName="repeat_password">
     <button type="submit">Wyślij</button>
 </form>
+<div id="errors"></div>

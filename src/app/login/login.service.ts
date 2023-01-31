@@ -30,13 +30,18 @@ export class LoginService {
   sendForm()
   {
     const form = new FormData();
-    if(!this.validForm()) return;
+    if(!this.validForm())
+    {
+      document.getElementById("errors").textContent = "Login powinien mieć od 4 do 22 znaków, a hasło od 6 do 32."
+      return;
+    };
 
     form.append("login", this.loginForm.value['login']);
     form.append("password", this.loginForm.value['password']);
 
     this.httpClient.post(backend.url+"/login", form, {withCredentials: true})
     .subscribe((x: any) => {
+      if(x.error) document.getElementById("errors").textContent = x.error;
       if(x.login) this.router.navigate(['/']);
     });
   }

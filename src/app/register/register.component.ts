@@ -1,4 +1,7 @@
+
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { RegisterService } from './register.service';
 
 @Component({
@@ -9,7 +12,7 @@ import { RegisterService } from './register.service';
 export class RegisterComponent implements AfterViewInit, OnDestroy
 {
 
-  constructor(public registerService: RegisterService){
+  constructor(public registerService: RegisterService, private router: Router){
     this.registerService.formSubscribe();
   }
 
@@ -34,7 +37,17 @@ export class RegisterComponent implements AfterViewInit, OnDestroy
   // wysyłanie formularza
   async sendForm()
   {
-    if(!this.registerService.canSend()) return;
+    const canSend = this.registerService.canSend();
+    if(!canSend){
+      document.getElementById("errors").innerHTML = "Login powinien miec od 4 do 22 znaków. <br> Hasło powinno mieć od 6 do 32 znaków";
+      return;
+    };
+
     const result = await this.registerService.registerUser();
+    if(result.error) document.getElementById("errors").innerHTML = result.error;
+    else{
+      alert("Utworzono konto!");
+      this.router.navigate([""]);
+    }
   }
 }

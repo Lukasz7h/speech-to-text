@@ -165,6 +165,18 @@ form{
     padding: 10px 5px;
 }
 
+#errors{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    width: 450px;
+    height: 75px;
+    transform: translate(-50%, -50%);
+    line-height: 75px;
+    text-align: center;
+    color: rgb(185, 48, 59);
+}
+
 #color_1{
     position: absolute;
     top: -3px;

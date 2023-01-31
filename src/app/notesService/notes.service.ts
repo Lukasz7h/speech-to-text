@@ -263,11 +263,11 @@ export class NotesService {
   
             notesText.innerHTML += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
           };
-
           if(!sentence) return;
 
           arrSentence && arrSentence.length > 0? isLen(): notesText.innerHTML += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
           previousSentence = [];
+
       };
 
       if(e.keyCode == 75) { // użytkownik skończył mówić do mikrofonu

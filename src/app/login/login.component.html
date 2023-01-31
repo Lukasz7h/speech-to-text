@@ -14,6 +14,7 @@
     <span class="anim"></span>
     <span class="anim"></span>
 </div>
+
 <h3>Zaloguj się</h3>
 <form [formGroup]="loginService.loginForm" (ngSubmit)="send()">
     <div id="color_1"></div>
@@ -24,3 +25,4 @@
     <input type="password" formControlName="password">
     <button type="submit">Zaloguj się</button>
 </form>
+<div id="errors"></div>

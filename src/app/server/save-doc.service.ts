@@ -27,7 +27,6 @@ export class SaveDocService {
 
       this.httpClient.post(backend.url+"/save", formData, {withCredentials: true})
       .subscribe((e: any) => {
-        console.log(e)
       });
     })
   }
