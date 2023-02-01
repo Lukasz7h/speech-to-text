@@ -1,3 +1,15 @@
+h2{
+    position: absolute;
+    text-align: center;
+    top: 45vh;
+    left: 50%;
+    font-family: Roboto-Light;
+    transform: translate(-50%, -50%);
+    color: rgb(92, 92, 92);
+    letter-spacing: 3px;
+    width: 100%;
+}
+
 button{
     position: absolute;
     right: 170px;
@@ -179,6 +191,10 @@ button{
 
 @media (max-width: 650px)
 {
+    h2{
+        font-size: 14px;
+    }
+
     button{
         font-size: 11px;
     }

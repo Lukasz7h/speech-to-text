@@ -167,11 +167,11 @@ form{
 
 #errors{
     position: absolute;
-    top: 65%;
+    top: 50%;
     left: 50%;
     width: 450px;
     height: 75px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 280%);
     line-height: 75px;
     text-align: center;
     color: rgb(185, 48, 59);
