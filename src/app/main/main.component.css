@@ -114,7 +114,7 @@ button{
     }
 
     .move{
-        top: 35vh !important;
+        top: 420px !important;
     }
 }
 
@@ -200,7 +200,7 @@ button{
     }
 
     #reveal_settings{
-        top: 4vh;
+        top: 500px;
         left: 72%;
     }
 
