@@ -84,7 +84,7 @@ app-notes-to-file{
     position: fixed;
     right: 580px;
     margin-top: 9vh;
-    z-index: 7;
+    z-index: 5;
 }
 
 @font-face {

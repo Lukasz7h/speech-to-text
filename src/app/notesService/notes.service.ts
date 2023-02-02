@@ -202,7 +202,7 @@ export class NotesService {
               return;
             };
             speechRecognition.start();
-          }, 70);
+          }, 40);
         };
 
         speechRecognition.start();
@@ -278,7 +278,7 @@ export class NotesService {
 
         setTimeout(() => {
           write();
-        }, 300);
+        }, 360);
         
       };
     })
