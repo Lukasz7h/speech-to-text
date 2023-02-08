@@ -93,3 +93,11 @@
         width: 73vw;
     }
 }
+
+@media (max-width: 400px)
+{
+    .padding{
+        height: 29px;
+        width: 29px;
+    }
+}

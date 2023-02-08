@@ -111,13 +111,13 @@ export class AppService {
     if(!data.target.classList.contains("padding") && !data.target.parentElement.classList.contains("padding")) return;
     this.thatElement = data.target.classList.contains("padding")? data.target: data.target.parentElement;
 
-    this.clientX = data.clientX;
-    this.clientY = data.clientY;
+    this.clientX = data.clientX || data.targetTouches[0].clientX;
+    this.clientY = data.clientY || data.targetTouches[0].clientY;
 
     this.flag = true;
 
     if(!this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener)
-    this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("mousemove", this.moveElement.bind(this));
+    this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("touchmove", this.moveElement.bind(this));
   }
 
   setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string, some: number)
@@ -155,15 +155,16 @@ export class AppService {
 
   moveElement(data): void
   {
+
     if(!this.flag) return;
     const elementAttribute = this.thatElement.getAttribute("data-padding");
 
     // ustawiamy różnice dla osi x i y o jaką nasz element będzie się poruszał
     elementAttribute == 2 || elementAttribute == 3?
-    this.diffrenceX = this.clientX - data.clientX: this.diffrenceX = data.clientX - this.clientX;
+    this.diffrenceX = this.clientX - (data.clientX || data.targetTouches[0].clientX): this.diffrenceX = (data.clientX || data.targetTouches[0].clientX) - this.clientX;
 
     elementAttribute == 1 || elementAttribute == 2?
-    this.diffrenceY = this.clientY - data.clientY: this.diffrenceY = data.clientY - this.clientY;
+    this.diffrenceY = this.clientY - (data.clientY || data.targetTouches[0].clientY): this.diffrenceY = (data.clientY || data.targetTouches[0].clientY) - this.clientY;
 
     // aktualizowanie wartości różnicy dla osi x lub y (jeśli padding danego elementy był już zmieniany)
     if(this.instances[`${elementAttribute}`].x && this.instances[`${elementAttribute}`].x > 0)

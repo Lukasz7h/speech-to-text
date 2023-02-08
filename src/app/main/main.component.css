@@ -191,6 +191,10 @@ button{
 
 @media (max-width: 650px)
 {
+    #micro::after{
+        content: "naciśnij mikrofon i mów";
+    }
+
     h2{
         font-size: 14px;
     }
@@ -210,7 +214,7 @@ button{
     }
 
     #logout, #login, #register, #save{
-        top: 91%;
+        top: 99%;
     }
 
     #login{
@@ -239,6 +243,15 @@ button{
 {
     #reveal_settings.move{
         top: 70% !important;
+    }
+
+    #micro{
+        right: 151px;
+        top: 525px;
+    }
+
+    #micro::after{
+        width: 230px;
     }
 
     button{

@@ -36,11 +36,20 @@ export class MainComponent implements AfterViewInit, OnInit
 
     this.appService.addInstance(document.getElementsByClassName("padding"));
 
-    document.querySelector("app-notes")
-    .addEventListener("mousedown", this.appService.mousedownEvent.bind(this.appService));
+    const uagent = navigator.userAgent.toLowerCase();
 
-    document.querySelector("body")
-    .addEventListener("mouseup", this.appService.mouseupEvent.bind(this.appService));
+    if(uagent.search("iphone") > -1)
+    {
+      document.querySelector("app-notes")
+      .addEventListener("touchstart", this.appService.mousedownEvent.bind(this.appService));
+    }
+    else{
+      document.querySelector("app-notes")
+      .addEventListener("mousedown", this.appService.mousedownEvent.bind(this.appService));
+  
+      document.querySelector("body")
+      .addEventListener("mouseup", this.appService.mouseupEvent.bind(this.appService));
+    }
   }
 
   // czy istnieje na stronie objekt dzięki któremu możemy nasłuchiwać to co użytkownik mówi

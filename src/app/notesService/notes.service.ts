@@ -152,6 +152,92 @@ export class NotesService {
     downloadLink.click();
   }
 
+  previousSentence = [];
+
+  write(notesText)
+  {
+    const whenComma = [
+      'a', 'ale', 'aliści', 'inaczej', 'jednak',
+      'jednakże', 'jedynie', 'lecz', 'natomiast',
+      'przecież', 'raczej', 'tylko', 'tylko że',
+      'tymczasem', 'wszakże', 'zaś', 'za to',
+      'więc', 'dlatego', 'toteż', 'to', 'zatem', 
+      'stąd', 'wobec tego', 'skutkiem tego',
+      'wskutek tego', 'przeto', 'tedy', 'chyba',
+      'ewentualnie', 'na przykład', 'nawet',
+      'prawdopodobnie', 'przynajmniej', 'raczej',
+      'taki jak', 'ach', 'halo', 'hej', 'ho',
+      'o', 'oj', 'bez wątpienia', 'bynajmniej',
+      'doprawdy, istotnie', 'na odwrót', 'naturalnie',
+      'niestety', 'niewątpliwie', 'niezawodnie',
+      'oczywiście', 'odwrotnie', 'owszem', 'przeciwnie',
+      'rzecz jasna', 'rzeczywiście', 'zapewne', 'być może',
+      'jak widać', 'niestety', 'przypuszczam',
+      'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
+    ];
+
+      let sentence = this.previousSentence.join(" ");
+      let arrSentence;
+
+      whenComma.forEach((word)=> {
+        if(sentence.includes(" "+word+""))
+        {
+          const newSentence = sentence.replace(" "+word, ", "+word);
+          arrSentence = newSentence.split(" ");
+        };
+      });
+          
+      function isLen()
+      {
+        let finalSentence = "";
+        for(let i = 0; i<arrSentence.length; i++)
+        {
+          if(arrSentence[i+1] == ',')
+          {
+            finalSentence += arrSentence[i];
+            continue;
+          };
+          if(i == arrSentence.length-1)
+          {
+            finalSentence += arrSentence[i];
+            break;
+          };
+          finalSentence += arrSentence[i]+ " ";
+        };
+  
+        notesText.innerHTML += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
+      };
+      if(!sentence) return;
+
+      arrSentence && arrSentence.length > 0? isLen(): notesText.innerHTML += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
+      this.previousSentence = [];
+  }
+
+  flag;
+
+  microStart(e, speechRecognition, micro)
+  {
+    e.preventDefault();
+    if(!micro.classList?.contains("active")) micro.classList.add("active");
+
+      speechRecognition.onresult = (event) => {
+
+        this.previousSentence.push(event.results[0][0].transcript.toLowerCase());
+        
+        const time = setTimeout(() => {
+          if(!this.flag)
+          {
+            micro.classList.remove("active");
+            clearTimeout(time);
+            return;
+          };
+            speechRecognition.start();
+        }, 40);
+      };
+
+    speechRecognition.start();
+  }
+
   // nasłuchiwanie działania użytkownika (notes)  
   listenUser(notesText: HTMLElement): void
   {
@@ -163,6 +249,24 @@ export class NotesService {
 
     speechRecognition.lang = 'pl-PL';
     const micro = document.getElementById("micro");
+
+    const uagent = navigator.userAgent.toLowerCase();
+
+      this.flag = true;
+      micro.addEventListener("touchstart", (e) => this.microStart(e, speechRecognition, micro))
+      micro.addEventListener("touchend", () => {
+
+        this.flag = false;
+
+        speechRecognition.stop();
+        micro.classList.remove("active");
+
+        setTimeout(() => {
+          this.write(notesText);
+        }, 470);
+      })
+     
+      return;
 
     window.addEventListener("keydown", (e) => {
 
@@ -189,87 +293,11 @@ export class NotesService {
 
       if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
-        if(!micro.classList.contains("active")) micro.classList.add("active");
-
-        speechRecognition.onresult = (event) => {
-
-          previousSentence.push(event.results[0][0].transcript.toLowerCase());
-        
-          const time = setTimeout(() => {
-            if(!flag)
-            {
-              micro.classList.remove("active");
-              clearTimeout(time);
-              return;
-            };
-            speechRecognition.start();
-          }, 40);
-        };
-
-        speechRecognition.start();
+        this.microStart(this, speechRecognition, micro)
       };
     })
 
     window.addEventListener("keyup", (e) => {
-      function write()
-      {
-        const whenComma = [
-          'a', 'ale', 'aliści', 'inaczej', 'jednak',
-          'jednakże', 'jedynie', 'lecz', 'natomiast',
-          'przecież', 'raczej', 'tylko', 'tylko że',
-          'tymczasem', 'wszakże', 'zaś', 'za to',
-          'więc', 'dlatego', 'toteż', 'to', 'zatem', 
-          'stąd', 'wobec tego', 'skutkiem tego',
-          'wskutek tego', 'przeto', 'tedy', 'chyba',
-          'ewentualnie', 'na przykład', 'nawet',
-          'prawdopodobnie', 'przynajmniej', 'raczej',
-          'taki jak', 'ach', 'halo', 'hej', 'ho',
-          'o', 'oj', 'bez wątpienia', 'bynajmniej',
-          'doprawdy, istotnie', 'na odwrót', 'naturalnie',
-          'niestety', 'niewątpliwie', 'niezawodnie',
-          'oczywiście', 'odwrotnie', 'owszem', 'przeciwnie',
-          'rzecz jasna', 'rzeczywiście', 'zapewne', 'być może',
-          'jak widać', 'niestety', 'przypuszczam',
-          'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
-        ];
-
-          let sentence = previousSentence.join(" ");
-          let arrSentence;
-
-          whenComma.forEach((word)=> {
-            if(sentence.includes(" "+word+""))
-            {
-              const newSentence = sentence.replace(" "+word, ", "+word);
-              arrSentence = newSentence.split(" ");
-            };
-          });
-          
-          function isLen()
-          {
-            let finalSentence = "";
-            for(let i = 0; i<arrSentence.length; i++)
-            {
-              if(arrSentence[i+1] == ',')
-              {
-                finalSentence += arrSentence[i];
-                continue;
-              };
-              if(i == arrSentence.length-1)
-              {
-                finalSentence += arrSentence[i];
-                break;
-              };
-              finalSentence += arrSentence[i]+ " ";
-            };
-  
-            notesText.innerHTML += finalSentence.charAt(0).toUpperCase() + finalSentence.slice(1)+". ";
-          };
-          if(!sentence) return;
-
-          arrSentence && arrSentence.length > 0? isLen(): notesText.innerHTML += sentence.charAt(0).toUpperCase() + sentence.slice(1)+". ";
-          previousSentence = [];
-
-      };
 
       if(e.keyCode == 75) { // użytkownik skończył mówić do mikrofonu
         flag = false;
@@ -278,7 +306,7 @@ export class NotesService {
         micro.classList.remove("active");
 
         setTimeout(() => {
-          write();
+          this.write(notesText);
         }, 470);
         
       };
