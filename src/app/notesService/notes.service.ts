@@ -192,6 +192,7 @@ export class NotesService {
         if(!micro.classList.contains("active")) micro.classList.add("active");
 
         speechRecognition.onresult = (event) => {
+
           previousSentence.push(event.results[0][0].transcript.toLowerCase());
         
           const time = setTimeout(() => {
@@ -272,13 +273,13 @@ export class NotesService {
 
       if(e.keyCode == 75) { // użytkownik skończył mówić do mikrofonu
         flag = false;
-        speechRecognition.stop();
 
+        speechRecognition.stop();
         micro.classList.remove("active");
 
         setTimeout(() => {
           write();
-        }, 360);
+        }, 470);
         
       };
     })
