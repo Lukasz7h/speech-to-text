@@ -221,19 +221,13 @@ export class NotesService {
     if(!micro.classList?.contains("active")) micro.classList.add("active");
 
       speechRecognition.onresult = (event) => {
-
         this.previousSentence.push(event.results[0][0].transcript.toLowerCase());
-        
-        const time = setTimeout(() => {
-          if(!this.flag)
-          {
-            micro.classList.remove("active");
-            clearTimeout(time);
-            return;
-          };
-            speechRecognition.start();
-        }, 40);
       };
+
+      speechRecognition.onend = () => {
+        if(!this.flag) return;
+        speechRecognition.start();
+      }
 
     speechRecognition.start();
   }
@@ -264,7 +258,7 @@ export class NotesService {
 
         setTimeout(() => {
           this.write(notesText);
-        }, 470);
+        }, 430);
       })
 
       return;
@@ -309,7 +303,7 @@ export class NotesService {
 
         setTimeout(() => {
           this.write(notesText);
-        }, 470);
+        }, 430);
         
       };
     })
