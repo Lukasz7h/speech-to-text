@@ -217,7 +217,7 @@ export class NotesService {
 
   microStart(e, speechRecognition, micro)
   {
-    e.preventDefault();
+    if(e['preventDefault']) e.preventDefault();
     if(!micro.classList?.contains("active")) micro.classList.add("active");
 
       speechRecognition.onresult = (event) => {
@@ -252,6 +252,8 @@ export class NotesService {
 
     const uagent = navigator.userAgent.toLowerCase();
 
+    if(uagent.search("iphone") > -1)
+    {
       this.flag = true;
       micro.addEventListener("touchstart", (e) => this.microStart(e, speechRecognition, micro))
       micro.addEventListener("touchend", () => {
@@ -265,8 +267,9 @@ export class NotesService {
           this.write(notesText);
         }, 470);
       })
-     
+
       return;
+    }
 
     window.addEventListener("keydown", (e) => {
 
