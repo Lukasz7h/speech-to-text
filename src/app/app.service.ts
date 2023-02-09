@@ -75,7 +75,7 @@ export class AppService {
   }
 
   // ustawiamy nowe koordynaty dla paddingów
-  mouseupEvent(data): void
+  mouseupEvent(): void
   {
     this.flag = false;
     
@@ -116,8 +116,12 @@ export class AppService {
 
     this.flag = true;
 
+    const uagent = navigator.userAgent.toLowerCase();
+
     if(!this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener)
-    this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = addEventListener("touchmove", this.moveElement.bind(this));
+    this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = uagent.search("iphone") > -1?
+    addEventListener("touchmove", this.moveElement.bind(this)):
+    addEventListener("mousemove", this.moveElement.bind(this))
   }
 
   setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string, some: number)
@@ -155,7 +159,6 @@ export class AppService {
 
   moveElement(data): void
   {
-
     if(!this.flag) return;
     const elementAttribute = this.thatElement.getAttribute("data-padding");
 

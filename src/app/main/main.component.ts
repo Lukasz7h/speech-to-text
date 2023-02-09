@@ -44,6 +44,7 @@ export class MainComponent implements AfterViewInit, OnInit
       .addEventListener("touchstart", this.appService.mousedownEvent.bind(this.appService));
     }
     else{
+      console.log(uagent)
       document.querySelector("app-notes")
       .addEventListener("mousedown", this.appService.mousedownEvent.bind(this.appService));
   
