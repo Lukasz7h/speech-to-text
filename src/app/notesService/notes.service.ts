@@ -241,8 +241,7 @@ export class NotesService {
   // nasłuchiwanie działania użytkownika (notes)  
   listenUser(notesText: HTMLElement): void
   {
-    let flag = false;
-    let previousSentence = [];
+    this.flag = false;
 
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     const speechRecognition = new webkitSpeechRecognition();
@@ -291,8 +290,8 @@ export class NotesService {
         sel.addRange(range);
       };
 
-      if(flag) return;
-      flag = true;
+      if(this.flag) return;
+      this.flag = true;
 
       if(e.keyCode == 75) // gdy użytkownik go naciśnie zaczynamy nasłuchiwać to co mówi przez mikrofon i to co mówi dodajemy do notatnika
       {
@@ -303,7 +302,7 @@ export class NotesService {
     window.addEventListener("keyup", (e) => {
 
       if(e.keyCode == 75) { // użytkownik skończył mówić do mikrofonu
-        flag = false;
+        this.flag = false;
 
         speechRecognition.stop();
         micro.classList.remove("active");
