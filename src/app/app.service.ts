@@ -116,12 +116,11 @@ export class AppService {
 
     this.flag = true;
 
-    const uagent = navigator.userAgent.toLowerCase();
-
     if(!this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener)
-    this.instances[`${this.thatElement.getAttribute("data-padding")}`].listener = uagent.search("iphone") > -1?
-    addEventListener("touchmove", this.moveElement.bind(this)):
-    addEventListener("mousemove", this.moveElement.bind(this))
+    {
+      addEventListener("touchmove", this.moveElement.bind(this));
+      addEventListener("mousemove", this.moveElement.bind(this));
+    }
   }
 
   setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string, some: number)

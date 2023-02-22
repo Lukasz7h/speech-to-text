@@ -242,12 +242,8 @@ export class NotesService {
 
     speechRecognition.lang = 'pl-PL';
     const micro = document.getElementById("micro");
-
-    const uagent = navigator.userAgent.toLowerCase();
-
-    if(uagent.search("iphone") > -1)
-    {
       this.flag = true;
+
       micro.addEventListener("touchstart", (e) => this.microStart(e, speechRecognition, micro))
       micro.addEventListener("touchend", () => {
 
@@ -259,10 +255,7 @@ export class NotesService {
         setTimeout(() => {
           this.write(notesText);
         }, 430);
-      })
-
-      return;
-    }
+      });
 
     window.addEventListener("keydown", (e) => {
 
