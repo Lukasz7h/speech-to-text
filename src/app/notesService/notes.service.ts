@@ -104,13 +104,51 @@ export class NotesService {
   // pobieranie pliku pdf
   createPDF(name: string): void
   {
+    if(window.innerWidth < 1070)
+    {
+      const a4_width_pixels = 794; // jest to ilość pixeli równa 210mm (szerokość a4)
+      const a4_height_pixels = 1123; // jest to ilość pixeli równa 297mm (wysokość a4)
+      const a4Width = this.a4.clientWidth;
+
+      var notes = document.getElementById("notesText");
+
+      const proportions_of_paddings = {
+        left: Number( (( Number(notes.style.paddingLeft.replace("px", "")) / notes.clientWidth) * 100).toFixed(0)) / 100,
+        right: Number( ((Number(notes.style.paddingRight.replace("px", "")) / notes.clientWidth) * 100).toFixed(0)) / 100,
+
+        top: Number( ((Number(notes.style.paddingTop.replace("px", "")) / notes.clientHeight) * 100).toFixed(0)) / 100,
+        bottom: Number( ((Number(notes.style.paddingBottom.replace("px", "")) / notes.clientHeight) * 100).toFixed(0)) / 100
+      };
+
+      var copyPaddings = notes.style.padding;
+      var fontSizeNotes = notes.style.fontSize;
+      var lineHeightNotes = notes.style.lineHeight;
+
+      notes.style.paddingLeft =  (a4_width_pixels * proportions_of_paddings.left).toFixed(0)+"px";
+      notes.style.paddingRight =  (a4_width_pixels * proportions_of_paddings.right).toFixed(0)+"px";
+
+      notes.style.paddingTop =  (a4_width_pixels * proportions_of_paddings.top).toFixed(0)+"px";
+      notes.style.paddingBottom =  (a4_width_pixels * proportions_of_paddings.bottom).toFixed(0)+"px";
+
+      notes.style.fontSize = (Number(notes.style.fontSize.replace("px", "")) * 3.38).toFixed(0) + "px"
+      notes.style.lineHeight = (Number(notes.style.lineHeight.replace("px", "")) * 3.17).toFixed(0) + "px"
+    };
+
     html2pdf(this.a4,
     {
       filename: name+".pdf",
       image: { type: 'jpg', quality: 0.5 },
       html2canvas: { scale: 1.5, dpi: 122 },
       jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
+    })
+    .then((data) => {
+      if(!notes) return;
+    
+      notes.style.padding = copyPaddings;
+      notes.style.fontSize = fontSizeNotes;
+      notes.style.lineHeight = lineHeightNotes;
     });
+
   }
 
   // pobieranie pliku typu docx (word)
