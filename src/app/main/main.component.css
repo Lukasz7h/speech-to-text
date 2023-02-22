@@ -204,7 +204,7 @@ button{
     }
 
     #reveal_settings{
-        top: 500px;
+        top: 32px;
         left: 72%;
     }
 
@@ -242,12 +242,12 @@ button{
 @media (max-width: 450px)
 {
     #reveal_settings.move{
-        top: 70% !important;
+        top: 525px !important;
     }
 
     #micro{
-        right: 151px;
-        top: 525px;
+        right: 165px;
+        top: 590px;
     }
 
     #micro::after{

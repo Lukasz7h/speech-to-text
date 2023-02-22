@@ -254,7 +254,7 @@ app-notes-to-file{
 @media (max-width: 450px)
 {
     app-notes-settings.show{
-        height: 435px;
+        height: 475px;
     }
 
     app-line:nth-of-type(1)
