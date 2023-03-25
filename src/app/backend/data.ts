@@ -1,3 +1,4 @@
 export const backend = {
-    url: "https://speech-to-text-dykk.onrender.com"
+    url: "http://localhost:3000"
+    //url: "https://speech-to-text-dykk.onrender.com"
 }

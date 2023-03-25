@@ -129,16 +129,17 @@ export class DocumentsService {
     };
 
     element.addEventListener("mousedown", doIt);
+    element.addEventListener("touchstart", doIt);
   }
 
   moveThatListener;
   cb;
 
   // użytkownika porusza wybranym plikiem
-  mouseMoveThatElement(event: MouseEvent, toMove: HTMLElement): void
+  mouseMoveThatElement(event: MouseEvent | any, toMove: HTMLElement): void
   {
-    const offsetX = event.offsetX;
-    const offsetY = event.offsetY;
+    const offsetX = event.offsetX? event.offsetX: Number(event.touches[0].clientX);
+    const offsetY = event.offsetY? event.offsetY: Number(event.touches[0].clientY);
     
     const that = this;
 
@@ -174,7 +175,7 @@ export class DocumentsService {
     };
 
     // plik naciśnięty przez użytkownika porusza się za kursorem
-    function moveThat(_event: MouseEvent)
+    function moveThat(_event: MouseEvent | any)
     {
       const thatElement: HTMLElement = event.target['classList'].contains("hadImage")? event.target: event.target['parentElement'];
       that.modifyElement = thatElement;
@@ -185,16 +186,20 @@ export class DocumentsService {
       const marginLeft = 65;
       const marginTop = 50;
 
-      thatElement.style.top = `${_event.clientY - offsetY - marginTop}px`;
-      thatElement.style.left = `${_event.clientX - offsetX - marginLeft}px`;
+      const x = _event.clientX? _event.clientX: Number(_event.touches[0].clientX);
+      const y = _event.clientY? _event.clientY: Number(_event.touches[0].clientY);
 
-      toDo(action(_event.screenX, _event.screenY));
+      _event.clientY? thatElement.style.top = `${y - offsetY - marginTop}px`: thatElement.style.top = `${y - marginTop}px`;
+      _event.clientX? thatElement.style.left = `${x - offsetX - marginLeft}px`: thatElement.style.left = `${x - marginLeft}px`;
+
+      toDo(action(x, y));
     };
 
     this.moveThatListener = toMove;
     this.cb = moveThat;
 
     toMove.addEventListener("mousemove", moveThat);
+    toMove.addEventListener("touchmove", moveThat);
   }
 
   // jeśli użytkownik przestał poruszać plikiem przywracamy jego style
@@ -227,6 +232,7 @@ export class DocumentsService {
     };
 
     element.addEventListener("mouseup", canRemove);
+    element.addEventListener("touchend", canRemove);
   }
 
   // edytujemy style dla pliku który będzie modyfikowany

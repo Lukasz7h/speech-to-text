@@ -165,6 +165,7 @@ header mat-icon{
     top: 110px;
     left: 220px;
     font-family: 'Roboto-Light';
+    z-index: 1;
 }
 
 #vial{
@@ -222,10 +223,6 @@ header mat-icon{
     background-color: #608159;
     border-radius: 50%;
     top: -10px;
-}
-
-::ng-deep #size.move{
-    animation: move_size .4s ease-in forwards;
 }
 
 ::ng-deep #show{
@@ -1079,7 +1076,36 @@ header mat-icon{
         transform: translate(-50%, -30%);
     }
     
+    ::ng-deep #edit.show_edit{
+        top: 310px;
+        bottom: 240px;
+        width: 350px;
+        line-height: 60vh;
+    }
+
+    #removeFile.show{
+        bottom: 550px !important;
+        width: 350px;
+    }
+
     #inside #line::before, #inside #line::after{
         right: 62%;
+    }
+}
+@media (max-width: 850px){
+    
+    ::ng-deep #edit.show_edit{
+        width: 270px;
+    }
+
+    #removeFile.show{
+        width: 270px;
+    }
+}
+
+@media(min-width: 1150px)
+{
+    ::ng-deep #size.move{
+        animation: move_size .4s ease-in forwards;
     }
 }
