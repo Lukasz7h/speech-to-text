@@ -177,6 +177,11 @@ export class AppService {
     -this.instances[`${elementAttribute}`].y:
     this.instances[`${elementAttribute}`].y;
 
+    const a4 = document.getElementById("a4");
+
+    if(this.diffrenceX > a4.offsetWidth) return;
+    if(-this.diffrenceY > a4.offsetHeight) return;
+
     // ustawianie stylu (oś x)
     (elementAttribute == 2 || elementAttribute == 3)?
     this.setStyle([2, 3], {kind: "x", diffrence: this.diffrenceX}, "Right", 1):
