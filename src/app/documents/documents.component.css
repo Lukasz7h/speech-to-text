@@ -1084,7 +1084,8 @@ header mat-icon{
     }
 
     #removeFile.show{
-        bottom: 550px !important;
+        bottom: 490px !important;
+        top: 50px;
         width: 350px;
     }
 
@@ -1096,6 +1097,10 @@ header mat-icon{
     
     ::ng-deep #edit.show_edit{
         width: 270px;
+    }
+
+    #edit h3{
+        display: none;
     }
 
     #removeFile.show{

@@ -107,9 +107,6 @@ export class NotesService {
     if(window.innerWidth < 1070)
     {
       const a4_width_pixels = 794; // jest to ilość pixeli równa 210mm (szerokość a4)
-      const a4_height_pixels = 1123; // jest to ilość pixeli równa 297mm (wysokość a4)
-      const a4Width = this.a4.clientWidth;
-
       var notes = document.getElementById("notesText");
 
       const proportions_of_paddings = {
@@ -133,6 +130,8 @@ export class NotesService {
       notes.style.fontSize = (Number(notes.style.fontSize.replace("px", "")) * 3.38).toFixed(0) + "px"
       notes.style.lineHeight = (Number(notes.style.lineHeight.replace("px", "")) * 3.17).toFixed(0) + "px"
     };
+
+    if(!this.a4.style.fontFamily) this.a4.style.fontFamily = this.fontsList[0];
 
     html2pdf(this.a4,
     {
