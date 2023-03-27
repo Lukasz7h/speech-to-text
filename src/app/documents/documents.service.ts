@@ -244,6 +244,8 @@ export class DocumentsService {
     html.innerHTML = item;
 
     const div = html.getElementsByTagName("div").item(0);
+
+    alert(JSON.stringify({left: div.style.paddingLeft, right: div.style.paddingRight, top: div.style.paddingTop, bottom: div.style.paddingBottom}));
     const notes = html.getElementsByTagName("div").item(0).textContent;
 
     this.notesService.settings.fontSize = div.style.fontSize.match(/\d/g).join("");
