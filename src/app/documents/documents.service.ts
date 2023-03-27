@@ -73,7 +73,6 @@ export class DocumentsService {
 
     this.event = fromEvent(element, "mousemove")
     .subscribe((data: Event) => {
-
       if(data.target['parentElement'].classList.contains("hadImage")) showImage.call(this, data.target['parentElement']);
       else if(this.currentImage) removeFromCurrElement.call(this);
     });
@@ -103,7 +102,7 @@ export class DocumentsService {
       toChange.html = thatElement;
     };
 
-    function doIt(event: MouseEvent)
+    function doIt(event: MouseEvent | any)
     {
       event.preventDefault();
 
@@ -142,6 +141,7 @@ export class DocumentsService {
     const offsetY = event.offsetY? event.offsetY: Number(event.touches[0].clientY);
     
     const that = this;
+    that.currentImage = toMove.getElementsByTagName("img").item(0);
 
     function toDo(element)
     {
@@ -244,8 +244,6 @@ export class DocumentsService {
     html.innerHTML = item;
 
     const div = html.getElementsByTagName("div").item(0);
-
-    alert(JSON.stringify({left: div.style.paddingLeft, right: div.style.paddingRight, top: div.style.paddingTop, bottom: div.style.paddingBottom}));
     const notes = html.getElementsByTagName("div").item(0).textContent;
 
     this.notesService.settings.fontSize = div.style.fontSize.replace(/[^\d.-]/g, '');
@@ -261,15 +259,6 @@ export class DocumentsService {
 
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;
-
-    console.log(this.notesService.settings.padding)
-
-    alert(JSON.stringify({
-      left: this.notesService.settings.padding.Left,
-      top: this.notesService.settings.padding.Top,
-      right: this.notesService.settings.padding.Right,
-      bottom: this.notesService.settings.padding.Bottom
-    }))
 
     this.route.navigate([""]);
   }
@@ -310,7 +299,7 @@ export class DocumentsService {
         this.actionElement.classList.remove("show");
         const index = this.documents.indexOf(this.documents.find(e => e.class == id));
 
-        this.documents.splice(index, 1);
+        const e = this.documents.splice(index, 1);
         this.files.splice(this.files.indexOf(this.currentImage.src), 1);
 
         const spans = Array.from(document.getElementById("removeFile").getElementsByClassName("crush"));
@@ -365,6 +354,7 @@ export class DocumentsService {
       if(e.remove){
 
         document.getElementById("inside").textContent = "";
+
         this.files = [];
         this.documents = [];
       }
