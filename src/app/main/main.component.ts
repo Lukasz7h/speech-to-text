@@ -44,6 +44,9 @@ export class MainComponent implements AfterViewInit, OnInit
   
       document.querySelector("body")
       .addEventListener("mouseup", this.appService.mouseupEvent.bind(this.appService));
+
+      document.querySelector("body")
+      .addEventListener("touchend", this.appService.mouseupEvent.bind(this.appService));
   }
 
   // czy istnieje na stronie objekt dzięki któremu możemy nasłuchiwać to co użytkownik mówi
