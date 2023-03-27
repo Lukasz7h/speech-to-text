@@ -248,16 +248,16 @@ export class DocumentsService {
     alert(JSON.stringify({left: div.style.paddingLeft, right: div.style.paddingRight, top: div.style.paddingTop, bottom: div.style.paddingBottom}));
     const notes = html.getElementsByTagName("div").item(0).textContent;
 
-    this.notesService.settings.fontSize = div.style.fontSize.match(/\d/g).join("");
-    this.notesService.settings.letterSpacing = div.style.letterSpacing.match(/\d/g).join("");
+    this.notesService.settings.fontSize = div.style.fontSize.replace(/[^\d.-]/g, '');
+    this.notesService.settings.letterSpacing = div.style.letterSpacing.replace(/[^\d.-]/g, '');
 
-    this.notesService.settings.letterHeight = div.style.lineHeight.match(/\d/g).join("");
+    this.notesService.settings.letterHeight = div.style.lineHeight.replace(/[^\d.-]/g, '');
 
-    this.notesService.settings.padding.Top = div.style.paddingTop.match(/\d/g).join("");
-    this.notesService.settings.padding.Left = div.style.paddingLeft.match(/\d/g).join("");
+    this.notesService.settings.padding.Top = div.style.paddingTop.replace(/[^\d.-]/g, '');
+    this.notesService.settings.padding.Left = div.style.paddingLeft.replace(/[^\d.-]/g, '');
 
-    this.notesService.settings.padding.Bottom = div.style.paddingBottom.match(/\d/g).join("");
-    this.notesService.settings.padding.Right = div.style.paddingRight.match(/\d/g).join("");
+    this.notesService.settings.padding.Bottom = div.style.paddingBottom.replace(/[^\d.-]/g, '');
+    this.notesService.settings.padding.Right = div.style.paddingRight.replace(/[^\d.-]/g, '');
 
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;
