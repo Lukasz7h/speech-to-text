@@ -120,20 +120,29 @@ export class AppService {
     {
       addEventListener("touchmove", this.moveElement.bind(this));
       addEventListener("mousemove", this.moveElement.bind(this));
-    }
+    };
+  }
+
+  private allow: {
+    x: number,
+    y: number
+  } | any = {}
+
+  initAllow()
+  {
+    const width = document.getElementById("a4").offsetWidth;
+    const height = document.getElementById("a4").offsetWidth;
+
+    this.allow.x = width - (width / 4);
+    this.allow.y = height - (height / 10);
   }
 
   setStyle(elements: number[], data: {kind: string, diffrence: number}, position: string, some: number)
   {
     function checkDiffrance(): boolean
     {
-      const allow = {
-        x: 600,
-        y: 950
-      };
-
       let result = Math.abs(Number(this.instances[`${some}`][`${data.kind}`])) + Number(data.diffrence);
-      return result > allow[`${data.kind}`]; 
+      return result > this.allow[`${data.kind}`]; 
     };
 
     if((position == "Right" || position == "Left") && checkDiffrance.call(this)) return;

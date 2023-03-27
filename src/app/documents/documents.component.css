@@ -131,7 +131,7 @@ header mat-icon{
     box-shadow: inset 10px 10px 10px -1px rgb(10, 99, 170, 0.16),
                 inset -10px -10px 10px -1px rgb(241, 241, 241, 0.7);
     background-color: var(--document-background);
-    z-index: 2;
+    z-index: 7;
 }
 
 #edit h3, #removeFile h3{

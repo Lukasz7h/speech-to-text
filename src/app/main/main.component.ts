@@ -34,6 +34,8 @@ export class MainComponent implements AfterViewInit, OnInit
     this.guard.canActivate();
     this.settingButton();
 
+    this.appService.initAllow();
+
     this.appService.addInstance(document.getElementsByClassName("padding"));
 
       document.querySelector("app-notes")
