@@ -262,13 +262,15 @@ export class DocumentsService {
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;
 
-    alert({
+    console.log(this.notesService.settings.padding)
+
+    alert(JSON.stringify({
       left: this.notesService.settings.padding.Left,
       top: this.notesService.settings.padding.Top,
       right: this.notesService.settings.padding.Right,
       bottom: this.notesService.settings.padding.Bottom
-    })
-    
+    }))
+
     this.route.navigate([""]);
   }
 
