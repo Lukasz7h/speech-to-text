@@ -66,6 +66,8 @@ export class NotesService {
     const settingsFromStorage = JSON.parse(window.localStorage.getItem("settings"));
     this.notesTextFromStorage = window.localStorage.getItem("notesText");
 
+    alert(JSON.stringify(settingsFromStorage));
+
     // uaktualnianie listy czcionek która znajduje się w settings component w zależności od tego jaką aktualnie czcionke używa użytkownik
     function currentFont(data: string, value: string): void
     {
