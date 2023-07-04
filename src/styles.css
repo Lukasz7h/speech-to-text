@@ -82,7 +82,7 @@ app-line:nth-of-type(2)
 
 app-notes-to-file{
     position: fixed;
-    right: 580px;
+    right: 295px;
     margin-top: 23vh;
     z-index: 5;
 }
@@ -147,18 +147,8 @@ app-notes-to-file{
     src: url("./app//fonts/Roboto-Regular.ttf");
 }
 
-@media (max-width: 1980px)
-{
-    app-notes-to-file{
-        right: 300px;
-    }
-}
-
 @media (max-width: 1675px)
 {
-    app-notes-to-file{
-        right: 295px;
-    }
 
     app-notes-settings{
         width: 100%;
@@ -181,7 +171,7 @@ app-notes-to-file{
 @media (max-width: 1450px)
 {
     app-notes{
-        margin-top: 7vh;
+        margin-top: 9vh;
     }
 
     app-notes-to-file{
