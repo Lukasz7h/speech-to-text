@@ -54,7 +54,7 @@ button{
 #micro{
     position: absolute;
     top: 470px;
-    right: 14vw;
+    right: 205px;
     background-color: rgb(196, 196, 196);
     text-align: center;
     box-shadow: inset 8px 8px 24px -12px rgba(66, 68, 90, 1);
@@ -95,15 +95,15 @@ button{
 @media (max-width: 1980px)
 {
     #logout{
-        top: 275px;
+        top: 105px;
     }
 
     #save{
-        top: 335px;
+        top: 170px;
     }
 
     #files{
-        top: 395px;
+        top: 235px;
     }
 }
 

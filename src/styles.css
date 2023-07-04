@@ -83,7 +83,7 @@ app-line:nth-of-type(2)
 app-notes-to-file{
     position: fixed;
     right: 580px;
-    margin-top: 9vh;
+    margin-top: 23vh;
     z-index: 5;
 }
 
@@ -157,7 +157,7 @@ app-notes-to-file{
 @media (max-width: 1675px)
 {
     app-notes-to-file{
-        right: 300px;
+        right: 295px;
     }
 
     app-notes-settings{
