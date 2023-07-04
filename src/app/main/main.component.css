@@ -54,7 +54,7 @@ button{
 #micro{
     position: absolute;
     top: 470px;
-    right: 205px;
+    right: 240px;
     background-color: rgb(196, 196, 196);
     text-align: center;
     box-shadow: inset 8px 8px 24px -12px rgba(66, 68, 90, 1);

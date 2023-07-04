@@ -82,8 +82,8 @@ app-line:nth-of-type(2)
 
 app-notes-to-file{
     position: fixed;
-    right: 295px;
-    margin-top: 23vh;
+    right: 330px;
+    margin-top: 305px;
     z-index: 5;
 }
 
