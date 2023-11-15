@@ -22,7 +22,6 @@ import { MainComponent } from './main/main.component';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
 
-import { DocumentsComponent } from './documents/documents.component';
 import { DocumentsModule } from './documents/documents.module';
 
 @NgModule({

@@ -81,9 +81,7 @@ app-line:nth-of-type(2)
 }
 
 app-notes-to-file{
-    position: fixed;
-    right: 330px;
-    margin-top: 305px;
+    margin-top: 65px;
     z-index: 5;
 }
 

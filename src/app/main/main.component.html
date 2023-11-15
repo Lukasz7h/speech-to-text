@@ -4,19 +4,23 @@
     <button id="reveal_settings"><mat-icon>settings</mat-icon></button>
     
     <app-notes></app-notes>
+    
+    
+    <div class="files_settings">
+        <button id="register" routerLink="/register" *ngIf="!guard.isLoged">rejestracja</button>
+        <button id="login" routerLink="/login" *ngIf="!guard.isLoged">zaloguj się</button>
+        
+        <button id="logout" *ngIf="guard.isLoged" (click)="logoutService.logout()">wyloguj się</button>
+        <button id="save" *ngIf="guard.isLoged" (click)="serverService.saveDoc()">zapisz dokument</button>
+        
+        <button id="files" *ngIf="guard.isLoged" routerLink="/documents">Moje dokumenty</button>
+        <app-notes-to-file></app-notes-to-file>
+    </div>
+
     <div id="micro">
         <mat-icon>settings_voice</mat-icon>
     </div>
-
-    <app-notes-to-file></app-notes-to-file>
     
-    <button id="register" routerLink="/register" *ngIf="!guard.isLoged">rejestracja</button>
-    <button id="login" routerLink="/login" *ngIf="!guard.isLoged">zaloguj się</button>
-    
-    <button id="logout" *ngIf="guard.isLoged" (click)="logoutService.logout()">wyloguj się</button>
-    <button id="save" *ngIf="guard.isLoged" (click)="serverService.saveDoc()">zapisz dokument</button>
-    
-    <button id="files" *ngIf="guard.isLoged" routerLink="/documents">Moje dokumenty</button>
 </main>
 <ng-template #outlet>
     <h2>Otwórz aplikacje w przeglądarce google!</h2>

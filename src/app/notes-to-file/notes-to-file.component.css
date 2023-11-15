@@ -1,18 +1,9 @@
 div{
-    height: 30px;
-    width: 30px;
-    background: rgb(41,167,131);
-    background: linear-gradient(138deg, rgb(8, 154, 69) 0%, rgb(25, 88, 88) 100%); 
-    border-radius: 5px;
-    overflow: hidden;
-    transform: translate(100%, 0%);
-}
-
-div.show{
-    min-height: 30px;
-    min-width: 30px;
-    animation: show .4s ease-in;
-    animation-fill-mode: forwards;
+    height: 128px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 22px;
+    gap: 14px;
 }
 
 div.remove{
@@ -20,69 +11,63 @@ div.remove{
 }
 
 div>select{
-    display: none;
     cursor: pointer;
     border-radius: 4px;
-    padding: 2px 4px;
+    padding: 5px 12px;
     border: none;
     text-align: center;
+    width: min-content;
+    letter-spacing: 1px;
+    font-size: 14px;
+    background-color: #fbfbfb;
+    box-shadow: -13px -7px 10px #FFF, 4px 6px 6px #dbdbdb;
+    text-shadow: 2px 1px 0 #fff;
+    color: #57575a;
+    font-family: Roboto-Thin;
 }
 
 div>button{
     width: 60px;
     border: none;
     background-color: rgb(116, 189, 164);
-    display: none;
     cursor: pointer;
 }
 
-div>select.showSelect{
-    opacity: 0;
-    border-radius: 2px;
-    display: block;
-    margin-left: 40px;
-    animation-name: showInsideSelect;
-    animation-delay: .4s;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
-}
-
 div>label{
-    opacity: 0;
-}
-
-div>label.showName{
-    color: aliceblue;
     font-family: Roboto-Light;
-    margin-left: -25px;
-    float: left;
-    animation-name: showName;
-    animation-delay: .7s;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
-    margin-right: 8px;
 }
 
 div>input{
-    opacity: 0;
-}
-
-div>input.showName{
-    width: 63%;
-    animation-name: showName;
-    animation-delay: .7s;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 7px 13px;
+    font-size: 16px;
+    font-family: Roboto-Thin;
 }
 
 mat-icon{
-    color: aliceblue;
     text-align: center;
-    width: 30px;
+    width: 32px;
     line-height: 30px;
     height: auto;
     cursor: pointer;
     float: left;
+    position: absolute;
+    right: 48px;
+    color: #6acb42;
+    font-size: 28px;
+    background-color: #fbfbfb;
+    box-shadow: -9px -7px 8px #FFF, 2px 3px 3px #dbdbdb;
+    text-shadow: 2px 1px 0 #fff;
+    border-radius: 8px;
+    height: 29px;
 }
 
 @keyframes show{

@@ -10,18 +10,30 @@ h2{
     width: 100%;
 }
 
-button{
+.files_settings{
     position: absolute;
-    right: 206px;
-    background: linear-gradient(138deg, rgb(8, 154, 69) 0%, rgb(25, 88, 88) 100%);
-    color: whitesmoke;
-    font-family: 'Roboto-Light';
-    padding: 7px 11px;
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    width: 125px;
+    top: 150px;
+    right: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 18px 23px;
+    width: 200px;
 }
+
+button{
+    border: 0;
+    outline: 0;
+    font-size: 12px;
+    padding: 10px;
+    background-color: #fbfbfb;
+    box-shadow: -5px -5px 10px #FFF, 4px 5px 8px #dbdbdb;
+    text-shadow: 2px 1px 0 #fff;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    color: #57575a;
+}
+
 
 #reveal_settings{
     display: none;
@@ -33,9 +45,6 @@ button{
 }
 
 #reveal_settings>mat-icon{
-    position: absolute;
-    left: 0;
-    top: 0;
     transform: translate(25%, 25%);
 }
 
@@ -52,9 +61,9 @@ button{
 }
 
 #micro{
-    position: absolute;
-    top: 470px;
-    right: 240px;
+    position: relative;
+    top: 0;
+    right: 0;
     background-color: rgb(196, 196, 196);
     text-align: center;
     box-shadow: inset 8px 8px 24px -12px rgba(66, 68, 90, 1);
@@ -70,26 +79,6 @@ button{
     margin-left: -140%;
     line-height: 20px;
     letter-spacing: 1px !important;
-}
-
-#register{
-    top: 260px;
-}
-
-#login{
-    top: 200px;
-}
-
-#logout{
-    top: 100px;
-}
-
-#save{
-    top: 150px;
-}
-
-#files{
-    top: 200px;
 }
 
 @media (max-width: 1980px)
@@ -120,45 +109,14 @@ button{
 
 @media (max-width: 1450px)
 {
-    #files, #save, #logout, #login, #register{
-        top: 40px;
-        right: auto;
-    }
-
-    #micro{
-        right: 4vw;
-    }
-
     #micro::after{
         width: 190px;
-    }
-
-    #logout{
-        left: 28%;
-    }
-
-    #save{
-        left: 43%;
-    }
-
-    #files{
-        left: 59%;
-    }
-
-    #login{
-        left: 31%;
-    }
-
-    #register{
-        left: 62%;
     }
 }
 
 @media (max-width: 1070px)
 {
     #micro{
-        right: 45px;
-        top: 45px;
         width: 40px;
         height: 40px;
         letter-spacing: 40px;
@@ -174,18 +132,6 @@ button{
 
     #micro::after{
         margin-left: -240%;
-    }
-
-    #logout{
-        left: 18%;
-    }
-
-    #save{
-        left: 41%;
-    }
-
-    #files{
-        left: 67%;
     }
 }
 
@@ -203,73 +149,18 @@ button{
         font-size: 11px;
     }
 
-    #reveal_settings{
-        top: 32px;
-        left: 72%;
-    }
-
     #reveal_settings.move{
-        top: 45% !important;
         z-index: 4;
-    }
-
-    #logout, #login, #register, #save{
-        top: 99%;
-    }
-
-    #login{
-        left: 11%;
-    }
-
-    #register{
-        left: 55%;
-    }
-
-    #logout{
-        left: 8%;
-    }
-
-    #save{
-        left: 50%;
-    }
-
-    #files{
-        top: 97%;
-        left: 50%;
     }
 }
 
 @media (max-width: 450px)
 {
-    #reveal_settings.move{
-        top: 525px !important;
-    }
-
-    #micro{
-        right: 165px;
-        top: 572px;
-    }
-
     #micro::after{
         width: 230px;
     }
 
     button{
         font-size: 11px;
-    }
-
-    #logout{
-        top: 95%;
-        left: 8%;
-    }
-
-    #save{
-        top: 95%;
-        left: 50%;
-    }
-
-    #files{
-        top: 102%;
-        left: 50%;
     }
 }

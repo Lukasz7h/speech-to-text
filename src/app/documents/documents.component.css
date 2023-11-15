@@ -110,10 +110,6 @@ header mat-icon{
     cursor: pointer;
 }
 
-#inside>div>span.anim_show{
-    animation: anim_show .8s ease-in;
-}
-
 .hadImage{
     margin-left: 65px;
     margin-right: 65px;
@@ -154,10 +150,6 @@ header mat-icon{
     width: 150px;
     height: 150px;
     color: rgb(94, 202, 126);
-}
-
-::ng-deep #edit.show_edit{
-    animation: show_edit .6s ease-out forwards;
 }
 
 #size{
@@ -291,31 +283,6 @@ header mat-icon{
     background: #7fc591;
 }
 
-#removeFile.show span{
-    animation: delete_animation_1 .6s ease-out;
-    animation-delay: .8s;
-    animation-fill-mode: forwards;
-}
-
-#removeFile.show span::after{
-    animation: delete_animation_2 .6s ease-out;
-    animation-delay: .8s;
-    animation-fill-mode: forwards;
-}
-
-#removeFile.show span::before{
-    animation: delete_animation_3 .6s ease-out;
-    animation-delay: .8s;
-    animation-fill-mode: forwards;
-}
-
-#removeFile.show{
-    animation: show_remove .6s ease-out;
-    animation-fill-mode: forwards;
-    box-shadow: inset 1px 3px 25px -3px rgb(10 99 170 / 16%),
-                inset -10px -10px 10px -1px rgb(241 241 241 / 70%);
-}
-
 #removeFile mat-icon{
     position: absolute;
     left: 65%;
@@ -325,18 +292,6 @@ header mat-icon{
     width: 85px;
     color: #7fc591;
     z-index: 1;
-}
-
-#removeFile.show.delete{
-    opacity: 1;
-    animation: crush_doc .5s ease-in;
-    animation-fill-mode: forwards;
-}
-
-#removeFile.show mat-icon{
-    animation: delete_animation_4 .6s ease-out;
-    animation-delay: 1.2s;
-    animation-fill-mode: forwards;
 }
 
 ::ng-deep #removeFile>span.crush{
@@ -1075,13 +1030,6 @@ header mat-icon{
         left: 50%;
         transform: translate(-50%, -30%);
     }
-    
-    ::ng-deep #edit.show_edit{
-        top: 310px;
-        bottom: 240px;
-        width: 350px;
-        line-height: 60vh;
-    }
 
     #removeFile.show{
         bottom: 490px !important;
@@ -1095,10 +1043,6 @@ header mat-icon{
 }
 @media (max-width: 850px){
     
-    ::ng-deep #edit.show_edit{
-        width: 270px;
-    }
-
     #edit h3{
         display: none;
     }

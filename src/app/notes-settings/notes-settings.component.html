@@ -3,9 +3,11 @@
     <ul>
         <li #fontSize data-attribute="fontSize"><input #fontInp type="number" (input)="editNotes({element: fontSize, change: fontInp})"></li>
         <li #fontList data-attribute="fontFamily">
+
             <select (change)='editNotes({element: fontList, change: $event.target})'>
                 <option *ngFor="let e of this.notesService.fontsList">{{e}}</option>
             </select>
+            
         </li>
 
         <li #letterSpacing data-attribute="letterSpacing">
