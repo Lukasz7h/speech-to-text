@@ -36,7 +36,9 @@ export class DocumentsService {
   constructor(
     private userExitService: UserExitFromPageService, private notesService: NotesService,
     private route: Router, private httpClient: HttpClient
-    ) { }
+  ){}
+
+
 
   // nasłuchiwany jest ruch myszki użytkownika i czy zatrzymuje się na jednym z jego plików
   mouseMoveEvent(element: any): void
@@ -78,6 +80,9 @@ export class DocumentsService {
     });
   }
 
+
+
+  // gdy użytkownik naciśnie myszkę
   mouseDownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
   {
     let toMove;
@@ -134,6 +139,8 @@ export class DocumentsService {
   moveThatListener;
   cb;
 
+
+
   // użytkownika porusza wybranym plikiem
   mouseMoveThatElement(event: MouseEvent | any, toMove: HTMLElement): void
   {
@@ -153,6 +160,8 @@ export class DocumentsService {
       element.classList.add('action');
       that.actionElement = element;
     };
+
+
 
     // sprawdzamy czy użytkownik wybrał jedną z akcji dla swojego pliku
     function action(x: number, y: number): boolean | HTMLElement
@@ -202,6 +211,8 @@ export class DocumentsService {
     toMove.addEventListener("touchmove", moveThat);
   }
 
+
+  
   // jeśli użytkownik przestał poruszać plikiem przywracamy jego style
   mouseUp(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement)
   {
@@ -235,6 +246,8 @@ export class DocumentsService {
     element.addEventListener("touchend", canRemove);
   }
 
+
+
   // edytujemy style dla pliku który będzie modyfikowany
   editChosenElement()
   {
@@ -262,6 +275,8 @@ export class DocumentsService {
 
     this.route.navigate([""]);
   }
+
+
 
   // usuwamy plik wybrany przez użytkownika
   removeElement(): void
@@ -310,6 +325,8 @@ export class DocumentsService {
     };
   }
 
+
+
   // wykonujemy stosowną akcje dla wybranego pliku
   fileAction(): void
   {
@@ -331,6 +348,8 @@ export class DocumentsService {
     }
   };
 
+
+
   // podglądamy widok danego pliku
   peepImage(image: HTMLImageElement): void
   {
@@ -340,6 +359,8 @@ export class DocumentsService {
     img.id = "show";
     document.body.insertAdjacentElement("afterbegin", img);
   }
+
+
 
   // usuwanie wszystkich plików
   delete(elements)

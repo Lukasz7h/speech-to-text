@@ -5,6 +5,7 @@ import { AppService } from '../app.service';
 import { NotesService } from '../notesService/notes.service';
 
 import { UserExitFromPageService } from './userExit/user-exit-from-page.service';
+import { SpeechService } from '../speech/speech.service';
 
 @Component({
   selector: 'app-notes',
@@ -15,6 +16,7 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
 {
   constructor(
     public notesService: NotesService,
+    public speechService: SpeechService,
     private appService: AppService,
     private userExitService: UserExitFromPageService,
     private changeDetRef: ChangeDetectorRef
@@ -40,7 +42,7 @@ export class NotesComponent implements AfterViewInit, OnInit, OnDestroy
     if(this.notesService.notesTextFromStorage) this.notesService.a4.innerHTML = this.notesService.notesTextFromStorage;
     
     this.subscribeSettigs(notesText);
-    this.notesService.listenUser(notesText);
+    this.speechService.listenUser(notesText);
 
     this.subscribe.add( this.notesService.notesSettingsSubject.subscribe((data: []) => {
       if(!data || data == null) return;

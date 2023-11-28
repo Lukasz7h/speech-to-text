@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 
-import { IWindow } from 'src/app/notesService/notes.service';
+import { IWindow } from 'src/app/speech/speech.service';
 
 @Injectable({
   providedIn: 'root'

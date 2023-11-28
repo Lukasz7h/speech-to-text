@@ -2,10 +2,10 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 
 import { GuardService } from '../guards/loginGuard/guard.service';
-import { IWindow } from '../notesService/notes.service';
 
 import { SaveDocService } from '../server/save-doc.service';
 import { LogoutService } from './logout/logout.service';
+import { IWindow } from '../speech/speech.service';
 
 @Component({
   selector: 'app-main',

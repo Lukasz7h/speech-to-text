@@ -15,11 +15,12 @@
         
         <button id="files" *ngIf="guard.isLoged" routerLink="/documents">Moje dokumenty</button>
         <app-notes-to-file></app-notes-to-file>
+        <div id="micro">
+            <mat-icon>settings_voice</mat-icon>
+        </div>
     </div>
 
-    <div id="micro">
-        <mat-icon>settings_voice</mat-icon>
-    </div>
+    
     
 </main>
 <ng-template #outlet>
