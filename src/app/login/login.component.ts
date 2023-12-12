@@ -8,9 +8,7 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent
 {
-
-  constructor(public loginService: LoginService)
-  {}
+  constructor(public loginService: LoginService){}
 
   send()
   {

@@ -83,7 +83,7 @@ export class DocumentsService {
 
 
   // gdy użytkownik naciśnie myszkę
-  mouseDownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
+  public mouseDownEvent(element: HTMLElement, editElement: HTMLElement, sizeElement: HTMLElement, removeElement: HTMLElement): void
   {
     let toMove;
 
@@ -246,8 +246,6 @@ export class DocumentsService {
     element.addEventListener("touchend", canRemove);
   }
 
-
-
   // edytujemy style dla pliku który będzie modyfikowany
   editChosenElement()
   {
@@ -256,19 +254,7 @@ export class DocumentsService {
     const html = document.createElement("div");
     html.innerHTML = item;
 
-    const div = html.getElementsByTagName("div").item(0);
     const notes = html.getElementsByTagName("div").item(0).textContent;
-
-    this.notesService.settings.fontSize = div.style.fontSize.replace(/[^\d.-]/g, '');
-    this.notesService.settings.letterSpacing = div.style.letterSpacing.replace(/[^\d.-]/g, '');
-
-    this.notesService.settings.letterHeight = div.style.lineHeight.replace(/[^\d.-]/g, '');
-
-    this.notesService.settings.padding.Top = div.style.paddingTop.replace(/[^\d.-]/g, '');
-    this.notesService.settings.padding.Left = div.style.paddingLeft.replace(/[^\d.-]/g, '');
-
-    this.notesService.settings.padding.Bottom = div.style.paddingBottom.replace(/[^\d.-]/g, '');
-    this.notesService.settings.padding.Right = div.style.paddingRight.replace(/[^\d.-]/g, '');
 
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;

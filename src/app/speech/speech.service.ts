@@ -36,7 +36,7 @@ export class SpeechService {
     'rzekłbyś', 'sądzę', 'wiadomo', 'zdaje się'
   ];
 
-  write(notesText)
+  private write(notesText): void
   {
 
     let sentence = this.previousSentence.join(" ");

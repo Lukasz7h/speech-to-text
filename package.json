@@ -35,6 +35,7 @@
     "rxjs": "~7.5.0",
     "text-to-image": "^5.2.0",
     "tslib": "^2.3.0",
+    "zod": "^3.22.4",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

@@ -8,7 +8,7 @@ import { IWindow } from 'src/app/speech/speech.service';
 })
 export class WebSiteGuard implements CanActivate{
 
-  canActivate(): boolean  {
+  public canActivate(): boolean  {
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     return !!webkitSpeechRecognition;
   }

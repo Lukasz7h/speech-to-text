@@ -42,7 +42,7 @@ export class NotesService {
       }
     }
 
-  public fontsList: string[] = [
+  public readonly fontsList: string[] = [
     "Roboto-Thin", "Roboto-ThinItalic", "Roboto-Black", "Roboto-BlackItalic",
 
     "Roboto-Bold", "Roboto-BoldItalic", "Roboto-Italic", "Roboto-Light",
@@ -53,7 +53,7 @@ export class NotesService {
   public notesSettingsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([{ fontSize: 20 }, { letterSpacing: 1 }, { lineHeight: 25 }]);
   public notesTextFromStorage: string;
 
-  setSettings() {
+  public setSettings() {
     const settingsFromStorage = JSON.parse(window.localStorage.getItem("settings"));
     this.notesTextFromStorage = window.localStorage.getItem("notesText");
 
@@ -66,7 +66,7 @@ export class NotesService {
     };
 
     function isObjThen(key, obj): void {
-      for (let e in obj) {
+      for(let e in obj) {
         this.settings[`${key}`][`${e}`] = obj[`${e}`];
       };
     };
@@ -85,41 +85,15 @@ export class NotesService {
       e[1] instanceof Object ? isObjThen.apply(this, [e[0], e[1]]) : this.settings[`${e[0]}`] = e[1];
     });
 
-
     this.notesSettingsSubject.next(settingsArray);
   }
 
   // pobieranie pliku pdf
-  createPDF(name: string, flag?: boolean): void | any {
-    if (window.innerWidth < 1070) {
-      const a4_width_pixels = 794; // jest to ilość pixeli równa 210mm (szerokość a4)
-      var notes = document.getElementById("notesText");
-
-      const proportions_of_paddings = {
-        left: Number( ((Number(notes.style.paddingLeft.replace("px", "")) / notes.clientWidth) * 100).toFixed(0) ) / 100,
-        right: Number( ((Number(notes.style.paddingRight.replace("px", "")) / notes.clientWidth) * 100).toFixed(0) ) / 100,
-
-        top: Number( ((Number(notes.style.paddingTop.replace("px", "")) / notes.clientHeight) * 100).toFixed(0) ) / 100,
-        bottom: Number( ((Number(notes.style.paddingBottom.replace("px", "")) / notes.clientHeight) * 100).toFixed(0) ) / 100
-      };
-
-      var copyPaddings = notes.style.padding;
-      var fontSizeNotes = notes.style.fontSize;
-      var lineHeightNotes = notes.style.lineHeight;
-
-      notes.style.paddingLeft = (a4_width_pixels * proportions_of_paddings.left).toFixed(0) + "px";
-      notes.style.paddingRight = (a4_width_pixels * proportions_of_paddings.right).toFixed(0) + "px";
-
-      notes.style.paddingTop = (a4_width_pixels * proportions_of_paddings.top).toFixed(0) + "px";
-      notes.style.paddingBottom = (a4_width_pixels * proportions_of_paddings.bottom).toFixed(0) + "px";
-
-      notes.style.fontSize = (Number(notes.style.fontSize.replace("px", "")) * 3.38).toFixed(0) + "px"
-      notes.style.lineHeight = (Number(notes.style.lineHeight.replace("px", "")) * 3.17).toFixed(0) + "px"
-    };
+  public createPDF(name: string, flag?: boolean): void | any {
 
     if (!this.a4.style.fontFamily) this.a4.style.fontFamily = this.fontsList[0];
 
-    if (flag)
+    if(flag)
       return {
         a4: this.a4,
         prop: {
@@ -128,23 +102,17 @@ export class NotesService {
           html2canvas: { scale: 3, dpi: 250 },
           jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
         }
-      };
+      }
 
     html2pdf(this.a4,
-      {
-        filename: name + ".pdf",
-        image: { type: 'jpg', quality: 1 },
-        html2canvas: { scale: 3, dpi: 250 },
-        jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
-      })
-      .then((data) => {
-        if (!notes) return;
+    {
+      filename: name + ".pdf",
+      image: { type: 'jpg', quality: 1 },
 
-        notes.style.padding = copyPaddings;
-        notes.style.fontSize = fontSizeNotes;
-        notes.style.lineHeight = lineHeightNotes;
-      });
-
+      html2canvas: { scale: 3, dpi: 250 },
+      jsPDF: { unit: 'mm', format: "a4", orientation: 'portrait' }
+    })
+    .then();
   }
 
   // pobieranie pliku typu docx (word)
@@ -154,9 +122,8 @@ export class NotesService {
     saveAs(converted);
   }
 
-
   // ustawiwamy style dla kolory, czcionki lub linijki
-  setStyle(data) {
+  public setStyle(data) {
     this.settings[`${data.name}`] = data.worth;
 
     if (data.worth instanceof Object) {

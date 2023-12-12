@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { backend } from "../backend/data";
+import  { object, string } from "zod";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,12 @@ export class LoginService {
   // sprawdzamy czy dane użytkownika mają odpowiednią długość
   validForm(): boolean
   {
-    return this.loginForm.value['login'].length >= 4 && this.loginForm.value['login'].length <= 22 &&
-    this.loginForm.value['password'].length >= 6 && this.loginForm.value['password'].length <= 32
+    const parse = object({
+      login: string().min(4).max(22),
+      password: string().min(6).max(32)
+    })
+
+    return parse.safeParse(this.loginForm.value).success;
   }
 
   // wysyłany jest formularz logowania użytkownika

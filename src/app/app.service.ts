@@ -108,6 +108,8 @@ export class AppService {
 
   mousedownEvent(data): void
   {
+    console.log(data)
+    
     if(!data.target.classList.contains("padding") && !data.target.parentElement.classList.contains("padding")) return;
     this.thatElement = data.target.classList.contains("padding")? data.target: data.target.parentElement;
 
