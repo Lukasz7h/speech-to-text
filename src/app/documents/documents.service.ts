@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
@@ -35,7 +35,8 @@ export class DocumentsService {
 
   constructor(
     private userExitService: UserExitFromPageService, private notesService: NotesService,
-    private route: Router, private httpClient: HttpClient
+    private route: Router, private httpClient: HttpClient,
+    private renderer2: Renderer2
   ){}
 
 
@@ -236,7 +237,7 @@ export class DocumentsService {
 
       if(!that.actionElement) removeElement.classList.remove("show");
 
-      that.mouseMoveEvent(document.getElementById("inside"));
+      that.mouseMoveEvent(that.renderer2.selectRootElement("#inside"));
 
       if(that.moveThatListener) that.moveThatListener.removeEventListener("mousemove", that.cb);
       that.fileAction();
@@ -251,10 +252,10 @@ export class DocumentsService {
   {
     const item = this.documents.filter((x) => x.class == this.modifyElement.classList.item(1))[0].doc;
 
-    const html = document.createElement("div");
+    const html = this.renderer2.createElement("div");
     html.innerHTML = item;
 
-    const notes = html.getElementsByTagName("div").item(0).textContent;
+    const notes = this.renderer2.selectRootElement("div").item(0).textContent;
 
     this.userExitService.userExit({settings: this.notesService.settings, notes});
     this.modifyElement = undefined;
@@ -282,7 +283,7 @@ export class DocumentsService {
       {
         for(let i=0; i<20; i++)
         {
-          const span = document.createElement("span");
+          const span = this.renderer2.createElement("span");
           span.classList.add("crush");
 
           this.actionElement.insertAdjacentElement("beforeend", span);

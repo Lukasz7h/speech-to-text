@@ -75,8 +75,9 @@ export class AppService {
   }
 
   // ustawiamy nowe koordynaty dla paddingów
-  mouseupEvent(): void
+  protected mouseupEvent(data): void
   {
+    console.log("x")
     this.flag = false;
     
     if(!this.thatElement || !this.thatElement.getAttribute("data-padding")) return;
@@ -106,7 +107,7 @@ export class AppService {
     };
   }
 
-  mousedownEvent(data): void
+  protected mousedownEvent(data): void
   {
     console.log(data)
     

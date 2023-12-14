@@ -31,20 +31,19 @@ export class MainComponent implements AfterViewInit, OnInit {
     this.appService.initAllow();
 
     this.appService.addInstance(document.getElementsByClassName("padding"));
-
     const notesElement = this.notes.nativeElement;
 
     merge(
       fromEvent(notesElement, 'mousedown'),
       fromEvent(notesElement, 'touchstart'),
 
-      fromEvent(notesElement, 'mouseup"'),
+      fromEvent(notesElement, 'mouseup'),
       fromEvent(notesElement, 'touchend')
     ).subscribe((event: Event) => {
 
-      const diffrantiate = () : string => event.type == "mousedown" || "touchstart"? "mousedownEvent": "mouseupEvent";
+      const diffrantiate = () : string => event.type == "mousedown" ?? "touchstart"? "mousedownEvent": "mouseupEvent";
       
-      this.appService[`${diffrantiate()}`](event.target).bind(this.appService );
+      this.appService[`${diffrantiate()}`](event)?.bind(this.appService );
     });
 
   }
